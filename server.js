@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const csvReader = require('fast-csv');
+const csv = require('fast-csv');
 const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -12,7 +12,7 @@ const read_file = async () =>{
 	return new Promise( async (resolve, reject) => {
 		let fileRows = [];
 		fs.createReadStream(path.resolve(__dirname, 'assets', 'companylist.csv'))
-		.pipe(csvReader.parse({ headers: true }))
+		.pipe(csv.parse({ headers: true }))
 		.on('error', error => reject(error))
 		.on('data', row => fileRows.push(row))
 		.on('end', (rowCount) => {
@@ -20,8 +20,13 @@ const read_file = async () =>{
 			resolve(fileRows);
 		});
 	});
-
 };
+
+const append = (rows) => {
+    const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
+    csvFile.write('\n');
+	csv.writeToStream(csvFile, [rows], { headers: false });
+}
 
 (async () => {
 	try {		
@@ -30,7 +35,7 @@ const read_file = async () =>{
 		await page.setDefaultNavigationTimeout(0);		// Configure the navigation timeout
 
 		const fileData = await read_file();
-		let data = [];
+		// let data = [];
 
 		await page.goto(process.env.LOGIN_URL);
 		await page.type('[name="user"]', process.env.USERNAME);
@@ -69,10 +74,19 @@ const read_file = async () =>{
 				let dropDownElement = await page.$('table.ACDropDownStyle');
 				if (!dropDownElement) {
 					console.log(row.Symbol , " - dropDownElement TRY 1 : ", dropDownElement);
-					await page.waitFor(4000);
+					await page.waitFor(6000);
 					dropDownElement = await page.$('table.ACDropDownStyle');
 					if (!dropDownElement) {
 						console.log(row.Symbol , " - dropDownElement TRY 2 : ", dropDownElement);
+						let rowData = {
+							userId: process.env.USERNAME,
+							stockSymbol: row.Symbol,
+							stockName: '-',
+							fairValue: 0,
+							comment: 'No result in autocomplete search'
+						};
+						append(rowData);
+						// data.push(rowData);
 						continue;
 					}
 				}
@@ -89,6 +103,15 @@ const read_file = async () =>{
 					nameElement = await page.$('span.security-info-name');
 					if (!nameElement) {
 						console.log(row.Symbol , " - nameElement TRY 2 : ", nameElement);
+						let rowData = {
+							userId: process.env.USERNAME,
+							stockSymbol: row.Symbol,
+							stockName: '-',
+							fairValue: 0,
+							comment: 'Name field not found'
+						};
+						// data.push(rowData);
+						append(rowData);
 						continue;
 					}
 				}
@@ -137,57 +160,15 @@ const read_file = async () =>{
 					fairValue
 				};
 				console.log(rowData);
-				data.push(rowData);
+				append(rowData);
+				// data.push(rowData);
 				// await page.waitFor(1000);
 			}
 
 			// console.log(data);
 			// console.log(data.length);
-			
-			/* let locInputs = await page.evaluate(() => {
-				let divs = [...document.querySelectorAll("ul#locationchecklist > li > label > input")];
-				return divs.map(div => div.id)	  
-			}); */
-			
-			/* const data = await page.evaluate(async () => {
-				// let nameElement = await this.page.$$('span.security-info-name');
-				let nameElement = document.querySelectorAll('span.security-info-name');
-				console.log(nameElement);
-				nameElement = await nameElement.getProperty('innerText');
-  				nameElement = await nameElement.jsonValue();
-				return nameElement;
-				// nameElement[i].innerText.trim()
-				// return { name };
-			});
-			console.log(data) */
-
-
-			/* await page.goto(`https://news.ycombinator.com/`);
-			await page.waitForSelector("a.storylink");
-
-			var news = await page.evaluate(() => {
-			var titleNodeList = document.querySelectorAll(`a.storylink`);
-			var ageList = document.querySelectorAll(`span.age`);
-			var scoreList = document.querySelectorAll(`span.score`);
-			var titleLinkArray = [];
-			for (var i = 0; i < titleNodeList.length; i++) {
-				titleLinkArray[i] = {
-					title: titleNodeList[i].innerText.trim(),
-					link: titleNodeList[i].getAttribute("href"),
-					age: ageList[i].innerText.trim(),
-					score: scoreList[i].innerText.trim()
-				};
-			}
-			return titleLinkArray;
-			});
-			// console.log(news);
-			await browser.close();
-			// Writing the news inside a json file
-			fs.writeFile("hackernews.json", JSON.stringify(news), function(err) {
-			if (err) throw err;
-				console.log("Saved!");
-			});
-			console.log("Browser Closed"); */
+			// await browser.close();
+			// console.log("Browser Closed");
 		} else {
 			console.log("NO RECORDS FOUND IN CSV");
 			await browser.close();
