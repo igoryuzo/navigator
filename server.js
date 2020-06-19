@@ -5,6 +5,9 @@ const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const chunkSize = 50;
+let processed = 0;
+
 /**
  * Read CSV file
  */
@@ -22,20 +25,27 @@ const read_file = async () =>{
 	});
 };
 
+/**
+ * Append scrapped dat in output file
+ * 
+ * @param {Object} rows 
+ */
 const append = (rows) => {
+	processed++;
     const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
     csvFile.write('\n');
 	csv.writeToStream(csvFile, [rows], { headers: false });
-}
+};
 
-(async () => {
-	try {		
+/**
+ * Inialize browser and login into morningstar website
+ */
+const initialize = async () => {
+	try {
 		var browser = await puppeteer.launch({ headless: true });
 		const page = await browser.newPage();
-		await page.setDefaultNavigationTimeout(0);		// Configure the navigation timeout
-
-		const fileData = await read_file();
-		// let data = [];
+		await page.setDefaultNavigationTimeout(120000);		// Configure the navigation timeout to 2mins
+		await page.waitFor(5000); // Wait for 5 seconds
 
 		await page.goto(process.env.LOGIN_URL);
 		await page.type('[name="user"]', process.env.USERNAME);
@@ -46,13 +56,26 @@ const append = (rows) => {
 		await page.waitForSelector('a[href^="/Selectors/Fund/Selector.html"]');
 		await page.goto(process.env.FUNDS_URL);
 		// await page.waitForNavigation();
-		await page.waitForSelector('input#AutoCompleteBox');
+		return { browser, page };
+	} catch (error) {
+		await browser.close();
+		console.log(error);
+	}
+};
+
+(async () => {
+	try {		
+		const fileData = await read_file();
+
 		if (fileData.length) {
-			console.log(fileData.length);
-			// let row = fileData[37];
-			// console.log(row);
-			for(let i = 0; i < Object.keys(fileData).length; i++) {
+			console.log("length : ",fileData.length);
+			for (let i = 0; i < Object.keys(fileData).length; i++) {
 				let row = fileData[i];
+				console.log("processed : ", processed);
+				if (processed === 0) {
+					var { browser, page } = await initialize();
+				}
+				await page.waitForSelector('input#AutoCompleteBox');
 
 				// await page.waitForNavigation();
 				await page.evaluate(() => document.querySelector('input#AutoCompleteBox').click()); 
@@ -62,14 +85,6 @@ const append = (rows) => {
 				});
 				await page.type('input#AutoCompleteBox', row.Symbol);
 				await page.waitFor(4000);
-
-				/* await page.waitForSelector('div#AutoCompleteDropDown');
-				const display = await page.evaluate(() => {
-					let dropDownElement = document.getElementById('AutoCompleteDropDown');
-					return dropDownElement.css;
-					// return dropDownElement.style.display;
-				});
-				console.log("display : ", display); */
 
 				let dropDownElement = await page.$('table.ACDropDownStyle');
 				if (!dropDownElement) {
@@ -86,6 +101,13 @@ const append = (rows) => {
 							comment: 'No result in autocomplete search'
 						};
 						append(rowData);
+						await page.waitFor(1000);
+						if (processed >= chunkSize) { 
+							processed = 0;
+							console.log("Browser Closed");
+							await browser.close();
+							await page.waitFor(2000);
+						}
 						// data.push(rowData);
 						continue;
 					}
@@ -94,7 +116,7 @@ const append = (rows) => {
 
 				await page.keyboard.press("Enter");
 				await page.waitForNavigation();
-				await page.waitFor(2000);
+				await page.waitFor(4000);
 
 				let nameElement = await page.$('span.security-info-name');
 				if (!nameElement) {
@@ -112,13 +134,19 @@ const append = (rows) => {
 						};
 						// data.push(rowData);
 						append(rowData);
+						await page.waitFor(1000);
+						if (processed >= chunkSize) { 
+							processed = 0;
+							console.log("Browser Closed");
+							await browser.close();
+							await page.waitFor(2000);
+						}
 						continue;
 					}
 				}
 
 				// await page.waitForSelector('span.security-info-name');
 				await page.waitForSelector('span.chart-iframe-full-chart-label');
-				await page.waitFor(4000);
 
 				/* const stockName = await page.evaluate(() => {
 					let stockElement = document.querySelector('span.security-info-name');
@@ -129,6 +157,35 @@ const append = (rows) => {
 				const nameHandle = await page.$('span.security-info-name');
 				const stockName = await page.evaluate(span => span.innerHTML, nameHandle);
 				// console.log("stockName : ", stockName);
+
+				await page.waitFor(1000);
+				let labelElement = await page.$('span.legend-label');
+				if (!labelElement) {
+					console.log(row.Symbol , " - labelElement TRY 1 : ", labelElement);
+					await page.waitFor(4000);
+					labelElement = await page.$('span.legend-label');
+					if (!labelElement) {
+						console.log(row.Symbol , " - labelElement TRY 2 : ", labelElement);
+						let rowData = {
+							userId: process.env.USERNAME,
+							stockSymbol: row.Symbol,
+							stockName,
+							fairValue: 0,
+							comment: 'Fair value not available'
+						};
+						// data.push(rowData);
+						append(rowData);
+						await page.waitFor(1000);
+						if (processed >= chunkSize) { 
+							processed = 0;
+							console.log("Browser Closed");
+							await browser.close();
+							await page.waitFor(2000);
+						}
+						continue;
+					}
+				}
+
 				await page.waitForSelector('span.legend-label');
 
 				let legends = await page.evaluate(() => {
@@ -161,6 +218,15 @@ const append = (rows) => {
 				};
 				console.log(rowData);
 				append(rowData);
+				await page.waitFor(1000);
+				if (processed >= chunkSize) { 
+					processed = 0;
+					console.log("Browser Closed");
+					await browser.close();
+					await page.waitFor(2000);
+				}
+				// data.push(rowData);
+				continue;
 				// data.push(rowData);
 				// await page.waitFor(1000);
 			}
