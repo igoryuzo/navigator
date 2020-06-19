@@ -44,7 +44,8 @@ const initialize = async () => {
 	try {
 		var browser = await puppeteer.launch({ headless: true });
 		const page = await browser.newPage();
-		await page.setDefaultNavigationTimeout(120000);		// Configure the navigation timeout to 2mins
+		await page.setDefaultTimeout(60 * 1000);
+		await page.setDefaultNavigationTimeout(300 *  1000);		// Configure the navigation timeout to 5 mins
 		await page.waitFor(5000); // Wait for 5 seconds
 
 		await page.goto(process.env.LOGIN_URL);
@@ -53,8 +54,11 @@ const initialize = async () => {
 		
 		const form = await page.$('#access-databases');
 		await form.evaluate(form => form.submit());
+		console.log("LOGIN");
+		await page.waitForNavigation();
 		await page.waitForSelector('a[href^="/Selectors/Fund/Selector.html"]');
 		await page.goto(process.env.FUNDS_URL);
+		console.log("REDIRECTED TO FUNDS PAGE");
 		// await page.waitForNavigation();
 		return { browser, page };
 	} catch (error) {
@@ -116,7 +120,7 @@ const initialize = async () => {
 
 				await page.keyboard.press("Enter");
 				await page.waitForNavigation();
-				await page.waitFor(4000);
+				await page.waitFor(5000);
 
 				let nameElement = await page.$('span.security-info-name');
 				if (!nameElement) {
