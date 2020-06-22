@@ -26,15 +26,25 @@ const read_file = async () =>{
 };
 
 /**
- * Append scrapped dat in output file
+ * Append scrapped data in output file
  * 
  * @param {Object} rows 
  */
-const append = (rows) => {
+const append = (row) => {
+	const rowData = {
+		userId: row.userId,
+		stockSymbol: row.stockSymbol,
+		stockName: row.stockName ? row.stockName : '-',
+		fairValue: (row.fairValue !== null && row.fairValue !== undefined) ? row.fairValue : 0,
+		investmentName: row.investmentName ? row.investmentName : '-',
+		starRating: row.starRating ? row.starRating : '-',
+		analystRating: row.analystRating ? row.analystRating : '-',
+		comment: row.comment,
+	};
 	processed++;
     const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
     csvFile.write('\n');
-	csv.writeToStream(csvFile, [rows], { headers: false });
+	csv.writeToStream(csvFile, [rowData], { headers: false });
 };
 
 /**
@@ -74,7 +84,8 @@ const initialize = async () => {
 		if (fileData.length) {
 			console.log("length : ",fileData.length);
 			for (let i = 0; i < Object.keys(fileData).length; i++) {
-				let row = fileData[i];
+				const row = fileData[i];
+				// const row = fileData[1];
 				console.log("processed : ", processed);
 				if (processed === 0) {
 					var { browser, page } = await initialize();
@@ -122,117 +133,217 @@ const initialize = async () => {
 				await page.waitForNavigation();
 				await page.waitFor(5000);
 
-				let nameElement = await page.$('span.security-info-name');
+				let nameElement = await page.$('span.security-info-name'), normalFormat = true;
 				if (!nameElement) {
 					console.log(row.Symbol , " - nameElement TRY 1 : ", nameElement);
 					await page.waitFor(4000);
 					nameElement = await page.$('span.security-info-name');
 					if (!nameElement) {
 						console.log(row.Symbol , " - nameElement TRY 2 : ", nameElement);
-						let rowData = {
-							userId: process.env.USERNAME,
-							stockSymbol: row.Symbol,
-							stockName: '-',
-							fairValue: 0,
-							comment: 'Name field not found'
-						};
-						// data.push(rowData);
-						append(rowData);
-						await page.waitFor(1000);
-						if (processed >= chunkSize) { 
-							processed = 0;
-							console.log("Browser Closed");
-							await browser.close();
-							await page.waitFor(2000);
-						}
-						continue;
+						normalFormat = false;
 					}
 				}
 
-				// await page.waitForSelector('span.security-info-name');
-				await page.waitForSelector('span.chart-iframe-full-chart-label');
-
-				/* const stockName = await page.evaluate(() => {
-					let stockElement = document.querySelector('span.security-info-name');
-					return stockElement.textContent;
-				});
-				console.log("stockName : ", stockName); */
-
-				const nameHandle = await page.$('span.security-info-name');
-				const stockName = await page.evaluate(span => span.innerHTML, nameHandle);
-				// console.log("stockName : ", stockName);
-
-				await page.waitFor(1000);
-				let labelElement = await page.$('span.legend-label');
-				if (!labelElement) {
-					console.log(row.Symbol , " - labelElement TRY 1 : ", labelElement);
-					await page.waitFor(4000);
-					labelElement = await page.$('span.legend-label');
-					if (!labelElement) {
-						console.log(row.Symbol , " - labelElement TRY 2 : ", labelElement);
-						let rowData = {
-							userId: process.env.USERNAME,
-							stockSymbol: row.Symbol,
-							stockName,
-							fairValue: 0,
-							comment: 'Fair value not available'
-						};
-						// data.push(rowData);
-						append(rowData);
-						await page.waitFor(1000);
-						if (processed >= chunkSize) { 
-							processed = 0;
-							console.log("Browser Closed");
-							await browser.close();
-							await page.waitFor(2000);
+				if (!normalFormat) {
+					let investmentNameElement = await page.$('span.sal-mip-quote__investment-name'), normalFormat = true;
+					if (!investmentNameElement) {
+						console.log(row.Symbol , " - investmentNameElement TRY 1 : ", investmentNameElement);
+						await page.waitFor(4000);
+						investmentNameElement = await page.$('span.sal-mip-quote__investment-name');
+						if (!investmentNameElement) {
+							console.log(row.Symbol , " - investmentNameElement TRY 2 : ", investmentNameElement);
+							let rowData = {
+								userId: process.env.USERNAME,
+								stockSymbol,
+								stockName: '-',
+								fairValue: 0,
+								comment: 'Investment Name field not found'
+							};
+							// data.push(rowData);
+							append(rowData);
+							await page.waitFor(1000);
+							if (processed >= chunkSize) { 
+								processed = 0;
+								console.log("Browser Closed");
+								await browser.close();
+								await page.waitFor(2000);
+							}
+							continue;
 						}
-						continue;
 					}
-				}
 
-				await page.waitForSelector('span.legend-label');
+					const investmentNameHandle = await page.$('span.sal-mip-quote__investment-name');
+					const investmentName = await page.evaluate(span => span.innerHTML, investmentNameHandle);
 
-				let legends = await page.evaluate(() => {
-					let labels = [...document.querySelectorAll(".legend-items > .legend-item > span.legend-label")];
-					return labels.map(label => {
-						let labelText = label.textContent.replace(/\n/g, "");
-						labelText = labelText.trim();
 
-						let valueText = label.nextElementSibling.textContent.replace(/\n/g, "");
-						valueText = valueText.trim();
-						return { 
-							label: labelText,
-							value: valueText
-						};
+					// await page.waitFor(1000);
+					let stockElement = await page.$('span.sal-mip-quote__symbol');
+					if (!stockElement) {
+						console.log(row.Symbol , " - stockElement TRY 1 : ", stockElement);
+						await page.waitFor(4000);
+						stockElement = await page.$('span.sal-mip-quote__symbol');
+						if (!stockElement) {
+							console.log(row.Symbol , " - stockElement TRY 2 : ", stockElement);
+							let rowData = {
+								userId: process.env.USERNAME,
+								stockSymbol: row.Symbol,
+								investmentName,
+								fairValue: 0,
+								comment: 'Stock symbol not available'
+							};
+							// data.push(rowData);
+							append(rowData);
+							await page.waitFor(1000);
+							if (processed >= chunkSize) { 
+								processed = 0;
+								console.log("Browser Closed");
+								await browser.close();
+								await page.waitFor(2000);
+							}
+							continue;
+						}
+					}
+
+					const stockHandle = await page.$('span.sal-mip-quote__symbol');
+					const stockSymbol = await page.evaluate(span => span.innerHTML, stockHandle);
+
+					await page.waitFor(1000);
+	
+					let rating = await page.evaluate(() => {
+						let ratingElem = [...document.querySelectorAll("span.sal-mip-quote__star-rating > i")];
+						return ratingElem.length;
 					});
-				});
-				// console.log(legends);
-				let fairValue = 0;
-				legends.forEach(legend => {
-					if (legend.label.toLowerCase() === 'fair value') {
-						fairValue = legend.value;
+					console.log("rating : ", rating);
+					let rowData = {
+						userId: process.env.USERNAME,
+						stockSymbol,
+						investmentName,
+						starRating: rating,
+					};
+					console.log(rowData);
+					append(rowData);
+					await page.waitFor(1000);
+					if (processed >= chunkSize) { 
+						processed = 0;
+						console.log("Browser Closed");
+						await browser.close();
+						await page.waitFor(2000);
 					}
-				});
-				// console.log(stockName);
-				let rowData = {
-					userId: process.env.USERNAME,
-					stockSymbol: row.Symbol,
-					stockName,
-					fairValue
-				};
-				console.log(rowData);
-				append(rowData);
-				await page.waitFor(1000);
-				if (processed >= chunkSize) { 
-					processed = 0;
-					console.log("Browser Closed");
-					await browser.close();
-					await page.waitFor(2000);
+				} else {
+					await page.waitForSelector('span.chart-iframe-full-chart-label');
+
+					/* const stockName = await page.evaluate(() => {
+						let stockElement = document.querySelector('span.security-info-name');
+						return stockElement.textContent;
+					});
+					console.log("stockName : ", stockName); */
+	
+					const nameHandle = await page.$('span.security-info-name');
+					const stockName = await page.evaluate(span => span.innerHTML, nameHandle);
+					// console.log("stockName : ", stockName);
+
+					await page.waitFor(1000);
+					let stockElement = await page.$('span.security-info-symbol');
+					if (!stockElement) {
+						console.log(row.Symbol , " - stockElement TRY 1 : ", stockElement);
+						await page.waitFor(4000);
+						stockElement = await page.$('span.security-info-symbol');
+						if (!stockElement) {
+							console.log(row.Symbol , " - stockElement TRY 2 : ", stockElement);
+							let rowData = {
+								userId: process.env.USERNAME,
+								stockSymbol: row.Symbol,
+								stockName : '-',
+								fairValue: 0,
+								comment: 'Stock symbol not available'
+							};
+							// data.push(rowData);
+							append(rowData);
+							await page.waitFor(1000);
+							if (processed >= chunkSize) { 
+								processed = 0;
+								console.log("Browser Closed");
+								await browser.close();
+								await page.waitFor(2000);
+							}
+							continue;
+						}
+					}
+
+					const stockHandle = await page.$('span.security-info-symbol');
+					const stockSymbol = await page.evaluate(span => span.innerHTML, stockHandle);
+	
+					await page.waitFor(1000);
+					let labelElement = await page.$('span.legend-label');
+					if (!labelElement) {
+						console.log(row.Symbol , " - labelElement TRY 1 : ", labelElement);
+						await page.waitFor(4000);
+						labelElement = await page.$('span.legend-label');
+						if (!labelElement) {
+							console.log(row.Symbol , " - labelElement TRY 2 : ", labelElement);
+							let rowData = {
+								userId: process.env.USERNAME,
+								stockSymbol: row.Symbol,
+								stockName,
+								fairValue: 0,
+								comment: 'Fair value not available'
+							};
+							// data.push(rowData);
+							append(rowData);
+							await page.waitFor(1000);
+							if (processed >= chunkSize) { 
+								processed = 0;
+								console.log("Browser Closed");
+								await browser.close();
+								await page.waitFor(2000);
+							}
+							continue;
+						}
+					}
+	
+					await page.waitForSelector('span.legend-label');
+	
+					let legends = await page.evaluate(() => {
+						let labels = [...document.querySelectorAll(".legend-items > .legend-item > span.legend-label")];
+						return labels.map(label => {
+							let labelText = label.textContent.replace(/\n/g, "");
+							labelText = labelText.trim();
+	
+							let valueText = label.nextElementSibling.textContent.replace(/\n/g, "");
+							valueText = valueText.trim();
+							return { 
+								label: labelText,
+								value: valueText
+							};
+						});
+					});
+					// console.log(legends);
+					let fairValue = 0;
+					legends.forEach(legend => {
+						if (legend.label.toLowerCase() === 'fair value') {
+							fairValue = legend.value;
+						}
+					});
+					// console.log(stockName);
+					let rowData = {
+						userId: process.env.USERNAME,
+						stockSymbol,
+						stockName,
+						fairValue
+					};
+					console.log(rowData);
+					append(rowData);
+					await page.waitFor(1000);
+					if (processed >= chunkSize) { 
+						processed = 0;
+						console.log("Browser Closed");
+						await browser.close();
+						await page.waitFor(2000);
+					}
 				}
+				
 				// data.push(rowData);
 				continue;
-				// data.push(rowData);
-				// await page.waitFor(1000);
 			}
 
 			// console.log(data);
