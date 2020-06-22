@@ -25,6 +25,19 @@ const read_file = async () =>{
 	});
 };
 
+const formatDate = () => {
+	const d = new Date();
+	let month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
+
+	if (month.length < 2) { month = '0' + month; }
+	if (day.length < 2) { day = '0' + day; }
+
+	return [year, month, day].join('-');
+}
+
+
 /**
  * Append scrapped data in output file
  * 
@@ -39,6 +52,7 @@ const append = (row) => {
 		investmentName: row.investmentName ? row.investmentName : '-',
 		starRating: row.starRating ? row.starRating : '-',
 		analystRating: row.analystRating ? row.analystRating : '-',
+		date: formatDate(),
 		comment: row.comment,
 	};
 	processed++;
