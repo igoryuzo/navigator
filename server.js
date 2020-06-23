@@ -82,6 +82,7 @@ const initialize = async () => {
 		await page.waitForNavigation();
 		await page.waitForSelector('a[href^="/Selectors/Fund/Selector.html"]');
 		await page.goto(process.env.FUNDS_URL);
+		// await page.waitForNavigation();
 		console.log("REDIRECTED TO FUNDS PAGE");
 		// await page.waitForNavigation();
 		return { browser, page };
@@ -91,12 +92,27 @@ const initialize = async () => {
 	}
 };
 
+/**
+ * Remove characters that cause line or cell change in CSV
+ * 
+ * @param {String} value
+ * @returns {String} value
+ */
+const remove_invalid_characters = (value) => {
+	if (!value) { return value; }
+	value = value.replace(/\r?\n|\r/g, '');
+	value = value.replace(/(\r\n|\n|\r)/gm, "");
+	value = value.replace(/[;,]/g, '');
+	value = value.replace(/,/g, '');
+	value = value.replace(/;/g, '');
+	return value;
+};
+
 (async () => {
 	try {		
 		const fileData = await read_file();
 
 		if (fileData.length) {
-			console.log("length : ",fileData.length);
 			for (let i = 0; i < Object.keys(fileData).length; i++) {
 				const row = fileData[i];
 				// const row = fileData[1];
@@ -168,7 +184,7 @@ const initialize = async () => {
 							console.log(row.Symbol , " - investmentNameElement TRY 2 : ", investmentNameElement);
 							let rowData = {
 								userId: process.env.USERNAME,
-								stockSymbol,
+								stockSymbol: row.Symbol,
 								stockName: '-',
 								fairValue: 0,
 								comment: 'Investment Name field not found'
@@ -187,7 +203,8 @@ const initialize = async () => {
 					}
 
 					const investmentNameHandle = await page.$('span.sal-mip-quote__investment-name');
-					const investmentName = await page.evaluate(span => span.innerHTML, investmentNameHandle);
+					let investmentName = await page.evaluate(span => span.innerHTML, investmentNameHandle);
+					investmentName  = remove_invalid_characters(investmentName);
 
 
 					// await page.waitFor(1000);
@@ -230,7 +247,7 @@ const initialize = async () => {
 					console.log("rating : ", rating);
 					let rowData = {
 						userId: process.env.USERNAME,
-						stockSymbol,
+						stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 						investmentName,
 						starRating: rating,
 					};
@@ -253,7 +270,8 @@ const initialize = async () => {
 					console.log("stockName : ", stockName); */
 	
 					const nameHandle = await page.$('span.security-info-name');
-					const stockName = await page.evaluate(span => span.innerHTML, nameHandle);
+					let stockName = await page.evaluate(span => span.innerHTML, nameHandle);
+					stockName  = remove_invalid_characters(stockName);
 					// console.log("stockName : ", stockName);
 
 					await page.waitFor(1000);
@@ -297,7 +315,7 @@ const initialize = async () => {
 							console.log(row.Symbol , " - labelElement TRY 2 : ", labelElement);
 							let rowData = {
 								userId: process.env.USERNAME,
-								stockSymbol: row.Symbol,
+								stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 								stockName,
 								fairValue: 0,
 								comment: 'Fair value not available'
@@ -341,7 +359,7 @@ const initialize = async () => {
 					// console.log(stockName);
 					let rowData = {
 						userId: process.env.USERNAME,
-						stockSymbol,
+						stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 						stockName,
 						fairValue
 					};
