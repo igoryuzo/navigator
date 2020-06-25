@@ -3,6 +3,7 @@ const fs = require('fs');
 const csv = require('fast-csv');
 const path = require('path');
 const dotenv = require('dotenv');
+const { Client } = require('pg');
 dotenv.config();
 
 const chunkSize = 50;
@@ -43,7 +44,10 @@ const formatDate = () => {
  * 
  * @param {Object} rows 
  */
-const append = (row) => {
+const append = async (row) => {
+
+	
+
 	const rowData = {
 		userId: row.userId,
 		stockSymbol: row.stockSymbol,
@@ -53,12 +57,48 @@ const append = (row) => {
 		starRating: row.starRating ? row.starRating : '-',
 		analystRating: row.analystRating ? row.analystRating : '-',
 		date: formatDate(),
-		comment: row.comment,
+		comment: row.comment ? row.comment : '',
 	};
 	processed++;
-    const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
-    csvFile.write('\n');
-	csv.writeToStream(csvFile, [rowData], { headers: false });
+
+	const query = `INSERT INTO records (		
+		userId, 
+		stockSymbol,
+		stockName, 
+		fairValue, 
+		investmentName, 
+		starRating, 
+		analystRating, 
+		comment
+	) VALUES (
+		1,
+		'` + rowData.stockSymbol + `',
+		'` + rowData.stockName + `',
+		'` + rowData.fairValue + `',
+		'` + rowData.investmentName + `',
+		'` + rowData.starRating + `',
+		'` + rowData.analystRating + `',
+		'` + rowData.comment + `'
+	)`;
+	// console.log("----");
+	// console.log(query);
+	// console.log("----");
+
+	const client = new Client();
+	await client.connect();
+	const result = await client.query(query);
+	// console.log('Record insert successfully : ', result);
+
+	/* const query = `
+		INSERT INTO users (userId)
+		VALUES ('` + process.env.USERNAME + `')
+	`;
+	const result = await client.query(query); */
+	await client.end();
+
+    // const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
+    // csvFile.write('\n');
+	// csv.writeToStream(csvFile, [rowData], { headers: false });
 };
 
 /**
@@ -70,7 +110,7 @@ const initialize = async () => {
 		const page = await browser.newPage();
 		await page.setDefaultTimeout(60 * 1000);
 		await page.setDefaultNavigationTimeout(300 *  1000);		// Configure the navigation timeout to 5 mins
-		await page.waitFor(5000); // Wait for 5 seconds
+		await page.waitFor(4000); // Wait for 4 seconds
 
 		await page.goto(process.env.LOGIN_URL);
 		await page.type('[name="user"]', process.env.USERNAME);
@@ -145,7 +185,7 @@ const remove_invalid_characters = (value) => {
 							fairValue: 0,
 							comment: 'No result in autocomplete search'
 						};
-						append(rowData);
+						await append(rowData);
 						await page.waitFor(1000);
 						if (processed >= chunkSize) { 
 							processed = 0;
@@ -190,7 +230,7 @@ const remove_invalid_characters = (value) => {
 								comment: 'Investment Name field not found'
 							};
 							// data.push(rowData);
-							append(rowData);
+							await append(rowData);
 							await page.waitFor(1000);
 							if (processed >= chunkSize) { 
 								processed = 0;
@@ -223,7 +263,7 @@ const remove_invalid_characters = (value) => {
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
-							append(rowData);
+							await append(rowData);
 							await page.waitFor(1000);
 							if (processed >= chunkSize) { 
 								processed = 0;
@@ -252,7 +292,7 @@ const remove_invalid_characters = (value) => {
 						starRating: rating,
 					};
 					console.log(rowData);
-					append(rowData);
+					await append(rowData);
 					await page.waitFor(1000);
 					if (processed >= chunkSize) { 
 						processed = 0;
@@ -290,7 +330,7 @@ const remove_invalid_characters = (value) => {
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
-							append(rowData);
+							await append(rowData);
 							await page.waitFor(1000);
 							if (processed >= chunkSize) { 
 								processed = 0;
@@ -321,7 +361,7 @@ const remove_invalid_characters = (value) => {
 								comment: 'Fair value not available'
 							};
 							// data.push(rowData);
-							append(rowData);
+							await append(rowData);
 							await page.waitFor(1000);
 							if (processed >= chunkSize) { 
 								processed = 0;
@@ -364,7 +404,7 @@ const remove_invalid_characters = (value) => {
 						fairValue
 					};
 					console.log(rowData);
-					append(rowData);
+					await append(rowData);
 					await page.waitFor(1000);
 					if (processed >= chunkSize) { 
 						processed = 0;
@@ -375,7 +415,12 @@ const remove_invalid_characters = (value) => {
 				}
 				
 				// data.push(rowData);
-				continue;
+				// console.log(i);
+				// console.log(fileData.length - 1);
+				if (i === fileData.length - 1) {
+					console.log("--- COMPLETED ---");
+					await browser.close();
+				}
 			}
 
 			// console.log(data);
