@@ -45,60 +45,53 @@ const formatDate = () => {
  * @param {Object} rows 
  */
 const append = async (row) => {
+	try {
+		const rowData = {
+			userId: row.userId,
+			stockSymbol: row.stockSymbol,
+			stockName: row.stockName ? row.stockName : '-',
+			fairValue: (row.fairValue !== null && row.fairValue !== undefined) ? row.fairValue : 0,
+			investmentName: row.investmentName ? row.investmentName : '-',
+			starRating: row.starRating ? row.starRating : '-',
+			analystRating: row.analystRating ? row.analystRating : '-',
+			date: formatDate(),
+			comment: row.comment ? row.comment : '',
+		};
+		processed++;
 
-	
-
-	const rowData = {
-		userId: row.userId,
-		stockSymbol: row.stockSymbol,
-		stockName: row.stockName ? row.stockName : '-',
-		fairValue: (row.fairValue !== null && row.fairValue !== undefined) ? row.fairValue : 0,
-		investmentName: row.investmentName ? row.investmentName : '-',
-		starRating: row.starRating ? row.starRating : '-',
-		analystRating: row.analystRating ? row.analystRating : '-',
-		date: formatDate(),
-		comment: row.comment ? row.comment : '',
-	};
-	processed++;
-
-	const query = `INSERT INTO records (		
-		userId, 
-		stockSymbol,
-		stockName, 
-		fairValue, 
-		investmentName, 
-		starRating, 
-		analystRating, 
-		comment
-	) VALUES (
-		1,
-		'` + rowData.stockSymbol + `',
-		'` + rowData.stockName + `',
-		'` + rowData.fairValue + `',
-		'` + rowData.investmentName + `',
-		'` + rowData.starRating + `',
-		'` + rowData.analystRating + `',
-		'` + rowData.comment + `'
-	)`;
-	// console.log("----");
-	// console.log(query);
-	// console.log("----");
-
-	const client = new Client();
-	await client.connect();
-	const result = await client.query(query);
-	// console.log('Record insert successfully : ', result);
-
-	/* const query = `
-		INSERT INTO users (userId)
-		VALUES ('` + process.env.USERNAME + `')
-	`;
-	const result = await client.query(query); */
-	await client.end();
-
-    // const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
-    // csvFile.write('\n');
-	// csv.writeToStream(csvFile, [rowData], { headers: false });
+		const query = `INSERT INTO records (		
+			userId, 
+			stockSymbol,
+			stockName, 
+			fairValue, 
+			investmentName, 
+			starRating, 
+			analystRating, 
+			comment
+		) VALUES (
+			1,
+			'` + rowData.stockSymbol + `',
+			'` + rowData.stockName + `',
+			'` + rowData.fairValue + `',
+			'` + rowData.investmentName + `',
+			'` + rowData.starRating + `',
+			'` + rowData.analystRating + `',
+			'` + rowData.comment + `'
+		)`;
+		// console.log(query);
+		const client = new Client();
+		await client.connect();
+		const result = await client.query(query);
+		// console.log('Record insert successfully : ', result);
+		await client.end();
+		return result;
+		// const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
+		// csvFile.write('\n');
+		// csv.writeToStream(csvFile, [rowData], { headers: false });
+	} catch (error) {
+		console.log("ERROR while inserting record : ",error);
+		return false;
+	}
 };
 
 /**
@@ -145,12 +138,41 @@ const remove_invalid_characters = (value) => {
 	value = value.replace(/[;,]/g, '');
 	value = value.replace(/,/g, '');
 	value = value.replace(/;/g, '');
+	value = value.replace(/'/g, `"`);
 	return value;
 };
 
+/**
+ * Fetch user from db
+ * 
+ * @param {String} username 
+ * @returns {Number} id
+ */
+const fetchUser = async (username) => {
+	try {
+		const client = new Client();
+		await client.connect();
+		const query = `SELECT * FROM users WHERE user_name = '` + username + `'`;
+		const result = await client.query(query);
+		await client.end();
+		// console.log("==> ", result.rows[0]);
+		return (result && result.rows && result.rows.length) ? result.rows[0].id : 0;
+	} catch (error) {
+		console.log("ERROR in fetchUser : ", error)	;
+		return 0;
+	}	
+};
+
 (async () => {
-	try {		
+	try {
 		const fileData = await read_file();
+		const userId = await fetchUser(process.env.USERNAME);
+		// console.log(userId);
+		if (!userId) {
+			console.log("USER NOT FOUND");
+			/* HALT THE SCRIPT */
+			return false;
+		}
 
 		if (fileData.length) {
 			for (let i = 0; i < Object.keys(fileData).length; i++) {
@@ -179,7 +201,7 @@ const remove_invalid_characters = (value) => {
 					if (!dropDownElement) {
 						console.log(row.Symbol , " - dropDownElement TRY 2 : ", dropDownElement);
 						let rowData = {
-							userId: process.env.USERNAME,
+							userId,
 							stockSymbol: row.Symbol,
 							stockName: '-',
 							fairValue: 0,
@@ -223,7 +245,7 @@ const remove_invalid_characters = (value) => {
 						if (!investmentNameElement) {
 							console.log(row.Symbol , " - investmentNameElement TRY 2 : ", investmentNameElement);
 							let rowData = {
-								userId: process.env.USERNAME,
+								userId,
 								stockSymbol: row.Symbol,
 								stockName: '-',
 								fairValue: 0,
@@ -256,7 +278,7 @@ const remove_invalid_characters = (value) => {
 						if (!stockElement) {
 							console.log(row.Symbol , " - stockElement TRY 2 : ", stockElement);
 							let rowData = {
-								userId: process.env.USERNAME,
+								userId,
 								stockSymbol: row.Symbol,
 								investmentName,
 								fairValue: 0,
@@ -286,7 +308,7 @@ const remove_invalid_characters = (value) => {
 					});
 					console.log("rating : ", rating);
 					let rowData = {
-						userId: process.env.USERNAME,
+						userId,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 						investmentName,
 						starRating: rating,
@@ -323,7 +345,7 @@ const remove_invalid_characters = (value) => {
 						if (!stockElement) {
 							console.log(row.Symbol , " - stockElement TRY 2 : ", stockElement);
 							let rowData = {
-								userId: process.env.USERNAME,
+								userId,
 								stockSymbol: row.Symbol,
 								stockName : '-',
 								fairValue: 0,
@@ -354,7 +376,7 @@ const remove_invalid_characters = (value) => {
 						if (!labelElement) {
 							console.log(row.Symbol , " - labelElement TRY 2 : ", labelElement);
 							let rowData = {
-								userId: process.env.USERNAME,
+								userId,
 								stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 								stockName,
 								fairValue: 0,
@@ -398,7 +420,7 @@ const remove_invalid_characters = (value) => {
 					});
 					// console.log(stockName);
 					let rowData = {
-						userId: process.env.USERNAME,
+						userId,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.Symbol,
 						stockName,
 						fairValue
