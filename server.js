@@ -163,9 +163,38 @@ const fetchUser = async (username) => {
 	}	
 };
 
+/**
+ * Create records table
+ */
+const recordSchema = async () => {
+	try {
+		const client = new Client();
+		await client.connect();
+		const result = await client.query(`CREATE TABLE records (
+			id SERIAL PRIMARY KEY,
+			userId INT NOT NULL,
+			stockSymbol CHAR(20) NOT NULL,
+			stockName VARCHAR,
+			fairValue VARCHAR,
+			investmentName VARCHAR,
+			starRating VARCHAR,
+			analystRating VARCHAR,
+			comment TEXT,
+			createdAt TIMESTAMP default current_timestamp
+		)`);
+		console.log('Records created successfully : ', result);
+		await client.end();
+		return result;
+	} catch (error) {
+		console.log("ERROR in fetchUser : ", error)	;
+		return 0;
+	}	
+};
+
 (async () => {
 	try {
 		const fileData = await read_file();
+		// await recordSchema();
 		const userId = await fetchUser(process.env.USERNAME);
 		// console.log(userId);
 		if (!userId) {
