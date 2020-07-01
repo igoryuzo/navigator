@@ -13,9 +13,20 @@ let processed = 0;
  * Read CSV file
  */
 const read_file = async () =>{
+	const args = process.argv.slice(2);
+	let fileName = "companylist.csv";
+	switch (args[0]) {
+		case 'batch_1' : fileName = "batch_1.csv"; break;
+		case 'batch_2' : fileName = "batch_2.csv"; break;
+		case 'batch_3' : fileName = "batch_3.csv"; break;
+		case 'batch_4' : fileName = "batch_4.csv"; break;
+		default: fileName = "companylist.csv"; break;
+	}
+	console.log('fileName: ', fileName);
+
 	return new Promise( async (resolve, reject) => {
 		let fileRows = [];
-		fs.createReadStream(path.resolve(__dirname, 'assets', 'companylist.csv'))
+		fs.createReadStream(path.resolve(__dirname, 'assets', fileName))
 		.pipe(csv.parse({ headers: true }))
 		.on('error', error => reject(error))
 		.on('data', row => fileRows.push(row))
