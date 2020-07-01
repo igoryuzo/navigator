@@ -15,7 +15,7 @@ let processed = 0;
 const read_file = async () =>{
 	return new Promise( async (resolve, reject) => {
 		let fileRows = [];
-		fs.createReadStream(path.resolve(__dirname, 'assets', 'companylist.csv'))
+		fs.createReadStream(path.resolve(__dirname, 'assets', 'chunk_3.csv'))
 		.pipe(csv.parse({ headers: true }))
 		.on('error', error => reject(error))
 		.on('data', row => fileRows.push(row))
