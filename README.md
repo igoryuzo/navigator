@@ -10,7 +10,7 @@ Instructions to run the script:
 4. Create .env file. Easiest way is to rename example.env to .env and replace PostgresSql credentials.
 5. create a db name "navigator" if not exits
 6. create table "stocks" with provided schema as in dump.sql
-7. nodemon
+7. nodemon / npm start
 
 Note:
 The stocks records will be inserted in stocks table.
