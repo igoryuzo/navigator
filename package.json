@@ -1,17 +1,22 @@
 {
-  "name": "scrapper",
+  "name": "navigator-master-stock-api",
   "version": "1.0.0",
-  "description": "Web Scrapper",
+  "description": "",
   "main": "server.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.2.2"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "fast-csv": "^4.3.0",
-    "pg": "^8.2.1",
-    "puppeteer": "^3.3.0"
-  }
+  "license": "ISC"
 }
