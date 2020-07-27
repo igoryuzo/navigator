@@ -4,9 +4,10 @@ const csv = require('fast-csv');
 const path = require('path');
 const dotenv = require('dotenv');
 const { Client } = require('pg');
-const axios = require('axios');
+const config = require('../config');
+const API = require('../helpers/axiosApi');
+const { ErrorHandler } = require('../helpers/errorhandler');
 
-axios.defaults.baseURL = 'https://api.polygon.io/';
 dotenv.config();
 
 const chunkSize = 50;
@@ -65,7 +66,8 @@ const append = async (row) => {
 			stockId: row.stockId,
 			stockSymbol: row.stockSymbol,
 			stockName: row.stockName ? row.stockName : '-',
-			fairValue: (row.fairValue !== null && row.fairValue !== undefined) ? row.fairValue : 0,
+			fairValue: (row.fairValue !== null && row.fairValue !== undefined && parseFloat(row.fairValue)) ? parseFloat(row.fairValue) : 0,
+			currentPrice: (row.currentPrice !== null && row.currentPrice !== undefined) ? row.currentPrice : 0,
 			investmentName: row.investmentName ? row.investmentName : '-',
 			starRating: row.starRating ? row.starRating : '-',
 			analystRating: row.analystRating ? row.analystRating : '-',
@@ -80,6 +82,7 @@ const append = async (row) => {
 			stock_symbol,
 			stock_name,
 			fair_value,
+			current_value,
 			investment_name,
 			star_rating,
 			analyst_rating,
@@ -90,6 +93,7 @@ const append = async (row) => {
 			'` + rowData.stockSymbol + `',
 			'` + rowData.stockName + `',
 			'` + rowData.fairValue + `',
+			'` + rowData.currentPrice + `',
 			'` + rowData.investmentName + `',
 			'` + rowData.starRating + `',
 			'` + rowData.analystRating + `',
@@ -193,7 +197,8 @@ const recordSchema = async () => {
 			stock_id INT NOT NULL,
 			stock_symbol CHAR(20) NOT NULL,
 			stock_name VARCHAR,
-			fair_value VARCHAR,
+			fair_value float8,
+			current_value float8,
 			investment_name VARCHAR,
 			star_rating VARCHAR,
 			analyst_rating VARCHAR,
@@ -233,8 +238,8 @@ const fetchStocks = async () => {
 
 const scrapItems = async (req, res, next) => {
 	try {
+		// return recordSchema();
 		// const fileData = await read_file();
-		// await recordSchema();
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
 			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
@@ -263,6 +268,10 @@ const scrapItems = async (req, res, next) => {
 				await page.type('input#AutoCompleteBox', row.ticker);
 				await page.waitFor(4000);
 
+				const stocksData = await API.get('v1/last/stocks/' + row.ticker + '?apiKey=K_2NewK1MVqlDt_e1uVqMqKlnJTU47qwk_hxkD');
+				console.log(stocksData.data)
+				const currentPrice = (stocksData.data && stocksData.data.last && stocksData.data.last.price) ? stocksData.data.last.price : 0;
+
 				let dropDownElement = await page.$('table.ACDropDownStyle');
 				if (!dropDownElement) {
 					console.log(row.ticker , " - dropDownElement TRY 1 : ", dropDownElement);
@@ -276,6 +285,7 @@ const scrapItems = async (req, res, next) => {
 							stockSymbol: row.ticker,
 							stockName: '-',
 							fairValue: 0,
+							currentPrice,
 							comment: 'No result in autocomplete search'
 						};
 						await append(rowData);
@@ -321,6 +331,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								stockName: '-',
 								fairValue: 0,
+								currentPrice,
 								comment: 'Investment Name field not found'
 							};
 							// data.push(rowData);
@@ -355,6 +366,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								investmentName,
 								fairValue: 0,
+								currentPrice,
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
@@ -385,6 +397,7 @@ const scrapItems = async (req, res, next) => {
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						investmentName,
+						currentPrice,
 						starRating: rating,
 					};
 					console.log(rowData);
@@ -424,6 +437,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								stockName : '-',
 								fairValue: 0,
+								currentPrice,
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
@@ -456,6 +470,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 								stockName,
 								fairValue: 0,
+								currentPrice,
 								comment: 'Fair value not available'
 							};
 							// data.push(rowData);
@@ -500,7 +515,8 @@ const scrapItems = async (req, res, next) => {
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						stockName,
-						fairValue
+						fairValue,
+						currentPrice,
 					};
 					console.log(rowData);
 					await append(rowData);
