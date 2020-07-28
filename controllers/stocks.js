@@ -26,7 +26,7 @@ const replace_invalid_query_characters = (value) => {
 const fetchPolygonStocks = async(page, next) => {
 	try {
 		page = page || 1;
-		const stocksData = await API.get('v2/reference/tickers?apiKey=K_2NewK1MVqlDt_e1uVqMqKlnJTU47qwk_hxkD&sort=ticker&type=cs&page='+page);
+		const stocksData = await API.get('v2/reference/tickers?apiKey=' + process.env.KEY + '&sort=ticker&type=cs&page='+page);
 		const tickers = stocksData.data.tickers;
 		if(tickers.length > 0){
 			console.log(page);
@@ -39,10 +39,10 @@ const fetchPolygonStocks = async(page, next) => {
 					query += `, `
 				}
 			}			
-			/* const client = new Client();
+			const client = new Client();
 			await client.connect();
 			const result = await client.query(query);
-			await client.end(); */
+			await client.end();
 			// console.log(result);
 			fetchPolygonStocks(page+1);
 		} else {
