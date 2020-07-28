@@ -1,9 +1,9 @@
 const { Client } = require('pg');
-const axios = require('axios');
 const { ErrorHandler } = require('../helpers/errorhandler');
 const config = require('../config');
+const API = require('../helpers/axiosApi');
 
-axios.defaults.baseURL = 'https://api.polygon.io/';
+// axios.defaults.baseURL = 'https://api.polygon.io/';
 
 /**
  * Replace characters that cause wrong format in db insertion
@@ -26,10 +26,11 @@ const replace_invalid_query_characters = (value) => {
 const fetchPolygonStocks = async(page, next) => {
 	try {
 		page = page || 1;
-		const stocksData = await axios.get('v2/reference/tickers?apiKey=K_2NewK1MVqlDt_e1uVqMqKlnJTU47qwk_hxkD&sort=ticker&type=cs&page='+page);
+		const stocksData = await API.get('v2/reference/tickers?apiKey=' + process.env.KEY + '&sort=ticker&type=cs&page='+page);
 		const tickers = stocksData.data.tickers;
 		if(tickers.length > 0){
 			console.log(page);
+			console.log(tickers);
 			let query = "INSERT INTO stocks (ticker, name, market, locale, type, currency, active, primaryexchange, updated, codes, url) VALUES "
 			for (const [i, value] of tickers.entries()) {
 				replace_invalid_query_characters(value);
@@ -41,10 +42,11 @@ const fetchPolygonStocks = async(page, next) => {
 			const client = new Client();
 			await client.connect();
 			const result = await client.query(query);
-			// console.log(result);
 			await client.end();
+			// console.log(result);
 			fetchPolygonStocks(page+1);
 		} else {
+			console.log("DONE!!!")
 			return true;
 		}
 	} catch (error) {

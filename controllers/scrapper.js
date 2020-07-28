@@ -4,9 +4,10 @@ const csv = require('fast-csv');
 const path = require('path');
 const dotenv = require('dotenv');
 const { Client } = require('pg');
-const axios = require('axios');
+const config = require('../config');
+const API = require('../helpers/axiosApi');
+// const { ErrorHandler } = require('../helpers/errorhandler');
 
-axios.defaults.baseURL = 'https://api.polygon.io/';
 dotenv.config();
 
 const chunkSize = 50;
@@ -63,10 +64,11 @@ const append = async (row) => {
 		const rowData = {
 			userId: row.userId,
 			stockId: row.stockId,
-			stockSymbol: row.stockSymbol,
-			stockName: row.stockName ? row.stockName : '-',
-			fairValue: (row.fairValue !== null && row.fairValue !== undefined) ? row.fairValue : 0,
-			investmentName: row.investmentName ? row.investmentName : '-',
+			stockSymbol: row.stockSymbol ? row.stockSymbol.trim() : '',
+			stockName: row.stockName ? row.stockName.trim() : '-',
+			fairValue: (row.fairValue !== null && row.fairValue !== undefined && parseFloat(row.fairValue)) ? parseFloat(row.fairValue) : 0,
+			currentPrice: (row.currentPrice !== null && row.currentPrice !== undefined) ? row.currentPrice : 0,
+			investmentName: row.investmentName ? row.investmentName.trim() : '-',
 			starRating: row.starRating ? row.starRating : '-',
 			analystRating: row.analystRating ? row.analystRating : '-',
 			date: formatDate(),
@@ -80,6 +82,7 @@ const append = async (row) => {
 			stock_symbol,
 			stock_name,
 			fair_value,
+			current_value,
 			investment_name,
 			star_rating,
 			analyst_rating,
@@ -90,6 +93,7 @@ const append = async (row) => {
 			'` + rowData.stockSymbol + `',
 			'` + rowData.stockName + `',
 			'` + rowData.fairValue + `',
+			'` + rowData.currentPrice + `',
 			'` + rowData.investmentName + `',
 			'` + rowData.starRating + `',
 			'` + rowData.analystRating + `',
@@ -99,7 +103,6 @@ const append = async (row) => {
 		const client = new Client();
 		await client.connect();
 		const result = await client.query(query);
-		// console.log('Record insert successfully : ', result);
 		await client.end();
 		return result;
 		// const csvFile = fs.createWriteStream("assets/output.csv", { flags: 'a' });
@@ -193,7 +196,8 @@ const recordSchema = async () => {
 			stock_id INT NOT NULL,
 			stock_symbol CHAR(20) NOT NULL,
 			stock_name VARCHAR,
-			fair_value VARCHAR,
+			fair_value float8,
+			current_value float8,
 			investment_name VARCHAR,
 			star_rating VARCHAR,
 			analyst_rating VARCHAR,
@@ -219,8 +223,8 @@ const fetchStocks = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const query = `SELECT * FROM stocks`;
-		// const query = `SELECT * FROM stocks WHERE id > 301`;
+		// const query = `SELECT * FROM stocks`;
+		const query = `SELECT * FROM stocks WHERE id > 150`;
 		const result = await client.query(query);
 		await client.end();
 		// console.log("==> ", result.rows);
@@ -231,10 +235,22 @@ const fetchStocks = async () => {
 	}	
 };
 
+const checkNextIteration = async (index, stocksLength, browser) => {
+	try {
+		// console.log(index + " === " + stocksLength);
+		if (index === stocksLength - 1) {
+			console.log("--- COMPLETED ---");
+			await browser.close();
+		}
+	} catch (error) {
+		
+	}
+};
+
 const scrapItems = async (req, res, next) => {
 	try {
+		// return recordSchema();
 		// const fileData = await read_file();
-		// await recordSchema();
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
 			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
@@ -263,6 +279,10 @@ const scrapItems = async (req, res, next) => {
 				await page.type('input#AutoCompleteBox', row.ticker);
 				await page.waitFor(4000);
 
+				const stocksData = await API.get('v1/last/stocks/' + row.ticker + '?apiKey=' + process.env.KEY);
+				console.log(stocksData.data)
+				const currentPrice = (stocksData.data && stocksData.data.last && stocksData.data.last.price) ? stocksData.data.last.price : 0;
+
 				let dropDownElement = await page.$('table.ACDropDownStyle');
 				if (!dropDownElement) {
 					console.log(row.ticker , " - dropDownElement TRY 1 : ", dropDownElement);
@@ -276,6 +296,7 @@ const scrapItems = async (req, res, next) => {
 							stockSymbol: row.ticker,
 							stockName: '-',
 							fairValue: 0,
+							currentPrice,
 							comment: 'No result in autocomplete search'
 						};
 						await append(rowData);
@@ -286,6 +307,7 @@ const scrapItems = async (req, res, next) => {
 							await browser.close();
 							await page.waitFor(2000);
 						}
+						checkNextIteration(i, stocks.length, browser);
 						// data.push(rowData);
 						continue;
 					}
@@ -321,6 +343,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								stockName: '-',
 								fairValue: 0,
+								currentPrice,
 								comment: 'Investment Name field not found'
 							};
 							// data.push(rowData);
@@ -332,6 +355,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
+							checkNextIteration(i, stocks.length, browser);
 							continue;
 						}
 					}
@@ -355,6 +379,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								investmentName,
 								fairValue: 0,
+								currentPrice,
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
@@ -366,6 +391,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
+							checkNextIteration(i, stocks.length, browser);
 							continue;
 						}
 					}
@@ -385,6 +411,7 @@ const scrapItems = async (req, res, next) => {
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						investmentName,
+						currentPrice,
 						starRating: rating,
 					};
 					console.log(rowData);
@@ -424,6 +451,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: row.ticker,
 								stockName : '-',
 								fairValue: 0,
+								currentPrice,
 								comment: 'Stock symbol not available'
 							};
 							// data.push(rowData);
@@ -435,6 +463,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
+							checkNextIteration(i, stocks.length, browser);
 							continue;
 						}
 					}
@@ -456,6 +485,7 @@ const scrapItems = async (req, res, next) => {
 								stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 								stockName,
 								fairValue: 0,
+								currentPrice,
 								comment: 'Fair value not available'
 							};
 							// data.push(rowData);
@@ -467,6 +497,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
+							checkNextIteration(i, stocks.length, browser);
 							continue;
 						}
 					}
@@ -500,7 +531,8 @@ const scrapItems = async (req, res, next) => {
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						stockName,
-						fairValue
+						fairValue,
+						currentPrice,
 					};
 					console.log(rowData);
 					await append(rowData);
@@ -514,6 +546,7 @@ const scrapItems = async (req, res, next) => {
 				}
 				
 				// data.push(rowData);
+				console.log(i + " === " + stocks.length);
 				if (i === stocks.length - 1) {
 					console.log("--- COMPLETED ---");
 					await browser.close();
@@ -521,12 +554,14 @@ const scrapItems = async (req, res, next) => {
 			}
 		} else {
 			if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
-			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
+			console.log("NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.");
+		// return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
 		}	
 		// await browser.close();
 	} catch (error) {
 		if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
-		next(new ErrorHandler(200, config.common_err_msg, error));
+		console.log("ERROR : ", error);
+		// next(new ErrorHandler(200, config.common_err_msg, error));
 	}
 };
 
