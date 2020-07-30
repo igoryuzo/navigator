@@ -223,7 +223,7 @@ const scriptLogSchema = async () => {
 		const result = await client.query(`CREATE TABLE script_logs (
 			id SERIAL PRIMARY KEY,
 			status VARCHAR NOT NULL,
-			completed_at TIMESTAMP NOT NULL,
+			completed_at TIMESTAMP,
 			created_at TIMESTAMP default current_timestamp
 		)`);
 		console.log('Records created successfully : ', result);
@@ -268,12 +268,17 @@ const checkNextIteration = async (index, stocksLength, browser) => {
 	}
 };
 
+/**
+ * Check if script is already running
+ * 
+ * @returns {Array} rows
+ */
 const checkIfScrappingRunning = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
 		const query = `SELECT * FROM script_logs
-						WHERE status = 'processing'
+						WHERE status = 'not_completed'
 						ORDER BY created_at DESC
 						LIMIT 1`;
 		const result = await client.query(query);
@@ -286,17 +291,33 @@ const checkIfScrappingRunning = async () => {
 	}
 };
 
+const logScriptStart = async () => {
+	try {
+		const query = `INSERT INTO script_logs (status) VALUES ('not_running')`;
+		// console.log(query);
+		const client = new Client();
+		await client.connect();
+		const result = await client.query(query);
+		await client.end();
+		return result;
+	} catch (error) {
+		console.log("ERROR while inserting record : ",error);
+		return false;
+	}
+};
+
 const scrapItems = async (req, res, next) => {
 	try {
 		// return recordSchema();
 		// const fileData = await read_file();
-		const ifRunning = await checkIfScrappingRunning();
-		if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
-		return res.json({ success: false, message: 'Test!!', ifRunning });
+		// const ifRunning = await checkIfScrappingRunning();
+		// if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
 
+		const logId = await logScriptStart();
+		return res.json({ success: false, message: 'Test!!', logId });
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
-			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
+			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STOCKS FROM POLYGON FIRST.' });
 		}
 		// console.log(stocks); return res.json({ success: true, message: 'TEST' });;
 		const userId = await fetchUser(process.env.USERNAME);

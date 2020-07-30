@@ -59,10 +59,15 @@ const Scrapper = (props) => {
 			if (response.data.success) {
 				setMessage(response.data.message);
 				handleSnackToogle(response.data.message);
+			} else {
+				let msg = (response.data && response.data.message) ? response.data.message : 'Something went wrong.';
+				handleSnackToogle(msg);
 			}
 		} catch (error) {
 			setLoading(false);
 			console.log("ERROR startScrapping : ", error);
+			let msg = (error && error.response && error.response.data.message) ? error.response.data.message : 'Something went wrong.';
+			handleSnackToogle(msg);
 		}
 	};
 
