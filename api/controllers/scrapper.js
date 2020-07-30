@@ -63,6 +63,7 @@ const append = async (row) => {
 	try {
 		const rowData = {
 			userId: row.userId,
+			batchId: row.batchId,
 			stockId: row.stockId,
 			stockSymbol: row.stockSymbol ? row.stockSymbol.trim() : '',
 			stockName: row.stockName ? row.stockName.trim() : '-',
@@ -78,6 +79,7 @@ const append = async (row) => {
 		// console.log(rowData);
 		const query = `INSERT INTO records (		
 			user_id,
+			batch_id,
 			stock_id,
 			stock_symbol,
 			stock_name,
@@ -89,6 +91,7 @@ const append = async (row) => {
 			comment
 		) VALUES (
 			'` + rowData.userId + `',
+			'` + rowData.batchId + `',
 			'` + rowData.stockId + `',
 			'` + rowData.stockSymbol + `',
 			'` + rowData.stockName + `',
@@ -193,6 +196,7 @@ const recordSchema = async () => {
 		const result = await client.query(`CREATE TABLE records (
 			id SERIAL PRIMARY KEY,
 			user_id INT NOT NULL,
+			batch_id INT NOT NULL,
 			stock_id INT NOT NULL,
 			stock_symbol CHAR(20) NOT NULL,
 			stock_name VARCHAR,
@@ -220,9 +224,11 @@ const scriptLogSchema = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const result = await client.query(`CREATE TABLE script_logs (
+		// CREATE TYPE status_enum AS ENUM ('not_completed','completed', 'errored');
+		const result = await client.query(`
+		CREATE TABLE script_batch (
 			id SERIAL PRIMARY KEY,
-			status VARCHAR NOT NULL,
+			status status_enum NOT NULL default 'not_completed',
 			completed_at TIMESTAMP,
 			created_at TIMESTAMP default current_timestamp
 		)`);
@@ -244,8 +250,8 @@ const fetchStocks = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		// const query = `SELECT * FROM stocks`;
-		const query = `SELECT * FROM stocks WHERE id > 150`;
+		const query = `SELECT * FROM stocks`;
+		// const query = `SELECT * FROM stocks WHERE id > 150`;
 		const result = await client.query(query);
 		await client.end();
 		// console.log("==> ", result.rows);
@@ -277,7 +283,7 @@ const checkIfScrappingRunning = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const query = `SELECT * FROM script_logs
+		const query = `SELECT * FROM script_batch
 						WHERE status = 'not_completed'
 						ORDER BY created_at DESC
 						LIMIT 1`;
@@ -291,30 +297,32 @@ const checkIfScrappingRunning = async () => {
 	}
 };
 
-const logScriptStart = async () => {
+const logScriptBatch = async () => {
 	try {
-		const query = `INSERT INTO script_logs (status) VALUES ('not_running')`;
+		const query = `INSERT INTO script_batch (status) VALUES ('not_completed') RETURNING id`;
 		// console.log(query);
 		const client = new Client();
 		await client.connect();
 		const result = await client.query(query);
 		await client.end();
-		return result;
+		return (result && result.rows && result.rows.length) ? result.rows[0].id : 0;
 	} catch (error) {
-		console.log("ERROR while inserting record : ",error);
+		console.log("ERROR while inserting script_batch : ",error);
 		return false;
 	}
 };
 
 const scrapItems = async (req, res, next) => {
 	try {
-		// return recordSchema();
+		// recordSchema();
+		// return scriptLogSchema();
 		// const fileData = await read_file();
 		// const ifRunning = await checkIfScrappingRunning();
 		// if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
 
-		const logId = await logScriptStart();
-		return res.json({ success: false, message: 'Test!!', logId });
+		const batchId = await logScriptBatch();
+		if (!batchId) { return res.json({ success: false, message: 'Error in initiating script' }); }
+		// return res.json({ success: false, message: 'Test!!', batchId });
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
 			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STOCKS FROM POLYGON FIRST.' });
@@ -356,6 +364,7 @@ const scrapItems = async (req, res, next) => {
 						console.log(row.ticker , " - dropDownElement TRY 2 : ", dropDownElement);
 						let rowData = {
 							userId,
+							batchId,
 							stockId: row.id,
 							stockSymbol: row.ticker,
 							stockName: '-',
@@ -403,6 +412,7 @@ const scrapItems = async (req, res, next) => {
 							console.log(row.ticker , " - investmentNameElement TRY 2 : ", investmentNameElement);
 							let rowData = {
 								userId,
+								batchId,
 								stockId: row.id,
 								stockSymbol: row.ticker,
 								stockName: '-',
@@ -439,6 +449,7 @@ const scrapItems = async (req, res, next) => {
 							console.log(row.ticker , " - stockElement TRY 2 : ", stockElement);
 							let rowData = {
 								userId,
+								batchId,
 								stockId: row.id,
 								stockSymbol: row.ticker,
 								investmentName,
@@ -472,6 +483,7 @@ const scrapItems = async (req, res, next) => {
 					console.log("rating : ", rating);
 					let rowData = {
 						userId,
+						batchId,
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						investmentName,
@@ -511,6 +523,7 @@ const scrapItems = async (req, res, next) => {
 							console.log(row.ticker , " - stockElement TRY 2 : ", stockElement);
 							let rowData = {
 								userId,
+								batchId,
 								stockId: row.id,
 								stockSymbol: row.ticker,
 								stockName : '-',
@@ -545,6 +558,7 @@ const scrapItems = async (req, res, next) => {
 							console.log(row.ticker , " - labelElement TRY 2 : ", labelElement);
 							let rowData = {
 								userId,
+								batchId,
 								stockId: row.id,
 								stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 								stockName,
@@ -592,6 +606,7 @@ const scrapItems = async (req, res, next) => {
 					// console.log(stockName);
 					let rowData = {
 						userId,
+						batchId,
 						stockId: row.id,
 						stockSymbol: (stockSymbol) ? stockSymbol : row.ticker,
 						stockName,
