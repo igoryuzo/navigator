@@ -1,18 +1,12 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/frontend/dist
-/frontend/tmp
-/frontend/out-tsc
+/dist
+/tmp
+/out-tsc
 
 # dependencies
-/frontend/node_modules
-/api/node_modules
-
-# package-lock
-/frontend/package-lock.json
-/api/package-lock.json
-
+/node_modules
 
 # IDEs and editors
 /.idea
@@ -39,13 +33,9 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-/api/.env
+/.env
+/assets/audio_files
 
 # System Files
 .DS_Store
 Thumbs.db
-
-# Mongo Dump
-/dump
-
-
