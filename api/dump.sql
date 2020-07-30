@@ -98,6 +98,7 @@ ALTER SEQUENCE public.records_id_seq OWNED BY public.records.id;
 CREATE TABLE public.script_batch (
     id integer NOT NULL,
     status public.status_enum DEFAULT 'not_completed'::public.status_enum NOT NULL,
+    message text,
     completed_at timestamp without time zone,
     created_at timestamp without time zone DEFAULT now()
 );
@@ -240,21 +241,25 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 COPY public.records (id, user_id, batch_id, stock_id, stock_symbol, stock_name, fair_value, current_value, investment_name, star_rating, analyst_rating, comment, created_at) FROM stdin;
-1	1	1	1	A                   	Agilent Technologies Inc	69	97.0999999999999943	-	-	-		2020-07-30 15:22:51.456698
-2	1	1	2	AA                  	Alcoa Corp	15	13.1699999999999999	-	-	-		2020-07-30 15:23:11.314451
-3	1	1	3	WADV                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 15:23:23.591361
-4	1	1	4	WING                	Wingstop Inc	108.200000000000003	155.25	-	-	-		2020-07-30 15:23:43.240406
-5	1	1	5	WINH                	Winha International Group Ltd	0.270000000000000018	0	-	-	-		2020-07-30 15:24:03.027082
-6	1	1	6	WINMQ               	Windstream Holdings Inc	0	0	-	-	-		2020-07-30 15:24:20.320503
-7	1	1	7	WINR                	Simplicity Esports and Gaming Co Ordinary Shares	1.31000000000000005	0	-	-	-		2020-07-30 15:24:40.59977
-8	1	1	8	WINS                	Wins Finance Holdings Inc	35.240000000000002	28.5199999999999996	-	-	-		2020-07-30 15:24:58.680013
-9	1	1	9	WINT                	Windtree Therapeutics Inc	9.83999999999999986	7.90000000000000036	-	-	-		2020-07-30 15:25:31.421889
-10	1	1	10	WIPKF               	Winpak Ltd	38.509999999999998	0	-	-	-		2020-07-30 15:25:51.694637
-11	1	1	11	WIRE                	Encore Wire Corp	50.9099999999999966	51.0300000000000011	-	-	-		2020-07-30 15:26:11.106694
-12	1	1	12	WIRX                	Wireless Xcessories Group Inc	0.0100000000000000002	0	-	-	-		2020-07-30 15:26:31.688594
-13	1	1	13	WISA                	Summit Wireless Technologies Inc Ordinary Shares	2.72999999999999998	2.20999999999999996	-	-	-		2020-07-30 15:26:52.246357
-14	1	1	14	WISH                	Wright Investors" Service Holdings Inc	0.520000000000000018	0	-	-	-		2020-07-30 15:27:18.232156
-15	1	1	15	WISM                	Wiseman Global Ltd	3.12999999999999989	0	-	-	-		2020-07-30 15:27:37.17313
+1	1	1	1	A                   	Agilent Technologies Inc	69	97.0999999999999943	-	-	-		2020-07-30 15:56:40.792072
+2	1	1	2	AA                  	Alcoa Corp	15	13.1699999999999999	-	-	-		2020-07-30 15:56:59.025473
+3	1	1	3	WADV                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 15:57:11.671752
+4	1	1	4	WING                	Wingstop Inc	108.200000000000003	155.25	-	-	-		2020-07-30 15:57:36.136953
+5	1	1	5	WINH                	Winha International Group Ltd	0.270000000000000018	0	-	-	-		2020-07-30 15:57:52.670624
+6	1	1	6	WINMQ               	Windstream Holdings Inc	0	0	-	-	-		2020-07-30 15:58:09.065083
+7	1	1	7	WINR                	Simplicity Esports and Gaming Co Ordinary Shares	1.31000000000000005	0	-	-	-		2020-07-30 15:58:25.991469
+8	1	1	8	WINS                	Wins Finance Holdings Inc	35.240000000000002	28.5199999999999996	-	-	-		2020-07-30 15:58:42.269045
+9	1	1	9	WINT                	Windtree Therapeutics Inc	9.83999999999999986	7.90000000000000036	-	-	-		2020-07-30 15:58:59.581935
+10	1	1	10	WIPKF               	Winpak Ltd	38.509999999999998	0	-	-	-		2020-07-30 15:59:16.027132
+11	1	1	11	WIRE                	Encore Wire Corp	50.9099999999999966	51.0300000000000011	-	-	-		2020-07-30 15:59:32.383001
+12	1	1	12	WIRX                	Wireless Xcessories Group Inc	0.0100000000000000002	0	-	-	-		2020-07-30 15:59:48.856893
+13	1	1	13	WISA                	Summit Wireless Technologies Inc Ordinary Shares	2.72999999999999998	2.20999999999999996	-	-	-		2020-07-30 16:00:05.108153
+14	1	1	14	WISH                	Wright Investors" Service Holdings Inc	0.520000000000000018	0	-	-	-		2020-07-30 16:00:22.138632
+15	1	1	15	WISM                	Wiseman Global Ltd	3.12999999999999989	0	-	-	-		2020-07-30 16:00:38.902643
+16	1	1	16	WISRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:00:51.514267
+17	1	1	17	WIX                 	Wix.com Ltd	195.659999999999997	279	-	-	-		2020-07-30 16:01:07.422472
+18	1	1	18	WIZD                	Wizard Entertainment Inc	1.34000000000000008	0	-	-	-		2020-07-30 16:01:25.569569
+19	1	1	19	WIZP                	Wize Pharma Inc	0.200000000000000011	0	-	-	-		2020-07-30 16:01:42.154884
 \.
 
 
@@ -262,15 +267,15 @@ COPY public.records (id, user_id, batch_id, stock_id, stock_symbol, stock_name, 
 -- Name: records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.records_id_seq', 15, true);
+SELECT pg_catalog.setval('public.records_id_seq', 19, true);
 
 
 --
 -- Data for Name: script_batch; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.script_batch (id, status, completed_at, created_at) FROM stdin;
-1	not_completed	\N	2020-07-30 15:21:31.956896
+COPY public.script_batch (id, status, message, completed_at, created_at) FROM stdin;
+1	not_completed	\N	\N	2020-07-30 15:55:51.514831
 \.
 
 

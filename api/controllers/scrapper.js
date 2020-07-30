@@ -229,6 +229,7 @@ const scriptLogSchema = async () => {
 		CREATE TABLE script_batch (
 			id SERIAL PRIMARY KEY,
 			status status_enum NOT NULL default 'not_completed',
+			message TEXT,
 			completed_at TIMESTAMP,
 			created_at TIMESTAMP default current_timestamp
 		)`);
@@ -312,6 +313,28 @@ const logScriptBatch = async () => {
 	}
 };
 
+/**
+ * Set batch status
+ * 
+ * @param {Number} batchId 
+ * @param {String} status 
+ */
+const setBatchStatus = async (batchId, status) => {
+	try {
+		const query = `UPDATE script_batch
+						SET status = '` + status + `'
+						WHERE id = ` + batchId;
+		const client = new Client();
+		await client.connect();
+		const result = await client.query(query);
+		await client.end();
+		return result;
+	} catch (error) {
+		console.log("ERROR while inserting script_batch : ",error);
+		return false;
+	}
+};
+
 const scrapItems = async (req, res, next) => {
 	try {
 		// recordSchema();
@@ -325,6 +348,7 @@ const scrapItems = async (req, res, next) => {
 		// return res.json({ success: false, message: 'Test!!', batchId });
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
+			await setBatchStatus(batchId, 'completed');
 			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STOCKS FROM POLYGON FIRST.' });
 		}
 		// console.log(stocks); return res.json({ success: true, message: 'TEST' });;
@@ -625,7 +649,7 @@ const scrapItems = async (req, res, next) => {
 				}
 				
 				// data.push(rowData);
-				console.log(i + " === " + stocks.length);
+				// console.log(i + " === " + stocks.length);
 				if (i === stocks.length - 1) {
 					console.log("--- COMPLETED ---");
 					await browser.close();

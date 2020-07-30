@@ -98,6 +98,7 @@ ALTER SEQUENCE public.records_id_seq OWNED BY public.records.id;
 CREATE TABLE public.script_batch (
     id integer NOT NULL,
     status public.status_enum DEFAULT 'not_completed'::public.status_enum NOT NULL,
+    message text,
     completed_at timestamp without time zone,
     created_at timestamp without time zone DEFAULT now()
 );
