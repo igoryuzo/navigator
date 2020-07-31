@@ -17,6 +17,21 @@ const replace_invalid_query_characters = (value) => {
 	return value;
 };
 
+/**
+ * Fetch All stocks and insert into Db
+ * 
+ * @param {*} page 
+ */
+const fetchTickerDetails = async(symbol, next) => {
+	try {
+		// console.log("symbol : ",symbol);
+		const result = await API.get('v1/meta/symbols/' + symbol + '/company?apiKey=' + process.env.KEY);
+		return (result && result.data) ? result.data : false;
+	} catch (error) {
+		return false;
+		next(new ErrorHandler(200, config.common_err_msg, error));
+	}
+}
 
 /**
  * Fetch All stocks and insert into Db
@@ -30,15 +45,23 @@ const fetchPolygonStocks = async(page, next) => {
 		const tickers = stocksData.data.tickers;
 		if(tickers.length > 0){
 			console.log(page);
-			console.log(tickers);
-			let query = "INSERT INTO stocks (ticker, name, market, locale, type, currency, active, primaryexchange, updated, codes, url) VALUES "
+			// console.log(tickers);
+			let query = "INSERT INTO stocks (ticker, name, logo, market, locale, type, currency, active, primaryexchange, updated, codes, url) VALUES "
 			for (const [i, value] of tickers.entries()) {
+				console.log(page + " - " + i);
 				replace_invalid_query_characters(value);
-				query += `( '` + value.ticker + `', '` + value.name + `', '` + value.market + `', '` + value.locale + `', '` + value.type + `', '` + value.currency + `', '` + value.active + `', '` + value.primaryExch + `', '` + value.updated + `', '` + JSON.stringify(value.codes) + `', '` + value.url + `' )`;
+				// console.log("value : ",value);
+				const tickerDetails = await fetchTickerDetails(value.ticker, next);
+				const logo = (tickerDetails && tickerDetails.logo) ? tickerDetails.logo : null;
+				// console.log("logo : ",logo);
+				// console.log("tickerDetails : ",tickerDetails);
+				// return false;
+				query += `( '` + value.ticker + `', '` + value.name + `', '` + logo + `', '` + value.market + `', '` + value.locale + `', '` + value.type + `', '` + value.currency + `', '` + value.active + `', '` + value.primaryExch + `', '` + value.updated + `', '` + JSON.stringify(value.codes) + `', '` + value.url + `' )`;
 				if (tickers.length -1 > i) {
 					query += `, `
 				}
 			}			
+			// console.log("----------------------------------------------------------------------------- ");
 			const client = new Client();
 			await client.connect();
 			const result = await client.query(query);
@@ -52,10 +75,43 @@ const fetchPolygonStocks = async(page, next) => {
 	} catch (error) {
 		next(new ErrorHandler(200, config.common_err_msg, error));
 	}
-}
+};
+
+/**
+ * Create records table
+ */
+const stockSchema = async () => {
+	try {
+		const client = new Client();
+		await client.connect();
+		const result = await client.query(`CREATE TABLE stocks (
+			id SERIAL PRIMARY KEY,
+			ticker VARCHAR,
+			name VARCHAR,
+			logo VARCHAR(512),
+			market VARCHAR,
+			locale VARCHAR,
+			type VARCHAR,
+			currency VARCHAR,
+			active VARCHAR,
+			primaryexchange VARCHAR,
+			updated VARCHAR,
+			codes VARCHAR,
+			url VARCHAR,
+			created_at TIMESTAMP default current_timestamp
+		)`);
+		console.log('Stocks created successfully : ', result);
+		await client.end();
+		return result;
+	} catch (error) {
+		console.log("ERROR in fetchUser : ", error)	;
+		return 0;
+	}	
+};
 
 const saveStocks = async (req, res, next) => {
 	try {
+		// return stockSchema();
 		let stocksInserted = await fetchPolygonStocks(1, next);
 		return res.json({ success: true, message: 'Saved polygon stocks successfully!', stocksInserted });
 		

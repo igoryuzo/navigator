@@ -72,5 +72,10 @@ export default makeStyles(theme => ({
 	},
 	avatar: {
 		marginRight: theme.spacing(2),
-	}
+	},
+	toolbar: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+	},
 }));

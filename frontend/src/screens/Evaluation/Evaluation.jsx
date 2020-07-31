@@ -13,6 +13,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import PageviewIcon from '@material-ui/icons/Pageview';
 
@@ -31,7 +32,7 @@ const headCells = [
 	{ key: 'stock_name', numeric: false, disablePadding: false, label: 'Stock Name', sortable: false },
 	{ key: 'fair_value', numeric: true, disablePadding: false, label: 'Fair Value', sortable: false },
 	{ key: 'current_value', numeric: true, disablePadding: false, label: 'Current Value', sortable: false },
-	{ key: 'percentage', numeric: true, disablePadding: false, label: 'Percentage', sortable: false },
+	{ key: 'percentage', numeric: true, disablePadding: false, label: 'Percentage', sortable: true },
 	{ key: 'created_at', numeric: false, disablePadding: false, label: 'Created At', sortable: false },
 ];
 
@@ -43,11 +44,12 @@ const Evaluation = (props) => {
 	// const [search, setSearch] = useState('');
 	const [search] = useState('');
 	const [records, setRecords] = useState([]);
+	const [latestBatch, setLatestBatch] = useState({});
 	// const [totalRecords, setTotalRecords] = useState(0);
 	const debouncedSearch = useDebounce(search, 500);
 
-	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('id');
+	const [order, setOrder] = useState('desc');
+	const [orderBy, setOrderBy] = useState('percentage');
 	const [selected, setSelected] = useState([]);
 	// const [pageSize, setPageSize] = useState(10);
 	// const [page, setPage] = useState(0);
@@ -60,17 +62,18 @@ const Evaluation = (props) => {
 		const fetchEvaluatedData = async () => {
 			setLoading(true);
 			try {
-				/* let postData = {
+				let postData = {
 					order,
 					orderBy,
-					pageOffset: page * pageSize,
-					pageSize,
-					searchText: debouncedSearch,
-				}; */
-				const response = await API.get('evaluate');
+					// pageOffset: page * pageSize,
+					// pageSize,
+					// searchText: debouncedSearch,
+				};
+				const response = await API.post('evaluate', postData);
 				if (response.data.success) {
 					// console.log("videos data ==> ",response.data.data);
 					setRecords(response.data.data.rows);
+					setLatestBatch(response.data.data.latest);
 					// setTotalRecords(response.data.data.count);
 				} else {
 					console.log("response ==> ",response.data);
@@ -218,6 +221,11 @@ const Evaluation = (props) => {
 						handleDelete={() => {}}
 						searchComment="Search Value"
 					/> */}
+					<Toolbar className={classes.toolbar}>
+						<Typography color="textSecondary" variant="subtitle2">
+							Last synced at: { latestBatch.completed_at ? formatDate(latestBatch.completed_at) : '....' }
+						</Typography>
+					</Toolbar>
 					<TableContainer>
 						<Table className={classes.table} size='medium'>
 							<EnhancedTableHead

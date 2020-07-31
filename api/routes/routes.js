@@ -14,6 +14,9 @@ router.post("/refresh_token", loginCtrl.refresh_token);
 
 router.get("/scrap", scrapCtrl.scrapItems);
 router.get("/stocks", stockCtrl.saveStocks);
-router.get("/evaluate", evalCtrl.evaluate);
+router.post("/evaluate", evalCtrl.evaluate);
+
+// SCRIPT BATCHES
+router.get("/batches", evalCtrl.get_script_batches);
 
 module.exports = router;

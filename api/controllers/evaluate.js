@@ -6,18 +6,21 @@ const moment = require('moment');
 /**
  * Fetch stocks from db
  * 
- * @returns {Array} id
+ * @param {Object} request
+ * @param {Number} batchId
  */
-const fetchStocks = async (date) => {
+const fetchStocks = async (request, batchId) => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const query = `SELECT *, (((fair_value - current_value) / ((fair_value + current_value) / 2) ) * 100) AS percentage FROM records
-						WHERE DATE(created_at) >= '` + moment(date).format('YYYY-MM-DD') + `'
+		let query = `SELECT *, (((fair_value - current_value) / ((fair_value + current_value) / 2) ) * 100) AS percentage FROM records
+						WHERE batch_id = '` + batchId + `'
 						AND fair_value > 0
 						AND current_value > 0
-						AND fair_value > current_value
-						ORDER BY percentage DESC`;
+						AND fair_value > current_value`;
+		if (request.orderBy && request.order) { 
+			query += ` ORDER BY ` + request.orderBy + ` ` + request.order;
+		}
 		// console.log("==> ", query);
 		// const query = `SELECT * FROM stocks WHERE id > 301`;
 		// targetPrice > currentPrice
@@ -36,11 +39,12 @@ const fetchStocks = async (date) => {
  * 
  * @returns {Object}
  */
-const fetchLatestDate = async () => {
+const fetchLatestBatch = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const query = `SELECT created_at FROM records
+		const query = `SELECT * FROM script_batch
+						WHERE status = 'completed'
 						ORDER BY created_at DESC
 						LIMIT 1`;
 		// const query = `SELECT * FROM stocks WHERE id > 301`;
@@ -49,20 +53,59 @@ const fetchLatestDate = async () => {
 		// console.log("==> ", result);
 		return result && result.rows && result.rows.length ? result.rows[0] : false;
 	} catch (error) {
-		console.log("ERROR in fetchUser : ", error)	;
+		console.log("ERROR in fetchLatestBatch : ", error)	;
 		return 0;
 	}	
 };
 
 const evaluate = async (req, res, next) => {
 	try {
-		const latest = await fetchLatestDate();
+		const latest = await fetchLatestBatch();
 		if (!latest) { return res.json({ success: true, message: 'No records found!' }); }
-		const latestDate = latest.created_at;
-		const result = await fetchStocks(latestDate);
+		// return res.json({ success: false, message: 'asdsad', latest });
+		const latestBatchId = latest.id;
+
+		const request = {
+			orderBy	: (req.body.orderBy) ? req.body.orderBy : 'percentage',
+			order	: (req.body.order) ? req.body.order : 'DESC',
+		};
+
+		const result = await fetchStocks(request, latestBatchId);
 		// console.log(result);
 		console.log(result.length);
-		return res.json({ success: true, message: 'Evaluated data successfully', data: { rows: result, latestDate } });
+		return res.json({ success: true, message: 'Evaluated data successfully', data: { rows: result, latest } });
+	} catch (error) {
+		if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
+		next(new ErrorHandler(200, config.common_err_msg, error));
+	}
+};
+
+/**
+ * Fetch latest script running date from db
+ * 
+ * @returns {Object}
+ */
+const fetchAllBatch = async () => {
+	try {
+		const client = new Client();
+		await client.connect();
+		const query = `SELECT * FROM script_batch
+						ORDER BY created_at DESC`;
+		const result = await client.query(query);
+		await client.end();
+		// console.log("==> ", result);
+		return result && result.rows ? result.rows : [];
+	} catch (error) {
+		console.log("ERROR in fetchLatestBatch : ", error)	;
+		return 0;
+	}	
+};
+
+
+const get_script_batches = async (req, res, next) => {
+	try {
+		const batches = await fetchAllBatch();
+		return res.json({ success: true, message: 'Evaluated data successfully', data: { batches } });
 	} catch (error) {
 		if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
 		next(new ErrorHandler(200, config.common_err_msg, error));
@@ -70,5 +113,6 @@ const evaluate = async (req, res, next) => {
 };
 
 module.exports = {
-	evaluate
+	evaluate,
+	get_script_batches
 };

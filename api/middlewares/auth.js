@@ -5,7 +5,7 @@ let jwt = require('jsonwebtoken');
 
 const checkToken = (req, res, next) => {
 	// console.log('Request URL:', req.originalUrl)
-	const permittedUrls = ['/login'];
+	const permittedUrls = ['/login', '/stocks'];
 	let splitUrl = req.originalUrl.split('/');
 	req.header_sub_domain = (req.headers['x-sub-domain'] !== undefined) ? req.headers['x-sub-domain'] : '';
 

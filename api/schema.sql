@@ -133,18 +133,19 @@ ALTER SEQUENCE public.script_batch_id_seq OWNED BY public.script_batch.id;
 
 CREATE TABLE public.stocks (
     id integer NOT NULL,
-    ticker character varying(255),
-    name character varying(255),
-    market character varying(255),
-    locale character varying(255),
-    type character varying(255),
-    currency character varying(255),
-    active character varying(255),
-    primaryexchange character varying(255),
-    updated character varying(255),
-    codes character varying(255),
-    url character varying(255),
-    "createdAt" timestamp without time zone DEFAULT now()
+    ticker character varying,
+    name character varying,
+    logo character varying(512),
+    market character varying,
+    locale character varying,
+    type character varying,
+    currency character varying,
+    active character varying,
+    primaryexchange character varying,
+    updated character varying,
+    codes character varying,
+    url character varying,
+    created_at timestamp without time zone DEFAULT now()
 );
 
 

@@ -38,33 +38,33 @@ const EnhancedTableToolbar = props => {
 	const { numSelected, onSearchChange, handleDelete, searchComment } = props;
   
 	return (
-        <Toolbar
-            className={clsx(classes.root, {
-            	[classes.highlight]: numSelected > 0,
-            }, {
-            	[classes.searchBar]: numSelected === 0,
-            })}
-        >
-            {numSelected > 0 ? (
+		<Toolbar
+			className={clsx(classes.root, {
+				[classes.highlight]: numSelected > 0,
+			}, {
+				[classes.searchBar]: numSelected === 0,
+			})}
+		>
+			{numSelected > 0 ? (
 					<Typography className={classes.title} color="inherit" variant="subtitle1">
 						{numSelected} selected
 					</Typography>
-                ) : (
+				) : (
 					<SearchInput
 						className={classes.searchInput}
 						placeholder={searchComment || 'Search records'}
 						onChange={onSearchChange}
 					/>
-                )}
-        
-                {numSelected > 0 ? (
+				)}
+		
+				{numSelected > 0 ? (
 					<Tooltip title="Delete">
 						<IconButton aria-label="delete" onClick={handleDelete}>
 							<DeleteIcon />
 						</IconButton>
 					</Tooltip>
-                ) : null }
-        </Toolbar>
+				) : null }
+		</Toolbar>
 	);
 };
   

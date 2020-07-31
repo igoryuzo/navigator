@@ -4,6 +4,8 @@ const csv = require('fast-csv');
 const path = require('path');
 const dotenv = require('dotenv');
 const { Client } = require('pg');
+const moment = require('moment');
+
 // const config = require('../config');
 const API = require('../helpers/axiosApi');
 // const { ErrorHandler } = require('../helpers/errorhandler');
@@ -252,7 +254,7 @@ const fetchStocks = async () => {
 		const client = new Client();
 		await client.connect();
 		const query = `SELECT * FROM stocks`;
-		// const query = `SELECT * FROM stocks WHERE id > 150`;
+		// const query = `SELECT * FROM stocks WHERE id > 600`;
 		const result = await client.query(query);
 		await client.end();
 		// console.log("==> ", result.rows);
@@ -263,11 +265,12 @@ const fetchStocks = async () => {
 	}
 };
 
-const checkNextIteration = async (index, stocksLength, browser) => {
+const checkNextIteration = async (index, stocksLength, browser, batchId) => {
 	try {
 		// console.log(index + " === " + stocksLength);
 		if (index === stocksLength - 1) {
 			console.log("--- COMPLETED ---");
+			await setBatchStatus(batchId, 'completed');
 			await browser.close();
 		}
 	} catch (error) {
@@ -319,11 +322,13 @@ const logScriptBatch = async () => {
  * @param {Number} batchId 
  * @param {String} status 
  */
-const setBatchStatus = async (batchId, status) => {
+const setBatchStatus = async (batchId, status, message) => {
 	try {
+		message = message || '';
 		const query = `UPDATE script_batch
-						SET status = '` + status + `'
+						SET status = '` + status + `', message = '` + message +`', completed_at = '` + moment().format('YYYY-MM-DD HH:mm:ss') +`' 
 						WHERE id = ` + batchId;
+		// console.log(query);
 		const client = new Client();
 		await client.connect();
 		const result = await client.query(query);
@@ -344,16 +349,22 @@ const scrapItems = async (req, res, next) => {
 		// if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
 
 		const batchId = await logScriptBatch();
-		if (!batchId) { return res.json({ success: false, message: 'Error in initiating script' }); }
+		// const batchId = 1;
+		// await setBatchStatus(batchId, 'completed');
 		// return res.json({ success: false, message: 'Test!!', batchId });
+
+		if (!batchId) { return res.json({ success: false, message: 'Error in initiating script' }); }
 		const stocks = await fetchStocks();
 		if (!stocks || !stocks.length) {
-			await setBatchStatus(batchId, 'completed');
+			await setBatchStatus(batchId, 'errored', 'No stocks found.');
 			return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STOCKS FROM POLYGON FIRST.' });
 		}
 		// console.log(stocks); return res.json({ success: true, message: 'TEST' });;
 		const userId = await fetchUser(process.env.USERNAME);
-		if (!userId) { return res.json({ success: true, message: 'USER NOT FOUND' }); }
+		if (!userId) {
+			await setBatchStatus(batchId, 'errored', 'User not found.');
+			return res.json({ success: true, message: 'USER NOT FOUND' });
+		}
 
 		if (stocks.length) {
 			res.json({ success: true, message: 'Scrapping have started in backgroud! Please wait.' });
@@ -376,7 +387,7 @@ const scrapItems = async (req, res, next) => {
 				await page.waitFor(4000);
 
 				const stocksData = await API.get('v1/last/stocks/' + row.ticker + '?apiKey=' + process.env.KEY);
-				console.log(stocksData.data);
+				// console.log(stocksData.data);
 				const currentPrice = (stocksData.data && stocksData.data.last && stocksData.data.last.price) ? stocksData.data.last.price : 0;
 
 				let dropDownElement = await page.$('table.ACDropDownStyle');
@@ -404,7 +415,7 @@ const scrapItems = async (req, res, next) => {
 							await browser.close();
 							await page.waitFor(2000);
 						}
-						checkNextIteration(i, stocks.length, browser);
+						checkNextIteration(i, stocks.length, browser, batchId);
 						// data.push(rowData);
 						continue;
 					}
@@ -453,7 +464,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
-							checkNextIteration(i, stocks.length, browser);
+							checkNextIteration(i, stocks.length, browser, batchId);
 							continue;
 						}
 					}
@@ -461,7 +472,6 @@ const scrapItems = async (req, res, next) => {
 					const investmentNameHandle = await page.$('span.sal-mip-quote__investment-name');
 					let investmentName = await page.evaluate(span => span.innerHTML, investmentNameHandle);
 					investmentName  = remove_invalid_characters(investmentName);
-
 
 					// await page.waitFor(1000);
 					let stockElement = await page.$('span.sal-mip-quote__symbol');
@@ -490,7 +500,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
-							checkNextIteration(i, stocks.length, browser);
+							checkNextIteration(i, stocks.length, browser, batchId);
 							continue;
 						}
 					}
@@ -564,7 +574,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
-							checkNextIteration(i, stocks.length, browser);
+							checkNextIteration(i, stocks.length, browser, batchId);
 							continue;
 						}
 					}
@@ -599,7 +609,7 @@ const scrapItems = async (req, res, next) => {
 								await browser.close();
 								await page.waitFor(2000);
 							}
-							checkNextIteration(i, stocks.length, browser);
+							checkNextIteration(i, stocks.length, browser, batchId);
 							continue;
 						}
 					}
@@ -652,17 +662,21 @@ const scrapItems = async (req, res, next) => {
 				// console.log(i + " === " + stocks.length);
 				if (i === stocks.length - 1) {
 					console.log("--- COMPLETED ---");
+					await setBatchStatus(batchId, 'completed');					
 					await browser.close();
 				}
 			}
 		} else {
 			if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
+			await setBatchStatus(batchId, 'errored', 'No stocks found');
 			console.log("NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.");
 		// return res.json({ success: true, message: 'NO STOCKS FOUND. PLEASE FETCH THE STCOK FROM POLYGON FIRST.' });
 		}	
 		// await browser.close();
 	} catch (error) {
 		if (browser) { try { await browser.close(); } catch (error) { console.log("NO BROWSER") } }
+		const msg = (error && error.message) ? error.message : 'Some error occured';
+		await setBatchStatus(batchId, 'errored', msg);
 		console.log("ERROR : ", error);
 		// next(new ErrorHandler(200, config.common_err_msg, error));
 	}

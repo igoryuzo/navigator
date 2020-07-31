@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import clsx from 'clsx';
+import clsx from 'clsx';
 
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableContainer from '@material-ui/core/TableContainer';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import Paper from '@material-ui/core/Paper';
-// import LinearProgress from '@material-ui/core/LinearProgress';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
@@ -16,39 +16,42 @@ import Button from '@material-ui/core/Button';
 import BuildIcon from '@material-ui/icons/Build';
 
 import useStyles from './ScrapperStyle';
-// import useCommonStyles from '../../common/style';
+import useCommonStyles from '../../common/style';
 import API from '../../axios/axiosApi';
+import { formatDate, formatUnderscore } from '../../utils/formatter';
 // import { formatDate, formatCurrency, formatUnixDate, formatUnderscore } from '../../utils/formatter';
 
 
 const Scrapper = (props) => {
 	const classes = useStyles();
-	// const commonClasses = useCommonStyles();
+	const commonClasses = useCommonStyles();
 	const [loading, setLoading] = useState(false);
-	// const [subscription, setSubscription] = useState([]);
+	const [scriptBatches, setScriptBatches] = useState([]);
 	const [snack, setSnack] = useState({ open: false, message: '' });
-	const [message, setMessage] = useState('');
+	const [message, setMessage] = useState();
+	const [scriptStarted, setScriptStarted] = useState(false);
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
-		/* const fetchEvaluatedData = async () => {
+		const fetchScriptBatches = async () => {
 			setLoading(true);
 			try {
-				const response = await API.get('evaluate');
+				const response = await API.get('batches');
 				if (response.data.success) {
 					// console.log("videos data ==> ",response.data.data);
-					setRecords(response.data.data.rows);
+					setScriptBatches(response.data.data.batches);
 					// setTotalRecords(response.data.data.count);
 				} else {
 					console.log("response ==> ",response.data);
 				}
 				setLoading(false);
 			} catch (error) {
-				console.log("ERROR in fetchEvaluatedData : ", error);
+				console.log("ERROR in fetchScriptBatches : ", error);
 				setLoading(false);
 			}
 		};
-		fetchEvaluatedData(); */
-	}, []);
+		fetchScriptBatches();
+	}, [refresh]);
 
 	const startScrapping = async () => {
 		try {
@@ -59,6 +62,8 @@ const Scrapper = (props) => {
 			if (response.data.success) {
 				setMessage(response.data.message);
 				handleSnackToogle(response.data.message);
+				setRefresh(refresh => !refresh);
+				setScriptStarted(true);
 			} else {
 				let msg = (response.data && response.data.message) ? response.data.message : 'Something went wrong.';
 				handleSnackToogle(msg);
@@ -73,7 +78,6 @@ const Scrapper = (props) => {
 
 	const gotoEvaluation = () => {
 		props.history.push('/evaluation');
-
 	};
 
 
@@ -95,45 +99,49 @@ const Scrapper = (props) => {
 				</div>
 			</div>
 			<div className={classes.content}>
-				<Button color="primary" variant="contained" disabled={loading} onClick={startScrapping}>Start Scrapping</Button>
-				{message ? (
-					<div className={classes.scrapMessage}>
-						<Typography variant="h4">{message}</Typography>
-						<Button color="primary" onClick={gotoEvaluation} className={classes.gotoBtn}>Go to evaluated results</Button>
-					</div>
-				) : null}
+				<div className={classes.scrapContainer}>
+					<Button color="primary" variant="contained" disabled={loading || scriptStarted} onClick={startScrapping}>Start Scrapping</Button>
+					{message ? (
+						<div className={classes.scrapMessage}>
+							<Typography variant="h4">{message}</Typography>
+							<Button color="primary" onClick={gotoEvaluation} className={classes.gotoBtn}>Go to evaluated results</Button>
+						</div>
+					) : null}
+				</div>
 				
-				{/* <Paper className={clsx(classes.paper, commonClasses.paperContainer)}>
+				<Paper className={clsx(classes.paper, commonClasses.paperContainer)}>
 					{ loading ? <LinearProgress className={commonClasses.progressBar} /> : null }
 					<TableContainer>
 						<Table>
 							<TableHead>
 								<TableRow>
-									<TableCell>Plan</TableCell>
-									<TableCell>Starting Date</TableCell>
-									<TableCell>Next Billing Date</TableCell>
+									<TableCell>Batch ID</TableCell>
+									<TableCell>Started At</TableCell>
+									<TableCell>Completed At</TableCell>
 									<TableCell>Status</TableCell>
+									<TableCell>Message</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
-							{ subscription.length === 0 ? (
+							{ scriptBatches.length === 0 ? (
 								<TableRow>
 									<TableCell colSpan={4}>No subscription found</TableCell>
 								</TableRow>
 							) : null}
 							
-							{ subscription.map((row, index) => (
-								<TableRow hover>
-									<TableCell>{formatUnderscore(subscription.stripe_plan_name)}</TableCell>
-									<TableCell>{formatUnixDate(subscription.created_at)}</TableCell>
-									<TableCell>{subscription.next_billable_date ? formatUnixDate(subscription.next_billable_date) : '-'}</TableCell>
-									<TableCell>{subscription.subscription_status ? formatUnderscore(subscription.subscription_status) : "-"}</TableCell>
+							{ scriptBatches.map((batch, index) => (
+								<TableRow hover key={index}>
+									<TableCell>{'#' + batch.id}</TableCell>
+									<TableCell>{batch.created_at ? formatDate(batch.created_at) : '-'}</TableCell>
+									<TableCell>{batch.completed_at ? formatDate(batch.completed_at) : "-"}</TableCell>
+									<TableCell>{formatUnderscore(batch.status)}</TableCell>
+									<TableCell>{batch.message ? batch.message : "-"}</TableCell>
 								</TableRow>
 							)) }
 							</TableBody>
 						</Table>
 					</TableContainer>
-				</Paper> */}
+				</Paper>
 			</div>
 
 			<Snackbar

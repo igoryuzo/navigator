@@ -54,11 +54,19 @@ export default makeStyles(theme => ({
 	rowHover: {
 		cursor: 'pointer',
 	},
-	scrapMessage: {
+	scrapContainer: { 
 		display: 'flex',
-		flexDirection: 'row',
+		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
+		paddingBottom: theme.spacing(4),
+	},
+	scrapMessage: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: theme.spacing(2),
 	},
 	gotoBtn: {
 		marginLeft: theme.spacing(1),
