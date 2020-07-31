@@ -13,13 +13,13 @@ import {
 } from './screens';
 
 const Routes = () => {
-	let path = '/evaluation';
+	let path = '/investments';
 	return (
 		<Router history={history}>
 			<Switch>
 				<Redirect exact from="/" to={path} />
 				<UnauthenticatedRoute exact path="/login" component={Login} />
-				<AuthenticatedRoute exact path="/evaluation" component={Evaluation} />
+				<AuthenticatedRoute exact path="/investments" component={Evaluation} />
 				<AuthenticatedRoute exact path="/scrapper" component={Scrapper} />
 				<Route path="/not-found" component={NotFoundView} />
 				<Redirect to="/not-found" />

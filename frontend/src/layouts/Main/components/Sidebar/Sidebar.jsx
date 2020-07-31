@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 
-import PageviewIcon from '@material-ui/icons/Pageview';
 import BuildIcon from '@material-ui/icons/Build';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 import { Profile, SidebarNav } from './components';
 
@@ -39,9 +39,9 @@ const Sidebar = props => {
 
 	let pages = [
 		{
-			title: 'Evaluation',
-			href: '/evaluation',
-			icon: <PageviewIcon />
+			title: 'Investments',
+			href: '/investments',
+			icon: <MonetizationOnIcon />
 		},
 		{
 			title: 'Scrapper',

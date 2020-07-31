@@ -1,0 +1,87 @@
+.valuebox {
+	background: #f7dade;
+	color: red;
+	padding: 1px 20px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+.card {
+	border-color: #e8f2ff;
+	border-radius: 15px;
+	box-shadow: 0 0 15px #e8f2ff;
+}
+.card small {
+	color: #b6b6b6;
+}
+.card p {
+	color: #4f4f4f;
+}
+.fw-600{
+	font-weight: 600;
+}
+/* .header-row{background: #f2f5f7;
+	color:#a1a1a3;
+	font-size: 13px;
+} */
+.header-row{
+	background: #e1e4e6;
+	color:#999999;
+	font-size: 13px;
+	border-radius: 5px;
+}
+/* .header-row{background: #b8b8b8;
+	color:#fff;
+	font-size: 13px;
+	 font-weight: bold;
+} */
+.header-row .col {
+	border-right: 1px solid #fff;
+}
+.sorter .col{
+	border: 1px solid #e8f2ff;
+	border-top-color: rgb(232, 242, 255);
+	border-right-color: rgb(232, 242, 255);
+	border-bottom-color: rgb(232, 242, 255);
+	border-left-color: rgb(232, 242, 255);
+	border-radius: 5px;
+	border-color:#e8f2ff;
+	box-shadow: 0 0 15px #e8f2ff;
+}
+.sorter span{
+	cursor: pointer;
+}
+h3{
+	color: #284d94;
+}
+.card-row { 
+	display: flex;
+	align-items: center;
+	min-height: 50px;
+}
+.cell-logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cell-logo .logo {
+	min-height: 40px;
+}
+.cell-logo-mobile {
+	display: flex;
+	align-items: center;
+}
+.cell-logo-mobile .col-name {
+	padding-left: 10px;
+}
+.pointer {
+	cursor: pointer;
+}
+.no-records {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.price-value {
+	padding-left: 4px;
+}

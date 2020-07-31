@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-// import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-// import Checkbox from '@material-ui/core/Checkbox';
-import LinearProgress from '@material-ui/core/LinearProgress';
+// import Table from '@material-ui/core/Table';
+// import TableBody from '@material-ui/core/TableBody';
+// import TableCell from '@material-ui/core/TableCell';
+// import TableContainer from '@material-ui/core/TableContainer';
+// import TableRow from '@material-ui/core/TableRow';
+// import Paper from '@material-ui/core/Paper';
+// import LinearProgress from '@material-ui/core/LinearProgress';
+// import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import Toolbar from '@material-ui/core/Toolbar';
+// import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
-import PageviewIcon from '@material-ui/icons/Pageview';
+// import PageviewIcon from '@material-ui/icons/Pageview';
 
 import useStyles from './EvaluationStyle';
-import useCommonStyles from '../../common/style';
+// import useCommonStyles from '../../common/style';
 import useDebounce from '../../hooks/useDebounce';
 // import EnhancedTableToolbar from '../../components/EnhancedTableToolbar';
-import EnhancedTableHead from '../../components/EnhancedTableHead';
+// import EnhancedTableHead from '../../components/EnhancedTableHead';
 import API from '../../axios/axiosApi';
 import { formatDate, formatCurrency } from '../../utils/formatter';
 
+import './Evaluation.css';
 
-const headCells = [
+/* const headCells = [
 	{ key: 'id', numeric: true, disablePadding: false, label: 'ID', sortable: false },
 	{ key: 'stock_symbol', numeric: false, disablePadding: false, label: 'Stock Symbol', sortable: false },
 	{ key: 'stock_name', numeric: false, disablePadding: false, label: 'Stock Name', sortable: false },
@@ -34,13 +34,13 @@ const headCells = [
 	{ key: 'current_value', numeric: true, disablePadding: false, label: 'Current Value', sortable: false },
 	{ key: 'percentage', numeric: true, disablePadding: false, label: 'Percentage', sortable: true },
 	{ key: 'created_at', numeric: false, disablePadding: false, label: 'Created At', sortable: false },
-];
+]; */
 
 
 const Evaluation = (props) => {
 	const classes = useStyles();
-	const commonClasses = useCommonStyles();
-	const [loading, setLoading] = useState(false);
+	// const commonClasses = useCommonStyles();
+	// const [loading, setLoading] = useState(false);
 	// const [search, setSearch] = useState('');
 	const [search] = useState('');
 	const [records, setRecords] = useState([]);
@@ -60,7 +60,7 @@ const Evaluation = (props) => {
 
 	useEffect(() => {
 		const fetchEvaluatedData = async () => {
-			setLoading(true);
+			// setLoading(true);
 			try {
 				let postData = {
 					order,
@@ -78,10 +78,10 @@ const Evaluation = (props) => {
 				} else {
 					console.log("response ==> ",response.data);
 				}
-				setLoading(false);
+				// setLoading(false);
 			} catch (error) {
 				console.log("ERROR in fetchEvaluatedData : ", error);
-				setLoading(false);
+				// setLoading(false);
 			}
 		};
 		fetchEvaluatedData();
@@ -102,7 +102,7 @@ const Evaluation = (props) => {
 	 * @param {*} event 
 	 * @param {*} property 
 	 */
-	const handleRequestSort = (event, property) => {
+	const handleRequestSort = (property) => {
 		const isAsc = orderBy === property && order === 'asc';
 		setOrder(isAsc ? 'desc' : 'asc');
 		setOrderBy(property);
@@ -113,13 +113,13 @@ const Evaluation = (props) => {
 	 * 
 	 * @param {*} event 
 	 */
-	const handleSelectAll = event => {
+	/* const handleSelectAll = event => {
 		let newSelected = [];
 		if (event.target.checked) {
 			newSelected = records.map((item, index) => index);
 		}
 		setSelected(newSelected);
-	};
+	}; */
 
 	/**
 	 * Toogle checkbox selection
@@ -161,29 +161,6 @@ const Evaluation = (props) => {
 		setPage(0);
 	}; */
 
-	/* const handleDelete = async () => {
-		if (selected.length > 0) {
-			let deleteIds = selected.map(item => records[item].id);
-			console.log("deleteIds : ",deleteIds);
-			try {
-				setLoading(true);
-				const response = await API.post('delete_videos', { deleteIds });
-				if (response.data.success) {
-					// console.log("response asdsadsadsa ==> ",response.data);
-					handleSnackToogle(response.data.message)
-					setSelected([]);
-					setRefreshRecords(refreshRecords => (!refreshRecords));
-				} else {
-					console.log("response ==> ",response.data);
-					handleSnackToogle(response.data.message)
-				}
-			setLoading(false);
-			} catch (error) {
-				console.log("ERROR in handleDelete : ", error);
-				setLoading(false);
-			}
-		}
-	}; */
 
 	/* const openAddUser = () => {
 		props.history.push('/users/add');
@@ -203,101 +180,158 @@ const Evaluation = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<div className={classes.pageHeader} >
-				<div className={classes.row}>
-					<div className={classes.pageTitle}>
-						<PageviewIcon fontSize="large" className={classes.titleIcon} />
-						<Typography variant="h4">Evaluation</Typography>
+			<div className="container">
+				<div className="row mt-5 text-center">
+					<div className="col">
+						<h3>INVESTMENTS</h3>
 					</div>
-					{/* <Button color="primary" variant="contained" onClick={openAddUser}>Add User</Button> */}
 				</div>
 			</div>
-			<div className={classes.content}>
-				<Paper className={clsx(classes.paper, commonClasses.paperContainer)}>
-					{ loading ? <LinearProgress className={commonClasses.progressBar} /> : null }
-					{/* <EnhancedTableToolbar
-						numSelected={selected.length}
-						onSearchChange={handleSearch}
-						handleDelete={() => {}}
-						searchComment="Search Value"
-					/> */}
-					<Toolbar className={classes.toolbar}>
-						<Typography color="textSecondary" variant="subtitle2">
-							Last synced at: { latestBatch.completed_at ? formatDate(latestBatch.completed_at) : '....' }
-						</Typography>
-					</Toolbar>
-					<TableContainer>
-						<Table className={classes.table} size='medium'>
-							<EnhancedTableHead
-								numSelected={selected.length}
-								order={order}
-								orderBy={orderBy}
-								onSelectAll={handleSelectAll}
-								onRequestSort={handleRequestSort}
-								rowCount={records.length}
-								headCells={headCells}
-								haveMultiSelect={false}
-							/>
-							<TableBody>
-							{ records.length === 0 ? (
-								<TableRow>
-									<TableCell colSpan={headCells.length}>No records found</TableCell>
-								</TableRow> ): null }
-							{ records.map((row, index) => {
-								const labelId = `enhanced-table-checkbox-${index}`;
-								return (
-									<TableRow
-										hover
-										role="checkbox"
-										aria-checked={selected.includes(index)}
-										tabIndex={-1}
-										key={index}
-										selected={selected.includes(index)}
-										// onClick={() => openDetailPage(index)}
-										// className={classes.rowHover}
-									>
-										{/* <TableCell padding="checkbox">
-											<Checkbox
-												checked={selected.includes(index)}
-												onClick={event => event.stopPropagation()}
-												onChange={event => handleCheck(event, index)}
-											/>
-										</TableCell> */}
-										<TableCell component="th" id={labelId} scope="row" align="right">
-											{row.id}
-										</TableCell>
-										<TableCell>
-											{row.stock_symbol}
-										</TableCell>
-										<TableCell>{row.stock_name ? row.stock_name : '-'}</TableCell>
-										<TableCell align="right">{row.fair_value}</TableCell>
-										<TableCell align="right">{row.current_value}</TableCell>
-										<TableCell align="right">{row.percentage ? formatCurrency(row.percentage) : '-' }</TableCell>
-										<TableCell>{formatDate(row.created_at)}</TableCell>
-										{/* <TableCell align="right">{row.label}</TableCell> */}
-									</TableRow>
-								);
-							}) }
-							{/* emptyRows > 0 && (
-								<TableRow style={{ height:  53 * emptyRows }}>
-									<TableCell colSpan={6} />
-								</TableRow>
-							) */}
-							</TableBody>
-						</Table>
-					</TableContainer>
-					{/* <TablePagination
-						rowsPerPageOptions={[5, 10, 25]}
-						component="div"
-						count={totalRecords}
-						rowsPerPage={pageSize}
-						page={page}
-						onChangePage={handleChangePage}
-						onChangeRowsPerPage={handleChangeRowsPerPage}
-					/> */}
-				</Paper>
-			</div>
 
+			
+			{/* DESKTOP VIEW */}
+			<div className="container d-none d-md-block">
+				<Typography color="textSecondary" variant="subtitle2">
+					Last synced at: { latestBatch.completed_at ? formatDate(latestBatch.completed_at) : '....' }
+				</Typography>
+				<div className="row mt-5 mb-3 header-row mx-0 text-center">
+					<div className="col py-2">
+						<i className="fa fa-search"></i>
+					</div>
+					<div className="col py-2">
+						<p className="m-0">Ticker</p>
+					</div>
+					<div className="col py-2">
+						<p className="m-0">Company name</p>
+					</div>
+					<div className="col py-2">
+						<p className="m-0">Current price</p>
+					</div>
+					<div className="col py-2">
+						<p className="m-0">Target price</p>
+					</div>
+					<div className="col py-2 pointer" onClick={() => handleRequestSort('percentage')}>
+						<p className="m-0">Undervalued by % &nbsp;
+						{order === 'asc' ? (
+							<i className="fa fa-sort-amount-asc"></i>
+						) : (
+							<i className="fa fa-sort-amount-desc"></i>
+						)}
+						</p>
+					</div>
+				</div>
+				{ records.length === 0 ? (
+					<div className="row detail-row mt-3 text-center">
+						<div className="col">
+							<div className="card">
+								<div className="row">
+									<div className="col p-2">
+										<p className="mb-0 mt-2"><strong>No records found</strong></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				): null }
+				{ records.map((row, index) => (
+					<div className="row detail-row text-center" key={index}>
+						<div className="col">
+							<div className="card">
+								<div className="row card-row">
+									<div className="col p-2 cell-logo">
+										<Avatar variant="square" className="logo" src={row.logo} alt={row.stock_symbol} />
+									</div>
+									<div className="col p-2">
+										<Typography variant="h5">{row.stock_symbol}</Typography>
+										{/* <p className="mb-0 mt-2"><strong className="fw-600">{row.stock_symbol}</strong></p> */}
+									</div>
+									<div className="col p-2">
+										<Typography color="textSecondary"><small>{row.stock_name ? row.stock_name : '-'}</small></Typography>
+										{/* <p className="mb-0 mt-2"><small>Apple Inc.</small></p> */}
+									</div>
+									<div className="col p-2">
+										<Typography variant="h5">${formatCurrency(row.fair_value)}</Typography>
+										{/* <p className="mb-0 mt-2"><strong className="fw-600">$380</strong></p> */}
+									</div>
+									<div className="col p-2">
+										<Typography variant="h5">${formatCurrency(row.current_value)}</Typography>
+										{/* <p className="mb-0 mt-2"><strong>$500</strong></p> */}
+									</div>
+									<div className="col p-2">
+										<span className="valuebox">
+											{row.percentage ? formatCurrency(row.percentage) + '%' : '-' }
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				)) }
+			</div>
+			{/* DESKTOP VIEW */}
+
+			{/* MOBILE VIEW */}
+			<div className="container d-sm-block d-md-none">
+				<Typography color="textSecondary" variant="subtitle2">
+					Last synced at: { latestBatch.completed_at ? formatDate(latestBatch.completed_at) : '....' }
+				</Typography>
+				<div className="row mt-3 mx-0 sorter">
+					<div className="col p-2 pointer" onClick={() => handleRequestSort('percentage')}>						
+						{order === 'asc' ? (
+							<i className="fa fa-sort-amount-asc"></i>
+						) : (
+							<i className="fa fa-sort-amount-desc"></i>
+						)}
+						<span> Percentage Sort</span>
+					</div>
+				</div>
+				<div className="row mt-3 d-xs-block d-block d-lg-flex">
+					{ records.length === 0 ? (
+						<div className="col">
+							<div className="card p-3 mb-4 no-records">
+								<Typography variant="h5">No records found</Typography>
+							</div>
+						</div>
+					): null }
+					{ records.map((row, index) => (
+						<div className="col" key={index}>
+							<div className="card p-3 mb-4">
+								<div className="row">
+									<div className="col cell-logo-mobile">
+										<Avatar variant="square" className="logo" src={row.logo} alt={row.stock_symbol} />
+										<div className="col-name">
+											<Typography variant="h5">{row.stock_symbol}</Typography>
+											<Typography color="textSecondary"><small>{row.stock_name ? row.stock_name : '-'}</small></Typography>
+										</div>
+									</div>
+									<div className="col text-right">
+										<p className="mb-0"><small>Undervalued</small></p>
+										<p className="mb-0"><span className="valuebox">
+											{row.percentage ? formatCurrency(row.percentage) + '%' : '-' }	
+										</span></p>
+									</div>
+								</div>
+								<div className="row mt-2">
+									<div className="col">
+										<p className="mb-0">
+											<small>Current Price </small>
+											<strong className="fw-600 price-value">${formatCurrency(row.fair_value)}</strong>
+										</p>
+									</div>
+									<div className="col text-right">
+										<p className="mb-0">
+											<small>Target Price</small>
+											<strong className="fw-600 price-value">${formatCurrency(row.current_value)}</strong>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					)) }
+				</div>
+				{/* MOBILE VIEW */}
+			</div>
+	
 			<Snackbar
 				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 				open={snack.open}

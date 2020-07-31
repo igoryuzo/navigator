@@ -253,8 +253,8 @@ const fetchStocks = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		const query = `SELECT * FROM stocks`;
-		// const query = `SELECT * FROM stocks WHERE id > 600`;
+		// const query = `SELECT * FROM stocks`;
+		const query = `SELECT * FROM stocks WHERE id > 553`;
 		const result = await client.query(query);
 		await client.end();
 		// console.log("==> ", result.rows);
@@ -348,8 +348,8 @@ const scrapItems = async (req, res, next) => {
 		// const ifRunning = await checkIfScrappingRunning();
 		// if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
 
-		const batchId = await logScriptBatch();
-		// const batchId = 1;
+		// var batchId = await logScriptBatch();
+		var batchId = 1;
 		// await setBatchStatus(batchId, 'completed');
 		// return res.json({ success: false, message: 'Test!!', batchId });
 

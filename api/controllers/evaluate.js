@@ -1,7 +1,5 @@
 const { Client } = require('pg');
-const moment = require('moment');
-
-
+// const moment = require('moment');
 
 /**
  * Fetch stocks from db
@@ -13,7 +11,9 @@ const fetchStocks = async (request, batchId) => {
 	try {
 		const client = new Client();
 		await client.connect();
-		let query = `SELECT *, (((fair_value - current_value) / ((fair_value + current_value) / 2) ) * 100) AS percentage FROM records
+		let query = `SELECT records.*, (((fair_value - current_value) / ((fair_value + current_value) / 2) ) * 100) AS percentage, stocks.logo
+						FROM records
+						INNER JOIN stocks ON stocks.id = records.stock_id
 						WHERE batch_id = '` + batchId + `'
 						AND fair_value > 0
 						AND current_value > 0
@@ -97,7 +97,7 @@ const fetchAllBatch = async () => {
 		return result && result.rows ? result.rows : [];
 	} catch (error) {
 		console.log("ERROR in fetchLatestBatch : ", error)	;
-		return 0;
+		return [];
 	}	
 };
 

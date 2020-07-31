@@ -103,7 +103,7 @@ const Login = props => {
 			setLoading(false);
 			if (response.data.success) {
 				// const redirectUrl = (response.data.data && response.data.data.is_admin === '1') ? '/users' : '/dashboard';
-				history.push('/evaluation');
+				history.push('/investments');
 			} else {
 				const errorMsg = response.data.message || 'Invalid Credentials';
 				setErrorMessage(errorMsg);

@@ -125,7 +125,7 @@ const Scrapper = (props) => {
 							<TableBody>
 							{ scriptBatches.length === 0 ? (
 								<TableRow>
-									<TableCell colSpan={4}>No subscription found</TableCell>
+									<TableCell colSpan={4}>No script batches found</TableCell>
 								</TableRow>
 							) : null}
 							
