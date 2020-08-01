@@ -8,13 +8,13 @@ import Toolbar  from '@material-ui/core/Toolbar';
 // import Badge  from '@material-ui/core/Badge';
 import Hidden  from '@material-ui/core/Hidden';
 import IconButton  from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+// import Tooltip from '@material-ui/core/Tooltip';
 
 import MenuIcon from '@material-ui/icons/Menu';
 // import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+// import InputIcon from '@material-ui/icons/Input';
 
-import AuthService from '../../../../services/authService';
+// import AuthService from '../../../../services/authService';
 
 const useStyles = makeStyles(theme => ({
 	flexGrow: {
@@ -33,9 +33,9 @@ const Topbar = props => {
 
 	const classes = useStyles();
 
-	const logoutUser = () => {
+	/* const logoutUser = () => {
 		AuthService.logout();
-	};
+	}; */
 
 	return (
 		<AppBar
@@ -52,7 +52,7 @@ const Topbar = props => {
 				</RouterLink>
 				<div className={classes.flexGrow} />
 				{/* <Hidden mdDown> */}
-					<Tooltip title="Logout">
+					{/* <Tooltip title="Logout">
 						<IconButton
 							className={classes.signOutButton}
 							color="inherit"
@@ -60,7 +60,7 @@ const Topbar = props => {
 						>
 							<InputIcon />
 						</IconButton>
-					</Tooltip>
+					</Tooltip> */}
 				{/* </Hidden> */}
 				<Hidden lgUp>
 					<IconButton

@@ -348,10 +348,8 @@ const scrapItems = async (req, res, next) => {
 		// const ifRunning = await checkIfScrappingRunning();
 		// if (ifRunning && ifRunning.length) { return res.json({ success: true, message: 'Script already running', ifRunning }); }
 
-		// var batchId = await logScriptBatch();
-		var batchId = 1;
-		// await setBatchStatus(batchId, 'completed');
-		// return res.json({ success: false, message: 'Test!!', batchId });
+		var batchId = await logScriptBatch();
+		// var batchId = 1;
 
 		if (!batchId) { return res.json({ success: false, message: 'Error in initiating script' }); }
 		const stocks = await fetchStocks();

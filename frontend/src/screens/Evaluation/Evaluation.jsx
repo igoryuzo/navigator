@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 // import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // import PageviewIcon from '@material-ui/icons/Pageview';
 
 import useStyles from './EvaluationStyle';
@@ -40,7 +41,7 @@ import './Evaluation.css';
 const Evaluation = (props) => {
 	const classes = useStyles();
 	// const commonClasses = useCommonStyles();
-	// const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	// const [search, setSearch] = useState('');
 	const [search] = useState('');
 	const [records, setRecords] = useState([]);
@@ -60,7 +61,7 @@ const Evaluation = (props) => {
 
 	useEffect(() => {
 		const fetchEvaluatedData = async () => {
-			// setLoading(true);
+			setLoading(true);
 			try {
 				let postData = {
 					order,
@@ -78,10 +79,10 @@ const Evaluation = (props) => {
 				} else {
 					console.log("response ==> ",response.data);
 				}
-				// setLoading(false);
+				setLoading(false);
 			} catch (error) {
 				console.log("ERROR in fetchEvaluatedData : ", error);
-				// setLoading(false);
+				setLoading(false);
 			}
 		};
 		fetchEvaluatedData();
@@ -339,6 +340,10 @@ const Evaluation = (props) => {
 				message={snack.message}
 				autoHideDuration={2000}
 			/>
+
+		<Backdrop className={classes.backdrop} open={loading} >
+			<CircularProgress color="inherit" />
+		</Backdrop>
 		</div>
 	);
 };

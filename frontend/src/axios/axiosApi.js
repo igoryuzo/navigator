@@ -10,11 +10,11 @@ const API = axios.create({
 
 
 API.interceptors.request.use((config) => {
-	const unrestrictedUrls = ['login', 'refresh_token'];
-	if (!unrestrictedUrls.includes(config.url)) {
-		authService.checkToken();
-	}
-	config.headers['Authorization'] = `Bearer ${localStorage.getItem("access_token")}`;
+	// const unrestrictedUrls = ['login', 'refresh_token'];
+	// if (!unrestrictedUrls.includes(config.url)) {
+	// 	authService.checkToken();
+	// }
+	// config.headers['Authorization'] = `Bearer ${localStorage.getItem("access_token")}`;
 	return config;
 }, (error) => {
 	// Do something with request error

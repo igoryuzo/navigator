@@ -17,7 +17,7 @@ function main() {
 	app.use(express.urlencoded({ limit: '20mb', extended: false }));
 
 	app.use(corsMiddleware.corsEnable);
-    app.use(auth.checkToken);
+    // app.use(auth.checkToken);
 
 	app.use('/', routes); // Common routing file
 

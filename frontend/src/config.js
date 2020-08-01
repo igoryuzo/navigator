@@ -1,2 +1,1 @@
-export const BASE_API_PATH = "http://localhost:8000"; // 'http://localhost:8000/';  
-export const SERVER_PATH = "http://localhost:8000";
+export const BASE_API_PATH = "https://api.alphathirty.com/"; // 'http://localhost:8000/';   "https://api.alphathirty.com/"

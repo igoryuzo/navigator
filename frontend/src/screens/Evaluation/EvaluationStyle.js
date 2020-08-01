@@ -78,4 +78,8 @@ export default makeStyles(theme => ({
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 	},
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff',
+	},
 }));

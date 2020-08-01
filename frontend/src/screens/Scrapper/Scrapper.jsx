@@ -28,7 +28,7 @@ const Scrapper = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [scriptBatches, setScriptBatches] = useState([]);
 	const [snack, setSnack] = useState({ open: false, message: '' });
-	const [message, setMessage] = useState();
+	const [message, setMessage] = useState('');
 	const [scriptStarted, setScriptStarted] = useState(false);
 	const [refresh, setRefresh] = useState(false);
 
@@ -77,7 +77,7 @@ const Scrapper = (props) => {
 	};
 
 	const gotoEvaluation = () => {
-		props.history.push('/evaluation');
+		props.history.push('/investments');
 	};
 
 
@@ -104,7 +104,7 @@ const Scrapper = (props) => {
 					{message ? (
 						<div className={classes.scrapMessage}>
 							<Typography variant="h4">{message}</Typography>
-							<Button color="primary" onClick={gotoEvaluation} className={classes.gotoBtn}>Go to evaluated results</Button>
+							<Button color="primary" onClick={gotoEvaluation} className={classes.gotoBtn}>Go to investments page</Button>
 						</div>
 					) : null}
 				</div>
