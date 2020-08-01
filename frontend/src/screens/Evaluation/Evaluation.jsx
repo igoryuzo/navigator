@@ -50,7 +50,7 @@ const Evaluation = (props) => {
 
 	const [order, setOrder] = useState('desc');
 	const [orderBy, setOrderBy] = useState('percentage');
-	const [selected, setSelected] = useState([]);
+	// const [selected, setSelected] = useState([]);
 	// const [pageSize, setPageSize] = useState(10);
 	// const [page, setPage] = useState(0);
 	const pageSize = 10, page = 0;
@@ -250,11 +250,11 @@ const Evaluation = (props) => {
 										{/* <p className="mb-0 mt-2"><small>Apple Inc.</small></p> */}
 									</div>
 									<div className="col p-2">
-										<Typography variant="h5">${formatCurrency(row.fair_value)}</Typography>
+										<Typography variant="h5">${formatCurrency(row.current_value)}</Typography>
 										{/* <p className="mb-0 mt-2"><strong className="fw-600">$380</strong></p> */}
 									</div>
 									<div className="col p-2">
-										<Typography variant="h5">${formatCurrency(row.current_value)}</Typography>
+										<Typography variant="h5">${formatCurrency(row.fair_value)}</Typography>
 										{/* <p className="mb-0 mt-2"><strong>$500</strong></p> */}
 									</div>
 									<div className="col p-2">
@@ -315,13 +315,13 @@ const Evaluation = (props) => {
 									<div className="col">
 										<p className="mb-0">
 											<small>Current Price </small>
-											<strong className="fw-600 price-value">${formatCurrency(row.fair_value)}</strong>
+											<strong className="fw-600 price-value">${formatCurrency(row.current_value)}</strong>
 										</p>
 									</div>
 									<div className="col text-right">
 										<p className="mb-0">
 											<small>Target Price</small>
-											<strong className="fw-600 price-value">${formatCurrency(row.current_value)}</strong>
+											<strong className="fw-600 price-value">${formatCurrency(row.fair_value)}</strong>
 										</p>
 									</div>
 								</div>

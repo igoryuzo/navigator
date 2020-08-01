@@ -242,194 +242,608 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 COPY public.records (id, user_id, batch_id, stock_id, stock_symbol, stock_name, fair_value, current_value, investment_name, star_rating, analyst_rating, comment, created_at) FROM stdin;
-1	1	1	1	A                   	Agilent Technologies Inc	69	97.0999999999999943	-	-	-		2020-07-30 15:56:40.792072
-2	1	1	2	AA                  	Alcoa Corp	15	13.1699999999999999	-	-	-		2020-07-30 15:56:59.025473
-3	1	1	3	WADV                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 15:57:11.671752
-4	1	1	4	WING                	Wingstop Inc	108.200000000000003	155.25	-	-	-		2020-07-30 15:57:36.136953
-5	1	1	5	WINH                	Winha International Group Ltd	0.270000000000000018	0	-	-	-		2020-07-30 15:57:52.670624
-6	1	1	6	WINMQ               	Windstream Holdings Inc	0	0	-	-	-		2020-07-30 15:58:09.065083
-7	1	1	7	WINR                	Simplicity Esports and Gaming Co Ordinary Shares	1.31000000000000005	0	-	-	-		2020-07-30 15:58:25.991469
-8	1	1	8	WINS                	Wins Finance Holdings Inc	35.240000000000002	28.5199999999999996	-	-	-		2020-07-30 15:58:42.269045
-9	1	1	9	WINT                	Windtree Therapeutics Inc	9.83999999999999986	7.90000000000000036	-	-	-		2020-07-30 15:58:59.581935
-10	1	1	10	WIPKF               	Winpak Ltd	38.509999999999998	0	-	-	-		2020-07-30 15:59:16.027132
-11	1	1	11	WIRE                	Encore Wire Corp	50.9099999999999966	51.0300000000000011	-	-	-		2020-07-30 15:59:32.383001
-12	1	1	12	WIRX                	Wireless Xcessories Group Inc	0.0100000000000000002	0	-	-	-		2020-07-30 15:59:48.856893
-13	1	1	13	WISA                	Summit Wireless Technologies Inc Ordinary Shares	2.72999999999999998	2.20999999999999996	-	-	-		2020-07-30 16:00:05.108153
-14	1	1	14	WISH                	Wright Investors" Service Holdings Inc	0.520000000000000018	0	-	-	-		2020-07-30 16:00:22.138632
-15	1	1	15	WISM                	Wiseman Global Ltd	3.12999999999999989	0	-	-	-		2020-07-30 16:00:38.902643
-16	1	1	16	WISRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:00:51.514267
-17	1	1	17	WIX                 	Wix.com Ltd	195.659999999999997	279	-	-	-		2020-07-30 16:01:07.422472
-18	1	1	18	WIZD                	Wizard Entertainment Inc	1.34000000000000008	0	-	-	-		2020-07-30 16:01:25.569569
-19	1	1	19	WIZP                	Wize Pharma Inc	0.200000000000000011	0	-	-	-		2020-07-30 16:01:42.154884
-20	1	1	20	WJRYF               	West Japan Railway Co	101.25	0	-	-	-		2020-07-30 16:01:58.851397
-21	1	1	21	WJXFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:02:11.225942
-22	1	1	22	WK                  	Workiva Inc Class A	0	55.759999999999998	-	-	-		2020-07-30 16:02:27.704669
-23	1	1	23	WKAPF               	Wijaya Karya (Persero) Tbk	0	0	-	-	-	Fair value not available	2020-07-30 16:02:48.612647
-24	1	1	24	WKCMF               	Wacker Chemie AG	104.310000000000002	0	-	-	-		2020-07-30 16:03:05.096178
-25	1	1	25	WKGBF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:03:17.625952
-26	1	1	26	WKHS                	Workhorse Group Inc	12.5600000000000005	15.75	-	-	-		2020-07-30 16:03:33.955582
-27	1	1	27	WKKHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:03:46.375669
-28	1	1	28	WKLDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:03:58.743212
-29	1	1	29	WKLN                	Walker Lane Exploration Inc	0.100000000000000006	0	-	-	-		2020-07-30 16:04:15.796275
-30	1	1	30	WKPYF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:04:28.401778
-31	1	1	31	WKRCF               	Wacker Neuson SE	22.2300000000000004	0	-	-	-		2020-07-30 16:04:44.678261
-32	1	1	32	WKULF               	Weekend Unlimited Industries Inc	0.110000000000000001	0	-	-	-		2020-07-30 16:05:01.577961
-33	1	1	33	WKYN                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:05:14.891286
-34	1	1	34	WLAB                	White Label Liquid Inc	0.0400000000000000008	0	-	-	-		2020-07-30 16:05:31.229449
-35	1	1	35	WLAN                	Wialan Technologies Inc	0	0	-	-	-		2020-07-30 16:05:48.741084
-36	1	1	36	WLBMF               	Wallbridge Mining Co Ltd	0.650000000000000022	0	-	-	-		2020-07-30 16:06:07.557505
-37	1	1	37	WLCGF               	Welcia Holdings Co Ltd	0	0	-	-	-	Fair value not available	2020-07-30 16:06:28.494537
-38	1	1	38	WLDBF               	WildBrain Ltd	1.37999999999999989	0	-	-	-		2020-07-30 16:06:45.110843
-39	1	1	39	WLDCF               	ICC International Cannabis Corp	0.0400000000000000008	0	-	-	-		2020-07-30 16:07:01.863741
-40	1	1	40	WLDFF               	Wildflower Brands Inc	0.200000000000000011	0	-	-	-		2020-07-30 16:07:18.550463
-41	1	1	41	WLDN                	Willdan Group Inc	29.6400000000000006	25.0100000000000016	-	-	-		2020-07-30 16:07:35.460896
-42	1	1	42	WLFC                	Willis Lease Finance Corp	34.4399999999999977	20.3500000000000014	-	-	-		2020-07-30 16:07:51.70911
-43	1	1	43	WLFFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:08:04.141278
-44	1	1	44	WLGCX               	-	0	0	Ivy Large Cap Growth Fund Class C	3	-		2020-07-30 16:08:49.455695
-45	1	1	45	WLK                 	Westlake Chemical Corp	67.8299999999999983	57.3200000000000003	-	-	-		2020-07-30 16:09:09.00034
-46	1	1	46	WLL                 	Whiting Petroleum Corp	1.90999999999999992	0.839999999999999969	-	-	-		2020-07-30 16:09:29.573546
-47	1	1	47	WLLSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:09:43.12209
-48	1	1	48	WLMIF               	Wilmar International Ltd	3.89999999999999991	0	-	-	-		2020-07-30 16:10:00.950759
-49	1	1	49	WLMS                	Williams Industrial Services Group Inc	1.66999999999999993	0	-	-	-		2020-07-30 16:10:18.814526
-50	1	1	50	WLOLQ               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:10:31.553359
-51	1	1	51	WLRMF               	Aloro Mining Corp	0.0500000000000000028	0	-	-	-		2020-07-30 16:11:30.756531
-52	1	1	52	WLSI                	Wellstar International Inc	0	0	-	-	-		2020-07-30 16:11:49.713771
-53	1	1	53	WLTNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:12:03.164079
-54	1	1	54	WLTW                	Willis Towers Watson PLC	221	210.129999999999995	-	-	-		2020-07-30 16:12:22.621726
-55	1	1	55	WLWHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:12:35.53863
-56	1	1	56	WLYW                	Wally World Media Inc	0	0	-	-	-		2020-07-30 16:12:55.327689
-57	1	1	57	WLYYF               	WELL Health Technologies Corp	2.25	0	-	-	-		2020-07-30 16:13:14.702819
-58	1	1	58	WM                  	Waste Management Inc	81	109.650000000000006	-	-	-		2020-07-30 16:13:34.161513
-59	1	1	59	WMAL                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:13:47.204607
-60	1	1	60	WMB                 	Williams Companies Inc	27	19.7699999999999996	-	-	-		2020-07-30 16:14:08.077782
-61	1	1	61	WMCB                	Williamette Community Bank	9.67999999999999972	0	-	-	-		2020-07-30 16:14:28.250536
-62	1	1	62	WMDH                	WMD Holdings Group Inc	0.0100000000000000002	0	-	-	-		2020-07-30 16:14:48.277161
-63	1	1	63	WMDL                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:15:02.000701
-64	1	1	64	WMELF               	Westmount Energy Ltd	0.23000000000000001	0	-	-	-		2020-07-30 16:15:23.725336
-65	1	1	65	WMG                 	Warner Music Group Corp Ordinary Shares - Class A	26.75	30	-	-	-		2020-07-30 16:15:44.628635
-66	1	1	66	WMGEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:15:57.962895
-67	1	1	67	WMGI                	Wright Medical Group NV	28.1400000000000006	30.0399999999999991	-	-	-		2020-07-30 16:16:21.676004
-68	1	1	68	WMGPF               	Williams Grand Prix Holdings PLC	16.3299999999999983	0	-	-	-		2020-07-30 16:16:41.234475
-69	1	1	69	WMGR                	Wellness Matrix Group Inc	0.0200000000000000004	0	-	-	-		2020-07-30 16:17:00.73638
-70	1	1	70	WMGTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:17:15.067157
-71	1	1	71	WMHH                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:17:30.520831
-72	1	1	72	WMHI                	World Mobile Holdings Inc	0.0500000000000000028	0	-	-	-		2020-07-30 16:17:50.064
-73	1	1	73	WMK                 	Weis Markets Inc	55.8599999999999994	52	-	-	-		2020-07-30 16:18:12.311843
-74	1	1	74	WMLLF               	Wealth Minerals Ltd	0.110000000000000001	0	-	-	-		2020-07-30 16:18:33.705215
-75	1	1	75	WMMVF               	Wal - Mart de Mexico SAB de CV Class V	2.14999999999999991	0	-	-	-		2020-07-30 16:18:53.347586
-76	1	1	76	WMNNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:19:07.570773
-77	1	1	77	WMPN                	William Penn Bancorp Inc	35.2299999999999969	0	-	-	-		2020-07-30 16:19:30.890135
-78	1	1	78	WMRSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:19:44.315949
-79	1	1	79	WMS                 	Advanced Drainage Systems Inc	51.9500000000000028	49.8999999999999986	-	-	-		2020-07-30 16:20:09.367556
-80	1	1	80	WMSI                	Williams Industries Inc	3.37000000000000011	0	-	-	-		2020-07-30 16:20:29.561896
-81	1	1	81	WMT                 	Walmart Inc	111	130.199999999999989	-	-	-		2020-07-30 16:20:50.121941
-82	1	1	82	WMTN                	Westmountain Gold Inc	4.12999999999999989	0	-	-	-		2020-07-30 16:21:10.856096
-83	1	1	83	WMWWF               	West Wits Mining Ltd	0	0	-	-	-		2020-07-30 16:21:30.740548
-84	1	1	84	WNARF               	Western Areas Ltd	2.20999999999999996	0	-	-	-		2020-07-30 16:21:50.924953
-85	1	1	85	WNBD                	Winning Brands Corp	0	0	-	-	-		2020-07-30 16:22:10.698198
-86	1	1	86	WNC                 	Wabash National Corp	16.4499999999999993	13.0199999999999996	-	-	-		2020-07-30 16:22:27.994457
-87	1	1	87	WNCG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:22:40.187385
-88	1	1	88	WNCNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:22:52.7171
-89	1	1	89	WNCP                	Wineco Productions Inc	0	0	-	-	-		2020-07-30 16:23:09.857429
-90	1	1	90	WNDLF               	Wendel Ord	117.359999999999999	0	-	-	-		2020-07-30 16:23:28.576876
-91	1	1	91	WNDW                	SolarWindow Technologies Inc	3.7200000000000002	0	-	-	-		2020-07-30 16:23:45.687038
-92	1	1	92	WNEB                	Western New England Bancorp Inc	7.00999999999999979	5.26999999999999957	-	-	-		2020-07-30 16:24:03.615706
-93	1	1	93	WNGFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:24:17.154153
-94	1	1	94	WNGRF               	George Weston Ltd	88.0600000000000023	0	-	-	-		2020-07-30 16:24:34.940249
-95	1	1	95	WNMLA               	Winmill &amp Co Inc Class A	0.910000000000000031	0	-	-	-		2020-07-30 16:24:53.050308
-96	1	1	96	WNRC                	WENR Corp	0	0	-	-	-		2020-07-30 16:25:10.179241
-97	1	1	97	WNRP                	West Suburban Bancorp Inc	470.420000000000016	0	-	-	-		2020-07-30 16:25:29.456572
-98	1	1	98	WNTR                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:25:41.946775
-99	1	1	99	WNWG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:25:56.845167
-100	1	1	100	WNXDF               	Diebold Nixdorf AG	74.1700000000000017	0	-	-	-		2020-07-30 16:26:17.543508
-101	1	1	101	WOAM                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:26:54.804028
-102	1	1	102	WOBK                	Woodsboro Bk MD Ordinary Shares	0	0	-	-	-	Fair value not available	2020-07-30 16:27:35.754982
-103	1	1	103	WODI                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:27:49.976594
-104	1	1	104	WOFA                	Wisdom Homes of America Inc	0	0	-	-	-		2020-07-30 16:28:10.985794
-105	1	1	105	WOGI                	World Oil Group Inc	0	0	-	-	-		2020-07-30 16:28:31.194946
-106	1	1	106	WOIIF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:28:45.326979
-107	1	1	107	WOLTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:28:58.539453
-108	1	1	108	WOLV                	Wolverine Technologies Corp	0	0	-	-	-		2020-07-30 16:29:25.317972
-109	1	1	109	WOLWF               	Woolworths Group Ltd	0	0	-	-	-	Fair value not available	2020-07-30 16:29:52.708159
-110	1	1	110	WONEF               	WEQ Holdings Inc	0	0	-	-	-		2020-07-30 16:30:12.340126
-111	1	1	111	WOPEF               	Woodside Petroleum Ltd	25.1600000000000001	0	-	-	-		2020-07-30 16:30:35.816621
-112	1	1	112	WOR                 	Worthington Industries Inc	40.8400000000000034	38.1700000000000017	-	-	-		2020-07-30 16:31:00.588058
-113	1	1	113	WORC                	Wake Up Now Inc	0	0	-	-	-		2020-07-30 16:31:24.794676
-114	1	1	114	WORK                	Slack Technologies Inc Class A	20	28.4499999999999993	-	-	-		2020-07-30 16:31:48.723851
-115	1	1	115	WORX                	SCWorx Corp	7.73000000000000043	4.92999999999999972	-	-	-		2020-07-30 16:32:10.451454
-116	1	1	116	WOSCF               	Ferguson PLC	85.3199999999999932	0	-	-	-		2020-07-30 16:32:30.144739
-117	1	1	117	WOSSF               	Water Oasis Group Ltd	0.149999999999999994	0	-	-	-		2020-07-30 16:32:51.377148
-118	1	1	118	WOW                 	WideOpenWest Inc	6.95999999999999996	5.78000000000000025	-	-	-		2020-07-30 16:33:11.842849
-119	1	1	119	WOWI                	Metro One Telecommunications Inc	0.0100000000000000002	0	-	-	-		2020-07-30 16:33:32.815592
-120	1	1	120	WOWMF               	Wow Unlimited Media Inc	0.440000000000000002	0	-	-	-		2020-07-30 16:33:52.964074
-121	1	1	121	WOWU                	WOWI Inc	0.119999999999999996	0	-	-	-		2020-07-30 16:34:13.270274
-122	1	1	122	WPCZF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:34:28.013846
-123	1	1	123	WPEC                	Wei Pai Electronic Commerce Co Ltd	0.0200000000000000004	0	-	-	-		2020-07-30 16:34:48.362846
-124	1	1	124	WPFH                	World Poker Fund Holdings Inc	0.100000000000000006	0	-	-	-		2020-07-30 16:35:06.559293
-125	1	1	125	WPGHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 16:35:19.44534
-126	1	1	126	WPHM                	Winston Pharmaceuticals Inc	0.0100000000000000002	0	-	-	-		2020-07-30 16:35:39.433423
-127	1	1	127	WPKS                	World Poker Store Inc	0.0100000000000000002	0	-	-	-		2020-07-30 16:36:00.099907
-128	1	1	128	WPM                 	Wheaton Precious Metals Corp	43.1300000000000026	53	-	-	-		2020-07-30 16:36:22.647746
-129	1	1	129	WPMLF               	Western Pacific Minerals	0	0	-	-	-		2020-07-30 16:36:42.638495
-130	1	1	130	WPNNF               	First Responder Technologies Inc Ordinary Shares	0.160000000000000003	0	-	-	-		2020-07-30 16:37:00.205041
-131	1	1	131	WPNTF               	Warpaint London PLC	1.30000000000000004	0	-	-	-		2020-07-30 16:37:20.50082
-132	1	1	132	WPPGF               	WPP PLC	13.5399999999999991	0	-	-	-		2020-07-30 16:37:38.723772
-133	1	1	133	WPRT                	Westport Fuel Systems Inc	2.41999999999999993	1.75	-	-	-		2020-07-30 16:37:56.30225
-138	1	1	601	ZZLL                	ZZLL Information Technology Inc	0.110000000000000001	0	-	-	-		2020-07-30 17:08:25.221089
-139	1	1	602	ZZZOF               	Zinc One Resources Inc	0.0400000000000000008	0	-	-	-		2020-07-30 17:08:45.875943
-140	1	4	1	A                   	Agilent Technologies Inc	69	97.0999999999999943	-	-	-		2020-07-30 18:09:42.336374
-141	1	4	2	AA                  	Alcoa Corp	15	13.0800000000000001	-	-	-		2020-07-30 18:10:02.780278
-142	1	4	3	WADV                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:10:16.235359
-143	1	4	4	WING                	Wingstop Inc	108.200000000000003	155.488400000000013	-	-	-		2020-07-30 18:10:33.828919
-144	1	4	5	WINH                	Winha International Group Ltd	0.270000000000000018	0	-	-	-		2020-07-30 18:10:54.238946
-145	1	4	6	WINMQ               	Windstream Holdings Inc	0	0	-	-	-		2020-07-30 18:11:13.999266
-146	1	4	7	WINR                	Simplicity Esports and Gaming Co Ordinary Shares	1.31000000000000005	0	-	-	-		2020-07-30 18:11:33.648431
-147	1	4	8	WINS                	Wins Finance Holdings Inc	35.240000000000002	28.5199999999999996	-	-	-		2020-07-30 18:11:53.029227
-148	1	4	9	WINT                	Windtree Therapeutics Inc	9.83999999999999986	7.65000000000000036	-	-	-		2020-07-30 18:12:12.942611
-149	1	4	10	WIPKF               	Winpak Ltd	38.509999999999998	0	-	-	-		2020-07-30 18:12:30.824305
-150	1	4	11	WIRE                	Encore Wire Corp	50.9099999999999966	51.0300000000000011	-	-	-		2020-07-30 18:12:49.905347
-151	1	4	12	WIRX                	Wireless Xcessories Group Inc	0.0100000000000000002	0	-	-	-		2020-07-30 18:13:08.83015
-152	1	4	13	WISA                	Summit Wireless Technologies Inc Ordinary Shares	2.72999999999999998	2.20999999999999996	-	-	-		2020-07-30 18:13:27.821929
-153	1	4	14	WISH                	Wright Investors" Service Holdings Inc	0.520000000000000018	0	-	-	-		2020-07-30 18:13:46.306809
-154	1	4	15	WISM                	Wiseman Global Ltd	3.12999999999999989	0	-	-	-		2020-07-30 18:14:03.534425
-155	1	4	16	WISRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:14:16.144841
-156	1	4	17	WIX                 	Wix.com Ltd	195.659999999999997	277.860000000000014	-	-	-		2020-07-30 18:14:33.039511
-157	1	4	18	WIZD                	Wizard Entertainment Inc	1.34000000000000008	0	-	-	-		2020-07-30 18:14:50.243721
-158	1	4	19	WIZP                	Wize Pharma Inc	0.200000000000000011	0	-	-	-		2020-07-30 18:15:08.031104
-159	1	4	20	WJRYF               	West Japan Railway Co	101.25	0	-	-	-		2020-07-30 18:15:28.999335
-160	1	4	21	WJXFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:15:42.333947
-161	1	4	22	WK                  	Workiva Inc Class A	0	55.759999999999998	-	-	-		2020-07-30 18:15:59.159665
-162	1	4	23	WKAPF               	Wijaya Karya (Persero) Tbk	0	0	-	-	-	Fair value not available	2020-07-30 18:16:21.113318
-163	1	4	24	WKCMF               	Wacker Chemie AG	104.310000000000002	0	-	-	-		2020-07-30 18:16:39.548213
-164	1	4	25	WKGBF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:16:52.913414
-165	1	4	26	WKHS                	Workhorse Group Inc	12.5600000000000005	15.9000000000000004	-	-	-		2020-07-30 18:17:10.128127
-166	1	4	27	WKKHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:17:22.683414
-167	1	4	28	WKLDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:17:38.028591
-168	1	4	29	WKLN                	Walker Lane Exploration Inc	0.100000000000000006	0	-	-	-		2020-07-30 18:17:55.86251
-169	1	4	30	WKPYF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:18:08.440044
-170	1	4	31	WKRCF               	Wacker Neuson SE	22.2300000000000004	0	-	-	-		2020-07-30 18:18:26.405788
-171	1	4	32	WKULF               	Weekend Unlimited Industries Inc	0.110000000000000001	0	-	-	-		2020-07-30 18:18:43.712897
-172	1	4	33	WKYN                	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:18:56.899033
-173	1	4	34	WLAB                	White Label Liquid Inc	0.0400000000000000008	0	-	-	-		2020-07-30 18:19:14.823256
-174	1	4	35	WLAN                	Wialan Technologies Inc	0	0	-	-	-		2020-07-30 18:19:33.409416
-175	1	4	36	WLBMF               	Wallbridge Mining Co Ltd	0.650000000000000022	0	-	-	-		2020-07-30 18:19:51.719625
-176	1	4	37	WLCGF               	Welcia Holdings Co Ltd	0	0	-	-	-	Fair value not available	2020-07-30 18:20:13.478525
-177	1	4	38	WLDBF               	WildBrain Ltd	1.37999999999999989	0	-	-	-		2020-07-30 18:20:30.531068
-178	1	4	39	WLDCF               	ICC International Cannabis Corp	0.0400000000000000008	0	-	-	-		2020-07-30 18:20:47.331468
-179	1	4	40	WLDFF               	Wildflower Brands Inc	0.200000000000000011	0	-	-	-		2020-07-30 18:21:04.570698
-180	1	4	41	WLDN                	Willdan Group Inc	29.6400000000000006	25.0100000000000016	-	-	-		2020-07-30 18:21:21.87028
-181	1	4	42	WLFC                	-	34.4399999999999977	20.3500000000000014	-	-	-		2020-07-30 18:21:46.723845
-182	1	4	43	WLFFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:22:00.550311
-183	1	4	44	WLGCX               	-	0	0	Ivy Large Cap Growth Fund Class C	3	-		2020-07-30 18:22:55.030473
-184	1	4	45	WLK                 	Westlake Chemical Corp	67.8299999999999983	57.3200000000000003	-	-	-		2020-07-30 18:23:12.600327
-185	1	4	46	WLL                 	Whiting Petroleum Corp	1.90999999999999992	0.819999999999999951	-	-	-		2020-07-30 18:23:29.90409
-186	1	4	47	WLLSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:23:43.079242
-187	1	4	48	WLMIF               	Wilmar International Ltd	3.89999999999999991	0	-	-	-		2020-07-30 18:23:59.896562
-188	1	4	49	WLMS                	Williams Industrial Services Group Inc	1.66999999999999993	0	-	-	-		2020-07-30 18:24:16.662643
-189	1	4	50	WLOLQ               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:24:29.752811
-190	1	4	51	WLRMF               	Aloro Mining Corp	0.0500000000000000028	0	-	-	-		2020-07-30 18:25:25.533277
-191	1	4	52	WLSI                	Wellstar International Inc	0	0	-	-	-		2020-07-30 18:25:46.492444
-192	1	4	53	WLTNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-30 18:26:15.373768
+1	1	1	1	A                   	Agilent Technologies Inc	69	95.9599999999999937	-	-	-		2020-07-31 13:24:14.295806
+2	1	1	2	AA                  	Alcoa Corp	15	13.1799999999999997	-	-	-		2020-07-31 13:24:33.483565
+3	1	1	3	WADV                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:24:46.581118
+4	1	1	4	WING                	Wingstop Inc	107.040000000000006	157.139999999999986	-	-	-		2020-07-31 13:25:04.709635
+5	1	1	5	WINH                	Winha International Group Ltd	0.270000000000000018	0	-	-	-		2020-07-31 13:25:23.785251
+6	1	1	6	WINMQ               	Windstream Holdings Inc	0	0	-	-	-		2020-07-31 13:25:40.057504
+7	1	1	7	WINR                	Simplicity Esports and Gaming Co Ordinary Shares	1.3899999999999999	0	-	-	-		2020-07-31 13:25:56.322782
+8	1	1	8	WINS                	Wins Finance Holdings Inc	32.3100000000000023	27.1099999999999994	-	-	-		2020-07-31 13:26:12.187091
+9	1	1	9	WINT                	-	0	7.70000000000000018	-	-	-	No result in autocomplete search	2020-07-31 13:26:33.440423
+10	1	1	10	WINT                	Windtree Therapeutics Inc	10.25	0	-	-	-		2020-07-31 13:26:54.937262
+11	1	1	11	WIRE                	Encore Wire Corp	48.8400000000000034	49.5300000000000011	-	-	-		2020-07-31 13:27:29.542569
+12	1	1	12	WIRX                	Wireless Xcessories Group Inc	0.0100000000000000002	0	-	-	-		2020-07-31 13:27:51.832808
+13	1	1	13	WISA                	Summit Wireless Technologies Inc Ordinary Shares	2.7200000000000002	2.22999999999999998	-	-	-		2020-07-31 13:28:11.918749
+14	1	1	14	WISH                	Wright Investors" Service Holdings Inc	0.57999999999999996	0	-	-	-		2020-07-31 13:28:36.381976
+15	1	1	15	WISM                	Wiseman Global Ltd	3.18000000000000016	0	-	-	-		2020-07-31 13:29:18.031751
+16	1	1	16	WISRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:29:31.108105
+17	1	1	17	WIX                 	Wix.com Ltd	196.050000000000011	290.519999999999982	-	-	-		2020-07-31 13:30:29.874494
+18	1	1	18	WIZD                	-	1.30000000000000004	0	-	-	-		2020-07-31 13:31:26.46226
+19	1	1	19	WIZP                	Wize Pharma Inc	0	0	-	-	-	Fair value not available	2020-07-31 13:32:22.498726
+20	1	1	20	WJRYF               	West Japan Railway Co	101.950000000000003	0	-	-	-		2020-07-31 13:33:00.839003
+21	1	1	21	WJXFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:33:13.31558
+22	1	1	22	WK                  	Workiva Inc Class A	0	55.6899999999999977	-	-	-		2020-07-31 13:33:29.756398
+23	1	1	23	WKAPF               	Wijaya Karya (Persero) Tbk	0	0	-	-	-	Fair value not available	2020-07-31 13:33:54.820471
+24	1	1	24	WKCMF               	Wacker Chemie AG	103.510000000000005	0	-	-	-		2020-07-31 13:34:13.20657
+25	1	1	25	WKGBF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:34:25.510104
+26	1	1	26	WKHS                	Workhorse Group Inc	12.4600000000000009	16.4200000000000017	-	-	-		2020-07-31 13:34:45.370877
+27	1	1	27	WKKHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:34:57.956627
+28	1	1	28	WKLDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:35:10.283924
+29	1	1	29	WKLN                	Walker Lane Exploration Inc	0.100000000000000006	0	-	-	-		2020-07-31 13:35:27.498094
+30	1	1	30	WKPYF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:35:39.734004
+31	1	1	31	WKRCF               	Wacker Neuson SE	22.1999999999999993	0	-	-	-		2020-07-31 13:35:56.097778
+32	1	1	32	WKULF               	Weekend Unlimited Industries Inc	0.100000000000000006	0	-	-	-		2020-07-31 13:36:12.591073
+33	1	1	33	WKYN                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:36:25.471289
+34	1	1	34	WLAB                	White Label Liquid Inc	0.0500000000000000028	0	-	-	-		2020-07-31 13:36:42.576526
+35	1	1	35	WLAN                	Wialan Technologies Inc	0	0	-	-	-		2020-07-31 13:36:58.880264
+36	1	1	36	WLBMF               	Wallbridge Mining Co Ltd	0.660000000000000031	0	-	-	-		2020-07-31 13:37:15.208729
+37	1	1	37	WLCGF               	Welcia Holdings Co Ltd	0	0	-	-	-	Fair value not available	2020-07-31 13:37:36.864566
+38	1	1	38	WLDBF               	WildBrain Ltd	1.37999999999999989	0	-	-	-		2020-07-31 13:37:53.332199
+39	1	1	39	WLDCF               	ICC International Cannabis Corp	0.0299999999999999989	0	-	-	-		2020-07-31 13:38:10.233486
+40	1	1	40	WLDFF               	Wildflower Brands Inc	0.23000000000000001	0	-	-	-		2020-07-31 13:38:26.690838
+41	1	1	41	WLDN                	Willdan Group Inc	30.25	23	-	-	-		2020-07-31 13:38:42.703228
+42	1	1	42	WLFC                	Willis Lease Finance Corp	35.8100000000000023	20.629999999999999	-	-	-		2020-07-31 13:38:58.988341
+43	1	1	43	WLFFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:39:11.639109
+44	1	1	44	WLGCX               	-	0	0	Ivy Large Cap Growth Fund Class C	3	-		2020-07-31 13:39:45.650601
+45	1	1	45	WLK                 	Westlake Chemical Corp	66.3599999999999994	55.1499999999999986	-	-	-		2020-07-31 13:40:03.105158
+46	1	1	46	WLL                 	Whiting Petroleum Corp	1.97999999999999998	0.810100000000000042	-	-	-		2020-07-31 13:40:19.802761
+47	1	1	47	WLLSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:40:33.154382
+48	1	1	48	WLMIF               	Wilmar International Ltd	3.91999999999999993	0	-	-	-		2020-07-31 13:40:49.901133
+49	1	1	49	WLMS                	Williams Industrial Services Group Inc	1.70999999999999996	0	-	-	-		2020-07-31 13:41:06.582242
+50	1	1	50	WLOLQ               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:41:19.522416
+51	1	1	51	WLRMF               	Aloro Mining Corp	0.0599999999999999978	0	-	-	-		2020-07-31 13:42:10.053206
+52	1	1	52	WLSI                	Wellstar International Inc	0	0	-	-	-		2020-07-31 13:42:30.052632
+53	1	1	53	WLTNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:42:42.512239
+54	1	1	54	WLTW                	Willis Towers Watson PLC	221	211.490000000000009	-	-	-		2020-07-31 13:43:02.59481
+55	1	1	55	WLWHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:43:15.08627
+56	1	1	56	WLYW                	Wally World Media Inc	0	0	-	-	-		2020-07-31 13:43:31.876531
+57	1	1	57	WLYYF               	WELL Health Technologies Corp	2.31999999999999984	0	-	-	-		2020-07-31 13:43:48.611165
+58	1	1	58	WM                  	Waste Management Inc	81	109.650000000000006	-	-	-		2020-07-31 13:44:05.197588
+59	1	1	59	WMAL                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:44:17.562528
+60	1	1	60	WMB                 	Williams Companies Inc	27	19.3399999999999999	-	-	-		2020-07-31 13:44:35.304342
+61	1	1	61	WMCB                	Williamette Community Bank	9.41000000000000014	0	-	-	-		2020-07-31 13:44:54.682466
+62	1	1	62	WMDH                	WMD Holdings Group Inc	0.0100000000000000002	0	-	-	-		2020-07-31 13:45:14.23088
+63	1	1	63	WMDL                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:45:27.364798
+64	1	1	64	WMELF               	Westmount Energy Ltd	0.220000000000000001	0	-	-	-		2020-07-31 13:45:46.702601
+65	1	1	65	WMG                 	Warner Music Group Corp Ordinary Shares - Class A	25.5300000000000011	29.0300000000000011	-	-	-		2020-07-31 13:46:05.297342
+66	1	1	66	WMGEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:46:17.837733
+67	1	1	67	WMGI                	Wright Medical Group NV	27.8099999999999987	30	-	-	-		2020-07-31 13:46:34.205424
+68	1	1	68	WMGPF               	Williams Grand Prix Holdings PLC	16.3900000000000006	0	-	-	-		2020-07-31 13:46:50.975434
+69	1	1	69	WMGR                	Wellness Matrix Group Inc	0.0299999999999999989	0	-	-	-		2020-07-31 13:47:12.743791
+70	1	1	70	WMGTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:47:26.607984
+71	1	1	71	WMHH                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:47:38.870404
+72	1	1	72	WMHI                	World Mobile Holdings Inc	0.0500000000000000028	0	-	-	-		2020-07-31 13:47:55.332905
+73	1	1	73	WMK                 	Weis Markets Inc	53.8100000000000023	50.1499999999999986	-	-	-		2020-07-31 13:48:12.289653
+74	1	1	74	WMLLF               	Wealth Minerals Ltd	0.110000000000000001	0	-	-	-		2020-07-31 13:48:29.444813
+75	1	1	75	WMMVF               	Wal - Mart de Mexico SAB de CV Class V	2.14999999999999991	0	-	-	-		2020-07-31 13:48:46.67574
+76	1	1	76	WMNNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:48:59.051725
+77	1	1	77	WMPN                	William Penn Bancorp Inc	34.0600000000000023	0	-	-	-		2020-07-31 13:49:15.219083
+78	1	1	78	WMRSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:49:27.869661
+79	1	1	79	WMS                 	Advanced Drainage Systems Inc	53.8299999999999983	49.6599999999999966	-	-	-		2020-07-31 13:49:43.84602
+80	1	1	80	WMSI                	Williams Industries Inc	3.35000000000000009	0	-	-	-		2020-07-31 13:50:00.521064
+81	1	1	81	WMT                 	Walmart Inc	111	130.300000000000011	-	-	-		2020-07-31 13:50:17.390805
+82	1	1	82	WMTN                	Westmountain Gold Inc	3.99000000000000021	0	-	-	-		2020-07-31 13:50:35.635529
+83	1	1	83	WMWWF               	West Wits Mining Ltd	0	0	-	-	-		2020-07-31 13:50:54.404959
+84	1	1	84	WNARF               	Western Areas Ltd	2.25	0	-	-	-		2020-07-31 13:51:10.773047
+85	1	1	85	WNBD                	Winning Brands Corp	0	0	-	-	-		2020-07-31 13:51:27.485014
+86	1	1	86	WNC                 	Wabash National Corp	16.620000000000001	12.4700000000000006	-	-	-		2020-07-31 13:51:44.458658
+87	1	1	87	WNCG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:51:56.732027
+88	1	1	88	WNCNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:52:09.001596
+89	1	1	89	WNCP                	Wineco Productions Inc	0	0	-	-	-		2020-07-31 13:52:25.345832
+90	1	1	90	WNDLF               	Wendel Ord	119.359999999999999	0	-	-	-		2020-07-31 13:52:42.155223
+91	1	1	91	WNDW                	SolarWindow Technologies Inc	3.52000000000000002	0	-	-	-		2020-07-31 13:52:58.679948
+92	1	1	92	WNEB                	Western New England Bancorp Inc	6.37999999999999989	5.01999999999999957	-	-	-		2020-07-31 13:53:15.733866
+93	1	1	93	WNGFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:53:28.104517
+94	1	1	94	WNGRF               	George Weston Ltd	86.7000000000000028	0	-	-	-		2020-07-31 13:53:44.818092
+95	1	1	95	WNMLA               	Winmill &amp Co Inc Class A	0.92000000000000004	0	-	-	-		2020-07-31 13:54:02.968382
+96	1	1	96	WNRC                	WENR Corp	0	0	-	-	-		2020-07-31 13:54:19.52225
+97	1	1	97	WNRP                	West Suburban Bancorp Inc	455.180000000000007	0	-	-	-		2020-07-31 13:54:36.161363
+98	1	1	98	WNTR                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:54:48.548245
+99	1	1	99	WNWG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:55:00.902223
+100	1	1	100	WNXDF               	Diebold Nixdorf AG	72.4500000000000028	0	-	-	-		2020-07-31 13:55:16.973301
+101	1	1	101	WOAM                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:55:49.69565
+102	1	1	102	WOBK                	Woodsboro Bk MD Ordinary Shares	0	0	-	-	-	Fair value not available	2020-07-31 13:56:25.712685
+103	1	1	103	WODI                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:56:38.485912
+104	1	1	104	WOFA                	Wisdom Homes of America Inc	0	0	-	-	-		2020-07-31 13:56:59.321427
+105	1	1	105	WOGI                	World Oil Group Inc	0	0	-	-	-		2020-07-31 13:57:17.883551
+106	1	1	106	WOIIF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:57:30.022213
+107	1	1	107	WOLTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 13:57:42.437044
+108	1	1	108	WOLV                	Wolverine Technologies Corp	0	0	-	-	-		2020-07-31 13:58:02.03607
+109	1	1	109	WOLWF               	Woolworths Group Ltd	22.6499999999999986	0	-	-	-		2020-07-31 13:58:18.458122
+110	1	1	110	WONEF               	WEQ Holdings Inc	0	0	-	-	-		2020-07-31 13:58:35.011129
+111	1	1	111	WOPEF               	Woodside Petroleum Ltd	25.5199999999999996	0	-	-	-		2020-07-31 13:58:52.708266
+112	1	1	112	WOR                 	Worthington Industries Inc	40.6400000000000006	37.7100000000000009	-	-	-		2020-07-31 13:59:11.815052
+113	1	1	113	WORC                	Wake Up Now Inc	0	0	-	-	-		2020-07-31 13:59:29.201839
+114	1	1	114	WORK                	Slack Technologies Inc Class A	20	29.3500000000000014	-	-	-		2020-07-31 13:59:46.124822
+115	1	1	115	WORX                	SCWorx Corp	7.5	4.92999999999999972	-	-	-		2020-07-31 14:00:02.850685
+116	1	1	116	WOSCF               	Ferguson PLC	86.1599999999999966	0	-	-	-		2020-07-31 14:00:19.414013
+117	1	1	117	WOSSF               	Water Oasis Group Ltd	0.130000000000000004	0	-	-	-		2020-07-31 14:00:38.721129
+118	1	1	118	WOW                 	WideOpenWest Inc	7.21999999999999975	5.71999999999999975	-	-	-		2020-07-31 14:00:58.225668
+119	1	1	119	WOWI                	Metro One Telecommunications Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:01:16.7848
+120	1	1	120	WOWMF               	Wow Unlimited Media Inc	0.440000000000000002	0	-	-	-		2020-07-31 14:01:35.02288
+121	1	1	121	WOWU                	WOWI Inc	0.119999999999999996	0	-	-	-		2020-07-31 14:02:13.301389
+122	1	1	122	WPCZF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:02:33.668013
+123	1	1	123	WPEC                	Wei Pai Electronic Commerce Co Ltd	0.0200000000000000004	0	-	-	-		2020-07-31 14:03:02.885641
+124	1	1	124	WPFH                	World Poker Fund Holdings Inc	0.0899999999999999967	0	-	-	-		2020-07-31 14:03:22.208109
+125	1	1	125	WPGHF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:03:34.953771
+126	1	1	126	WPHM                	Winston Pharmaceuticals Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:04:04.198626
+127	1	1	127	WPKS                	World Poker Store Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:04:25.236174
+128	1	1	128	WPM                 	Wheaton Precious Metals Corp	41.1700000000000017	52.7800000000000011	-	-	-		2020-07-31 14:04:45.134003
+129	1	1	129	WPMLF               	Western Pacific Minerals	0	0	-	-	-		2020-07-31 14:05:10.322683
+130	1	1	130	WPNNF               	First Responder Technologies Inc Ordinary Shares	0.130000000000000004	0	-	-	-		2020-07-31 14:05:53.709587
+131	1	1	131	WPNTF               	Warpaint London PLC	1.27000000000000002	0	-	-	-		2020-07-31 14:06:13.67187
+132	1	1	132	WPPGF               	WPP PLC	13.5800000000000001	0	-	-	-		2020-07-31 14:06:34.089416
+133	1	1	133	WPRT                	Westport Fuel Systems Inc	2.29999999999999982	1.6399999999999999	-	-	-		2020-07-31 14:07:10.248735
+134	1	1	134	WPUR                	WaterPure International Inc	0	0	-	-	-		2020-07-31 14:07:29.473841
+135	1	1	135	WPX                 	WPX Energy Inc Class A	9	6.07000000000000028	-	-	-		2020-07-31 14:07:51.181037
+136	1	1	136	WQNI                	WQN Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:08:11.671998
+137	1	1	137	WQTEF               	Weiqiao Textile Co Ltd Class H	0.309999999999999998	0	-	-	-		2020-07-31 14:08:32.172742
+138	1	1	138	WRB                 	WR Berkley Corp	58	62.2999999999999972	-	-	-		2020-07-31 14:08:51.637213
+139	1	1	139	WRCDF               	Wirecard AG	4.38999999999999968	0	-	-	-		2020-07-31 14:09:12.201898
+140	1	1	140	WRFRF               	Wharf Real Estate Investment Co Ltd Ordinary Shares	6.62999999999999989	0	-	-	-		2020-07-31 14:09:33.463413
+141	1	1	141	WRFX                	Worldflix Inc	0	0	-	-	-		2020-07-31 14:09:54.890596
+142	1	1	142	WRGL                	Warrior Girl Corp	0	0	-	-	-		2020-07-31 14:10:14.575103
+143	1	1	143	WRHLF               	World High Life PLC	0.0599999999999999978	0	-	-	-		2020-07-31 14:10:33.206164
+144	1	1	144	WRIT                	WRIT Media Group Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:10:52.422773
+145	1	1	145	WRIV                	White River Bancshares Company	57.6499999999999986	0	-	-	-		2020-07-31 14:11:08.704014
+146	1	1	146	WRK                 	WestRock Co A	49	29	-	-	-		2020-07-31 14:11:27.55251
+147	1	1	147	WRLD                	World Acceptance Corp	96.1700000000000017	75.8726999999999947	-	-	-		2020-07-31 14:11:46.086582
+148	1	1	148	WRMA                	Wiremedia Inc	0	0	-	-	-		2020-07-31 14:12:03.752221
+149	1	1	149	WRN                 	-	0	1.16999999999999993	-	-	-	No result in autocomplete search	2020-07-31 14:12:16.821767
+150	1	1	150	WROCF               	White Rock Minerals Ltd	0	0	-	-	-	Fair value not available	2020-07-31 14:12:38.090263
+151	1	1	151	WRPSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:13:18.292273
+152	1	1	152	WRRI                	Wari Inc	5.45000000000000018	0	-	-	-		2020-07-31 14:13:57.937362
+153	1	1	153	WRRNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:14:10.769081
+154	1	1	154	WRRZF               	Walker River Resources Corp	0.100000000000000006	0	-	-	-		2020-07-31 14:14:30.563982
+155	1	1	155	WRTBF               	Wartsila Corp	9.67999999999999972	0	-	-	-		2020-07-31 14:14:51.957318
+156	1	1	156	WRTC                	Wrap Technologies Inc	9.85999999999999943	10.6699999999999999	-	-	-		2020-07-31 14:15:10.161287
+157	1	1	157	WRTTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:15:23.740219
+158	1	1	158	WSBC                	Wesbanco Inc	25.1900000000000013	21	-	-	-		2020-07-31 14:15:43.257432
+159	1	1	159	WSBF                	Waterstone Financial Inc	16.4899999999999984	15.5190000000000001	-	-	-		2020-07-31 14:16:02.297351
+160	1	1	160	WSC                 	WillScot Mobile Mini Holdings Corp	16.0599999999999987	15.0999999999999996	-	-	-		2020-07-31 14:16:20.31506
+161	1	1	161	WSCC                	Waterside Capital Corp	0.239999999999999991	0	-	-	-		2020-07-31 14:16:40.286513
+162	1	1	162	WSCO                	Wall Street Media Co Inc	0.170000000000000012	0	-	-	-		2020-07-31 14:16:59.707788
+163	1	1	163	WSCRF               	North American Nickel Inc	0.100000000000000006	0	-	-	-		2020-07-31 14:17:20.22095
+164	1	1	164	WSFGQ               	WSB Financial Inc	0	0	-	-	-		2020-07-31 14:17:40.489074
+165	1	1	165	WSFL                	Woodstock Holdings Inc	0.0800000000000000017	0	-	-	-		2020-07-31 14:18:00.117381
+166	1	1	166	WSFS                	WSFS Financial Corp	35.6799999999999997	28.6999999999999993	-	-	-		2020-07-31 14:18:19.552156
+167	1	1	167	WSFT                	Wikisoft Corp	4.55999999999999961	0	-	-	-		2020-07-31 14:18:38.586867
+168	1	1	168	WSGF                	World Series of Golf Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:18:57.302702
+169	1	1	169	WSHE                	GreenLink International Inc	0.0200000000000000004	0	-	-	-		2020-07-31 14:19:18.8127
+170	1	1	170	WSHP                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:19:31.501946
+171	1	1	171	WSIOF               	Wasion Holdings Ltd	0	0	-	-	-	Fair value not available	2020-07-31 14:19:52.645553
+172	1	1	172	WSKEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:20:05.428995
+173	1	1	173	WSM                 	Williams-Sonoma Inc	75	87.6500000000000057	-	-	-		2020-07-31 14:20:23.253549
+174	1	1	174	WSML                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:20:35.81385
+175	1	1	175	WSO                 	Watsco Inc	190.22999999999999	234.449999999999989	-	-	-		2020-07-31 14:20:52.702343
+176	1	1	176	WSO.B               	-	0	234.289999999999992	-	-	-	No result in autocomplete search	2020-07-31 14:21:05.215677
+177	1	1	177	WSOUF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:21:18.0559
+178	1	1	178	WSPCF               	W-SCOPE Corp	9.48000000000000043	0	-	-	-		2020-07-31 14:21:37.883501
+179	1	1	179	WSPOF               	WSP Global Inc	61.5200000000000031	0	-	-	-		2020-07-31 14:21:55.238173
+180	1	1	180	WSRC                	Western Sierra Resource Corp	0.0100000000000000002	0	-	-	-		2020-07-31 14:22:12.082606
+181	1	1	181	WSRLF               	Wisr Ltd	0	0	-	-	-	Fair value not available	2020-07-31 14:22:33.400109
+182	1	1	182	WSRRF               	-	0	0	-	-	-	Fair value not available	2020-07-31 14:24:02.768456
+183	1	1	183	WSRUF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:24:15.688135
+184	1	1	184	WSSE                	Wallstreet Securities Inc	0	0	-	-	-		2020-07-31 14:24:33.062237
+185	1	1	185	WSSH                	West Shore Bank Corp	26.4200000000000017	0	-	-	-		2020-07-31 14:24:50.220066
+186	1	1	186	WST                 	West Pharmaceutical Services Inc	158	268.95999999999998	-	-	-		2020-07-31 14:25:06.951867
+187	1	1	187	WSTG                	Wayside Technology Group Inc	26.6099999999999994	22.8399999999999999	-	-	-		2020-07-31 14:25:23.723819
+188	1	1	188	WSTL                	Westell Technologies Inc Class A	1.78000000000000003	1.10000000000000009	-	-	-		2020-07-31 14:25:40.283332
+189	1	1	189	WSTM                	HRSoft Inc	0.190000000000000002	0	-	-	-		2020-07-31 14:25:57.443243
+190	1	1	190	WSTN                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:26:10.209818
+191	1	1	191	WSTRF               	Western Uranium &amp Vanadium Corp	0.849999999999999978	0	-	-	-		2020-07-31 14:26:26.689307
+192	1	1	192	WSTTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:26:39.343021
+193	1	1	193	WSVC                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:26:51.817112
+194	1	1	194	WTBA                	West Bancorp Inc	18.8900000000000006	16.6400000000000006	-	-	-		2020-07-31 14:27:08.606345
+195	1	1	195	WTBCF               	Whitbread PLC	38.0200000000000031	0	-	-	-		2020-07-31 14:27:25.982826
+196	1	1	196	WTBFA               	WTB Financial A	353.759999999999991	0	-	-	-		2020-07-31 14:27:43.557844
+197	1	1	197	WTBFB               	WTB Financial A	325.439999999999998	0	-	-	-		2020-07-31 14:28:02.535389
+198	1	1	198	WTCG                	W Technologies Inc	0.140000000000000013	0	-	-	-		2020-07-31 14:28:19.430372
+199	1	1	199	WTCHF               	WiseTech Global Ltd	12.4800000000000004	0	-	-	-		2020-07-31 14:28:38.496589
+200	1	1	200	WTCRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:28:51.17479
+201	1	1	201	WTCZF               	Copper Lake Resources Ltd	0.0299999999999999989	0	-	-	-		2020-07-31 14:29:44.231512
+202	1	1	202	WTECQ               	Westech Capital Corp	0.0299999999999999989	0	-	-	-		2020-07-31 14:30:04.06387
+203	1	1	203	WTER                	Alkaline Water Co Inc	2.43999999999999995	2.10999999999999988	-	-	-		2020-07-31 14:30:23.382411
+204	1	1	204	WTFC                	Wintrust Financial Corp	62.3100000000000023	44.0499999999999972	-	-	-		2020-07-31 14:30:42.614078
+205	1	1	205	WTGRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:30:55.070026
+206	1	1	206	WTHEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:31:07.514468
+207	1	1	207	WTHVF               	Westhaven Gold Corp	0.589999999999999969	0	-	-	-		2020-07-31 14:31:24.674561
+208	1	1	208	WTI                 	W&ampT Offshore Inc	3.39000000000000012	2.25999999999999979	-	-	-		2020-07-31 14:31:41.963814
+209	1	1	209	WTII                	Water Technologies International Inc	0	0	-	-	-		2020-07-31 14:32:01.648741
+210	1	1	210	WTKN                	WellTek Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:32:18.465827
+211	1	1	211	WTLC                	Western Metals Corp	0.359999999999999987	0	-	-	-		2020-07-31 14:32:34.899636
+212	1	1	212	WTLLF               	Water Intelligence PLC	0	0	-	-	-	Fair value not available	2020-07-31 14:32:56.127678
+213	1	1	213	WTM                 	White Mountains Insurance Group Ltd	952.279999999999973	860	-	-	-		2020-07-31 14:33:13.752998
+214	1	1	214	WTNW                	Water Now Inc.	0.0599999999999999978	0	-	-	-		2020-07-31 14:33:31.152132
+215	1	1	215	WTRE                	Watford Holdings Ltd	22.629999999999999	17.6900000000000013	-	-	-		2020-07-31 14:33:48.52149
+216	1	1	216	WTRG                	Essential Utilities Inc	40.4600000000000009	45.5499999999999972	-	-	-		2020-07-31 14:34:05.224263
+217	1	1	217	WTRH                	Waitr Holdings Inc Class A	7.04999999999999982	5.32000000000000028	-	-	-		2020-07-31 14:34:22.368579
+218	1	1	218	WTRNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:34:34.865045
+219	1	1	219	WTRO                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:34:47.976356
+220	1	1	220	WTS                 	Watts Water Technologies Inc A	79.2399999999999949	83.730000000000004	-	-	-		2020-07-31 14:35:05.397743
+221	1	1	221	WTSHF               	Westshore Terminals Investment Corp	14.6300000000000008	0	-	-	-		2020-07-31 14:35:22.172542
+222	1	1	222	WTTR                	Select Energy Services Inc Class A	9.30000000000000071	1.12999999999999989	-	-	-		2020-07-31 14:35:38.402342
+223	1	1	223	WTTR                	Select Energy Services Inc Class A	9.30000000000000071	4.79999999999999982	-	-	-		2020-07-31 14:35:56.203636
+224	1	1	224	WTWB                	West Town Bancorp Inc	18.5199999999999996	0	-	-	-		2020-07-31 14:36:13.326896
+225	1	1	225	WTXR                	West Texas Resources Inc	0.170000000000000012	0	-	-	-		2020-07-31 14:36:30.130705
+226	1	1	226	WU                  	The Western Union Co	23	24.25	-	-	-		2020-07-31 14:36:47.24895
+227	1	1	227	WUHN                	M2Bio Sciences Inc	0.400000000000000022	0	-	-	-		2020-07-31 14:37:04.804448
+228	1	1	228	WUXIF               	Wuxi AppTec Co Ltd	10.7400000000000002	0	-	-	-		2020-07-31 14:37:22.145215
+229	1	1	229	WUYI                	China WuYi Mountain Ltd	3.7200000000000002	0	-	-	-		2020-07-31 14:37:39.167538
+230	1	1	230	WVAW                	West Virginia-American Water Co	0	0	-	-	-	Fair value not available	2020-07-31 14:38:00.153296
+231	1	1	231	WVE                 	WAVE Life Sciences Ltd	9.11999999999999922	8.89000000000000057	-	-	-		2020-07-31 14:38:17.614235
+232	1	1	232	WVFC                	WVS Financial Corp	15.4700000000000006	13.0600000000000005	-	-	-		2020-07-31 14:38:35.301252
+233	1	1	233	WVVEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:38:47.864484
+234	1	1	234	WVVI                	Willamette Valley Vineyards Inc	7.87000000000000011	6.16999999999999993	-	-	-		2020-07-31 14:39:04.476857
+235	1	1	235	WW                  	WW International Inc	38	26.3000000000000007	-	-	-		2020-07-31 14:39:21.244063
+236	1	1	236	WWD                 	Woodward Inc	86.3599999999999994	76.0400000000000063	-	-	-		2020-07-31 14:39:37.773789
+237	1	1	237	WWDH                	Worldwide Holdings Corp	0	0	-	-	-		2020-07-31 14:39:54.496952
+238	1	1	238	WWE                 	World Wrestling Entertainment Inc Class A	38.990000000000002	48.4299999999999997	-	-	-		2020-07-31 14:40:11.459726
+239	1	1	239	WWEXF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:40:24.123508
+240	1	1	240	WWII                	World Of Wireless International Telecom Inc	0.0200000000000000004	0	-	-	-		2020-07-31 14:40:41.843096
+241	1	1	241	WWIN                	AllyMe Group Inc	3.54000000000000004	0	-	-	-		2020-07-31 14:40:58.565976
+242	1	1	242	WWIO                	WOWIO Inc	0	0	-	-	-		2020-07-31 14:41:17.388721
+243	1	1	243	WWLNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:41:29.916074
+244	1	1	244	WWNG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:41:42.716128
+245	1	1	245	WWNTF               	Want Want China Holdings Ltd	0.650000000000000022	0	-	-	-		2020-07-31 14:42:00.653176
+246	1	1	246	WWPW                	Wind Works Power Corp.	0.0100000000000000002	0	-	-	-		2020-07-31 14:42:17.65326
+247	1	1	247	WWR                 	Westwater Resources Inc	3.91000000000000014	2.39000000000000012	-	-	-		2020-07-31 14:42:35.809732
+248	1	1	248	WWRL                	World Wireless Communications Inc	0	0	-	-	-		2020-07-31 14:42:52.931788
+249	1	1	249	WWSG                	Worldwide Strategies Inc	0.0599999999999999978	0	-	-	-		2020-07-31 14:43:10.28374
+250	1	1	250	WWST                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:43:23.01333
+251	1	1	251	WWW                 	Wolverine World Wide Inc	27.0799999999999983	24.629999999999999	-	-	-		2020-07-31 14:44:16.590084
+252	1	1	252	WXIBF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:44:29.119227
+253	1	1	253	WXMN                	Waxman Industries Inc	3.60000000000000009	0	-	-	-		2020-07-31 14:44:49.082496
+254	1	1	254	WYCC                	Worry Free Holdings Co	6.70000000000000018	0	-	-	-		2020-07-31 14:45:08.257881
+255	1	1	255	WYGPF               	Worley Ltd	9.59999999999999964	0	-	-	-		2020-07-31 14:45:24.943639
+256	1	1	256	WYND                	Wyndham Destinations Inc	35.240000000000002	27.3900000000000006	-	-	-		2020-07-31 14:45:41.946138
+257	1	1	257	WYNMF               	Wynn Macau Ltd	2.08999999999999986	0	-	-	-		2020-07-31 14:45:58.938635
+258	1	1	258	WYNN                	Wynn Resorts Ltd	112	76.7999999999999972	-	-	-		2020-07-31 14:46:16.169427
+259	1	1	259	WYPH                	Waypoint Biomedical Holdings Inc	0	0	-	-	-		2020-07-31 14:46:32.947743
+260	1	1	260	WYY                 	-	0	0.709099999999999953	-	-	-	No result in autocomplete search	2020-07-31 14:46:45.458307
+261	1	1	261	WZHUF               	Wenzhou Kangning Hospital Co Ltd H	0	0	-	-	-	Fair value not available	2020-07-31 14:47:05.841668
+262	1	1	262	WZZAF               	Wizz Air Holdings PLC	44.3900000000000006	0	-	-	-		2020-07-31 14:47:22.545955
+263	1	1	263	X                   	United States Steel Corp	5.5	7.34999999999999964	-	-	-		2020-07-31 14:47:39.50651
+264	1	1	264	XAARF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:47:52.321564
+265	1	1	265	XAIR                	Beyond Air Inc	7.11000000000000032	6.40000000000000036	-	-	-		2020-07-31 14:48:09.405363
+266	1	1	266	XALL                	Xalles Holdings Inc	0.0500000000000000028	0	-	-	-		2020-07-31 14:48:29.400126
+267	1	1	267	XANAF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:48:42.504394
+268	1	1	268	XAUMF               	GoldMoney Inc	1.82000000000000006	0	-	-	-		2020-07-31 14:49:01.621199
+269	1	1	269	XBIO                	Xenetic Biosciences Inc	1.92999999999999994	1.16999999999999993	-	-	-		2020-07-31 14:49:20.999049
+270	1	1	270	XBIT                	XBiotech Inc	19.6799999999999997	15.0999999999999996	-	-	-		2020-07-31 14:49:38.304308
+271	1	1	271	XBOR                	Cross Border Resources Inc	0.0299999999999999989	0	-	-	-		2020-07-31 14:49:55.993125
+272	1	1	272	XCAN                	Yutudao Marine Biotechnology Inc	0.650000000000000022	0	-	-	-		2020-07-31 14:50:12.946721
+273	1	1	273	XCLL                	XcelMobility Inc	0	0	-	-	-		2020-07-31 14:50:29.895
+274	1	1	274	XCOMQ               	Xtera Communications Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:50:47.397584
+275	1	1	275	XCPL                	XCPCNL Business Services Corp	0.0700000000000000067	0	-	-	-		2020-07-31 14:51:05.815523
+276	1	1	276	XCPT                	XCana Petroleum Corp	0	0	-	-	-		2020-07-31 14:51:26.058078
+277	1	1	277	XCRP                	Xcorporeal Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:51:45.945439
+278	1	1	278	XCUR                	Exicure Inc	3.14999999999999991	2.25999999999999979	-	-	-		2020-07-31 14:52:03.20716
+279	1	1	279	XDNCF               	XD Inc Ordinary Shares	0	0	-	-	-	Fair value not available	2020-07-31 14:52:24.38259
+280	1	1	280	XDSL                	mPhase Technologies Inc	0.0800000000000000017	0	-	-	-		2020-07-31 14:52:42.388275
+281	1	1	281	XEBEF               	Xebec Adsorption Inc	2.83000000000000007	0	-	-	-		2020-07-31 14:52:58.962063
+282	1	1	282	XEC                 	Cimarex Energy Co	38.5	24.6799999999999997	-	-	-		2020-07-31 14:53:17.137223
+283	1	1	283	XEL                 	Xcel Energy Inc	50	68.8700000000000045	-	-	-		2020-07-31 14:53:33.978054
+284	1	1	284	XELA                	Exela Technologies Inc	0.780000000000000027	0.505000000000000004	-	-	-		2020-07-31 14:53:51.464552
+285	1	1	285	XELB                	Xcel Brands Inc	1.47999999999999998	0.800100000000000033	-	-	-		2020-07-31 14:54:12.305449
+286	1	1	286	XENE                	Xenon Pharmaceuticals Inc	13.6099999999999994	11.2200000000000006	-	-	-		2020-07-31 14:54:33.073258
+287	1	1	287	XENO                	Xeno Transplants Corp	0	0	-	-	-		2020-07-31 14:54:51.733298
+288	1	1	288	XENT                	Intersect ENT Inc	22.4400000000000013	17.6490000000000009	-	-	-		2020-07-31 14:55:08.508134
+289	1	1	289	XEPRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:55:20.94511
+290	1	1	290	XERS                	Xeris Pharmaceuticals Inc	3.85999999999999988	2.79000000000000004	-	-	-		2020-07-31 14:55:39.563533
+291	1	1	291	XFCH                	X-Factor Communications Holdings Inc	0.0800000000000000017	0	-	-	-		2020-07-31 14:55:56.190333
+292	1	1	292	XFLS                	XFuels Inc	0.0100000000000000002	0	-	-	-		2020-07-31 14:56:12.834646
+293	1	1	293	XFOR                	X4 Pharmaceuticals Inc	10.8499999999999996	7.73000000000000043	-	-	-		2020-07-31 14:56:29.552453
+294	1	1	294	XFTB                	XFit Brands Inc	0	0	-	-	-		2020-07-31 14:56:46.503556
+295	1	1	295	XGEN                	NexGen Holdings Corp	0.0299999999999999989	0	-	-	-		2020-07-31 14:57:02.795332
+296	1	1	296	XGN                 	Exagen Inc Ordinary Shares	17.120000000000001	12.5500000000000007	-	-	-		2020-07-31 14:57:19.601204
+297	1	1	297	XHFNF               	Beat Holdings Ltd	1.40999999999999992	0	-	-	-		2020-07-31 14:57:36.648208
+298	1	1	298	XHUA                	Xinhua China Ltd	0	0	-	-	-		2020-07-31 14:57:53.557005
+299	1	1	299	XIACF               	Xiaomi Corp Ordinary Shares - Class B	1.5	0	-	-	-		2020-07-31 14:58:10.599364
+300	1	1	300	XINXF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 14:58:23.410891
+301	1	1	301	XITO                	Xenous Holdings Inc	0.0200000000000000004	0	-	-	-		2020-07-31 15:09:44.520117
+302	1	1	302	XJGTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:09:57.979472
+303	1	1	303	XJNGF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:10:11.420995
+304	1	1	304	XLEFF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:10:24.919743
+305	1	1	305	XLMDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:10:39.635207
+306	1	1	306	XLNX                	Xilinx Inc	90	108.799999999999997	-	-	-		2020-07-31 15:11:02.408956
+307	1	1	307	XLPI                	Xcelplus International Inc	0.0100000000000000002	0	-	-	-		2020-07-31 15:11:22.324362
+308	1	1	308	XLRM                	XLR Medical Corp	0.179999999999999993	0	-	-	-		2020-07-31 15:11:40.242482
+309	1	1	309	XLRN                	Acceleron Pharma Inc	80.9099999999999966	100.810000000000002	-	-	-		2020-07-31 15:11:58.932083
+310	1	1	310	XLSCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:12:11.809746
+311	1	1	311	XLWH                	Xinliwang International Holdings Co Ltd	0.0299999999999999989	0	-	-	-		2020-07-31 15:12:28.727383
+312	1	1	312	XMET                	XXStream Entertainment Inc	0	0	-	-	-		2020-07-31 15:12:46.737041
+313	1	1	313	XMEX                	Xemex Group Inc	0.0100000000000000002	0	-	-	-		2020-07-31 15:13:04.573879
+314	1	1	314	XMMRF               	XMReality AB	0.800000000000000044	0	-	-	-		2020-07-31 15:13:23.138713
+315	1	1	315	XMTTF               	XMet Inc	0	0	-	-	-		2020-07-31 15:13:40.736215
+316	1	1	316	XNCR                	Xencor Inc	33.0700000000000003	31.6400000000000006	-	-	-		2020-07-31 15:13:58.250465
+317	1	1	317	XNDA                	Xinda International Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:14:18.985168
+318	1	1	318	XNGIF               	Xingda International Holdings Ltd	0.349999999999999978	0	-	-	-		2020-07-31 15:14:35.531203
+319	1	1	319	XNGSF               	ENN Energy Holdings Ltd	12.25	0	-	-	-		2020-07-31 15:14:54.136375
+320	1	1	320	XNNHQ               	Xenonics Holdings Inc	0.0100000000000000002	0	-	-	-		2020-07-31 15:15:11.578923
+321	1	1	321	XNYIF               	Xinyi Solar Holdings Ltd	0.530000000000000027	0	-	-	-		2020-07-31 15:15:28.699927
+322	1	1	322	XOGAQ               	Extraction Oil &amp Gas Inc	0.28999999999999998	0.27300000000000002	-	-	-		2020-07-31 15:15:45.959049
+323	1	1	323	XOM                 	Exxon Mobil Corp	74	41.7800000000000011	-	-	-		2020-07-31 15:16:02.523613
+324	1	1	324	XOMA                	XOMA Corp	18.0399999999999991	17.2899999999999991	-	-	-		2020-07-31 15:16:20.394685
+325	1	1	325	XONE                	The ExOne Co	10.7699999999999996	8.97000000000000064	-	-	-		2020-07-31 15:16:49.673162
+326	1	1	326	XP                  	XP Inc Class A	29.3500000000000014	47.990000000000002	-	-	-		2020-07-31 15:17:07.509286
+327	1	1	327	XPDLF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:17:20.099818
+328	1	1	328	XPEL                	XPEL Inc	13.5199999999999996	16.7600000000000016	-	-	-		2020-07-31 15:17:36.809837
+329	1	1	329	XPER                	Xperi Holding Corp	17.5199999999999996	18.1999999999999993	-	-	-		2020-07-31 15:17:53.9092
+330	1	1	330	XPHYF               	XPhyto Therapeutics Corp Ordinary Shares	2.08000000000000007	0	-	-	-		2020-07-31 15:18:10.749634
+331	1	1	331	XPL                 	-	0	0.393600000000000005	-	-	-	No result in autocomplete search	2020-07-31 15:18:23.69348
+332	1	1	332	XPO                 	XPO Logistics Inc	64	83.25	-	-	-		2020-07-31 15:18:41.433981
+333	1	1	333	XPPLF               	XP Power Ltd	39.25	0	-	-	-		2020-07-31 15:18:58.45631
+334	1	1	334	XRAY                	Dentsply Sirona Inc	40	44.4200000000000017	-	-	-		2020-07-31 15:19:20.759306
+335	1	1	335	XREG                	XR Energy Inc	0	0	-	-	-		2020-07-31 15:19:40.28644
+336	1	1	336	XRESF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:19:53.628733
+337	1	1	337	XROLF               	Xero Ltd	41.1899999999999977	0	-	-	-		2020-07-31 15:20:11.027908
+338	1	1	338	XRTEF               	Xeros Technology Group PLC	0.0299999999999999989	0	-	-	-		2020-07-31 15:20:28.454109
+339	1	1	339	XRTXF               	XORTX Therapeutics Inc	0.140000000000000013	0	-	-	-		2020-07-31 15:20:45.617459
+340	1	1	340	XRX                 	Xerox Holdings Corp	22	16.1999999999999993	-	-	-		2020-07-31 15:21:05.696429
+341	1	1	341	XRXH                	XRX International Entertainment Holding Group Inc	0.0500000000000000028	0	-	-	-		2020-07-31 15:21:25.161517
+342	1	1	342	XSHLF               	XS Financial Inc	0.200000000000000011	0	-	-	-		2020-07-31 15:21:43.171367
+343	1	1	343	XSNX                	XSUNX Inc	0	0	-	-	-		2020-07-31 15:22:01.777509
+344	1	1	344	XSONF               	Claxson Interactive Group Inc	12.1999999999999993	0	-	-	-		2020-07-31 15:22:18.916563
+345	1	1	345	XSPA                	XpresSpa Group Inc	5.26999999999999957	3.66999999999999993	-	-	-		2020-07-31 15:22:35.580039
+346	1	1	346	XSPT                	XSport Global Inc	0	0	-	-	-		2020-07-31 15:22:53.926676
+347	1	1	347	XSVT                	Xsovt Brands Inc	0.599999999999999978	0	-	-	-		2020-07-31 15:23:11.587156
+348	1	1	348	XTEG                	XT Energy Group Inc	0.260000000000000009	0	-	-	-		2020-07-31 15:23:28.632817
+349	1	1	349	XTERF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:23:41.428558
+350	1	1	350	XTGRF               	Xtra-Gold Resources Corp	0.67000000000000004	0	-	-	-		2020-07-31 15:23:58.623953
+351	1	1	351	XTMM                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:24:37.146293
+352	1	1	352	XTNT                	-	0	1.05000000000000004	-	-	-	No result in autocomplete search	2020-07-31 15:24:49.474072
+353	1	1	353	XTPEF               	Xtep International Holdings Ltd	0.589999999999999969	0	-	-	-		2020-07-31 15:25:28.650061
+354	1	1	354	XTPT                	Xtra Energy Corp	0.0100000000000000002	0	-	-	-		2020-07-31 15:25:48.357458
+355	1	1	355	XTRM                	Extreme Biodiesel Inc	0.0100000000000000002	0	-	-	-		2020-07-31 15:26:08.790251
+356	1	1	356	XTRRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:26:22.234293
+357	1	1	357	XVIPF               	Xvivo Perfusion AB	14.9299999999999997	0	-	-	-		2020-07-31 15:26:40.680802
+358	1	1	358	XXII                	-	0	0.824999999999999956	-	-	-	No result in autocomplete search	2020-07-31 15:26:53.95904
+359	1	1	359	XXMMF               	Ximen Mining Corp	0.46000000000000002	0	-	-	-		2020-07-31 15:27:16.396183
+360	1	1	360	XYIGF               	Xinyi Glass Holdings Ltd	1.51000000000000001	0	-	-	-		2020-07-31 15:27:35.358967
+361	1	1	361	XYL                 	Xylem Inc	73	74.6700000000000017	-	-	-		2020-07-31 15:27:52.478614
+362	1	1	362	XYLTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:28:05.004014
+363	1	1	363	XYNH                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:28:18.447016
+364	1	1	364	XYNO                	Xynomic Pharmaceuticals Holdings Inc	0.200000000000000011	0	-	-	-		2020-07-31 15:28:35.934912
+365	1	1	365	XZJCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:28:48.845966
+366	1	1	366	Y                   	Alleghany Corp	573.720000000000027	520.860000000000014	-	-	-		2020-07-31 15:29:08.958042
+367	1	1	367	YACAF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:29:21.486399
+368	1	1	368	YAHOF               	Z Holdings Corp	4.20999999999999996	0	-	-	-		2020-07-31 15:29:41.860389
+369	1	1	369	YAMCF               	Yamaha Corp	45.1499999999999986	0	-	-	-		2020-07-31 15:30:01.462992
+370	1	1	370	YAMHF               	Yamaha Motor Co Ltd	23.3200000000000003	0	-	-	-		2020-07-31 15:30:21.930065
+371	1	1	371	YARAF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:30:34.795259
+372	1	1	372	YASKF               	YASKAWA Electric Corp	32.0399999999999991	0	-	-	-		2020-07-31 15:30:53.312156
+373	1	1	373	YATRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:31:06.120527
+374	1	1	374	YAYO                	YayYo Inc	0	0	-	-	-		2020-07-31 15:31:37.619408
+375	1	1	375	YBAO                	YBCC Inc	0.0700000000000000067	0	-	-	-		2020-07-31 15:31:58.474933
+376	1	1	376	YBRHF               	Yellow Brick Road Holdings Ltd	0.0599999999999999978	0	-	-	-		2020-07-31 15:32:18.712615
+377	1	1	377	YCBD                	-	0	3.24000000000000021	-	-	-	No result in autocomplete search	2020-07-31 15:32:30.994996
+378	1	1	378	YDRMF               	YDx Innovation Corp	0.149999999999999994	0	-	-	-		2020-07-31 15:32:47.362936
+379	1	1	379	YDVL                	Yadkin Valley Corp	13	0	-	-	-		2020-07-31 15:33:04.88055
+380	1	1	380	YDWAF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:33:18.286711
+381	1	1	381	YECO                	Yulong Eco-Matls Ltd	0.209999999999999992	0	-	-	-		2020-07-31 15:33:35.458476
+382	1	1	382	YELEF               	Yee Lee Corp Bhd	0	0	-	-	-	Fair value not available	2020-07-31 15:33:56.046599
+383	1	1	383	YELP                	Yelp Inc Class A	29.4400000000000013	25.1099999999999994	-	-	-		2020-07-31 15:34:15.610087
+384	1	1	384	YETI                	YETI Holdings Inc	35.2999999999999972	48.2000000000000028	-	-	-		2020-07-31 15:34:33.481939
+385	1	1	385	YEWB                	Yew Bio-Pharm Group Inc	0.130000000000000004	0	-	-	-		2020-07-31 15:34:50.642933
+386	1	1	386	YEWTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:35:03.397302
+387	1	1	387	YEXT                	Yext Inc	16.870000000000001	16.5100000000000016	-	-	-		2020-07-31 15:35:20.505074
+388	1	1	388	YFGSF               	Yamaguchi Financial Group Inc	16.8000000000000007	0	-	-	-		2020-07-31 15:35:37.67915
+389	1	1	389	YGEQF               	Yageo Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:36:03.184441
+390	1	1	390	YGRAF               	Yangarra Resources Ltd	0.82999999999999996	0	-	-	-		2020-07-31 15:36:19.900551
+391	1	1	391	YGTYF               	SSLJ.com Ltd Ordinary Shares - Class A	0.100000000000000006	0	-	-	-		2020-07-31 15:36:38.194363
+392	1	1	392	YGWAF               	Yokogawa Bridge Holdings Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:36:59.236627
+393	1	1	393	YGYI                	Youngevity International Inc	2.33999999999999986	1.18500000000000005	-	-	-		2020-07-31 15:37:15.946278
+394	1	1	394	YHDT                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:37:28.414013
+395	1	1	395	YIGRF               	Yixin Group Ltd Ordinary Shares	0	0	-	-	-	Fair value not available	2020-07-31 15:37:49.041203
+396	1	1	396	YIPCF               	Yip"s Chemical Holdings Ltd	0.320000000000000007	0	-	-	-		2020-07-31 15:38:06.405568
+397	1	1	397	YIPI                	Yippy Inc	0.149999999999999994	0	-	-	-		2020-07-31 15:38:23.966731
+398	1	1	398	YITD                	Yinhang Internet Technologies Development Inc	0.119999999999999996	0	-	-	-		2020-07-31 15:38:42.720664
+399	1	1	399	YITYF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:38:55.622194
+400	1	1	400	YJGJ                	Yijia Group Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:39:16.193493
+401	1	1	401	YKLTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:39:49.808531
+402	1	1	402	YLDGF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:40:02.765329
+403	1	1	403	YLLWF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:40:15.290026
+404	1	1	404	YLLXF               	Yellow Cake PLC Ordinary Shares	3.33999999999999986	0	-	-	-		2020-07-31 15:40:46.093223
+405	1	1	405	YLWDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:40:59.451967
+406	1	1	406	YMAB                	Y-mAbs Therapeutics Inc	37.259999999999998	35.8299999999999983	-	-	-		2020-07-31 15:41:18.284847
+407	1	1	407	YMAIF               	Yoma Strategic Holdings Ltd	0.28999999999999998	0	-	-	-		2020-07-31 15:41:38.072028
+408	1	1	408	YMATF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:41:50.983724
+409	1	1	409	YMDAF               	Yamada Denki Co Ltd	6.30999999999999961	0	-	-	-		2020-07-31 15:42:11.169366
+410	1	1	410	YMTKF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:42:24.105456
+411	1	1	411	YMZNF               	Yamazen Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:42:50.058292
+412	1	1	412	YNAJF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:43:02.661833
+413	1	1	413	YNDX                	Yandex NV Shs Class-A-	48.8200000000000003	56.7000000000000028	-	-	-		2020-07-31 15:43:19.452667
+414	1	1	414	YNGDF               	Yingde Gases Group Co Ltd	0.450000000000000011	0	-	-	-		2020-07-31 15:43:36.45005
+415	1	1	415	YNGFF               	Veris Gold Corp	0	0	-	-	-		2020-07-31 15:43:53.480457
+416	1	1	416	YNNHF               	Yihai International Holdings Ltd Shs Unitary 144A/Reg S	0	0	-	-	-	Fair value not available	2020-07-31 15:44:14.948534
+417	1	1	417	YNSKF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:44:27.461465
+418	1	1	418	YNVYF               	Ynvisible Interactive Inc Class A	0.25	0	-	-	-		2020-07-31 15:44:44.105959
+419	1	1	419	YOGA                	YogaWorks Inc	0.170000000000000012	0	-	-	-		2020-07-31 15:45:02.030202
+420	1	1	420	YOJEF               	Yojee Ltd	0	0	-	-	-	Fair value not available	2020-07-31 15:45:23.005162
+421	1	1	421	YOKEF               	Yokogawa Electric Corp	19.8099999999999987	0	-	-	-		2020-07-31 15:45:41.257223
+422	1	1	422	YONXF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:45:54.1308
+423	1	1	423	YOOIF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:46:06.665029
+424	1	1	424	YORI                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:46:19.451088
+425	1	1	425	YORUF               	Yokohama Rubber Co Ltd	23.8399999999999999	0	-	-	-		2020-07-31 15:46:38.585398
+426	1	1	426	YORW                	The York Water Co	39.3699999999999974	47.2100000000000009	-	-	-		2020-07-31 15:46:56.12051
+427	1	1	427	YPHDF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:47:09.971519
+428	1	1	428	YPPN                	Yappn Corp	0	0	-	-	-		2020-07-31 15:47:27.49415
+429	1	1	429	YRAIF               	Yara International ASA	40.7700000000000031	0	-	-	-		2020-07-31 15:47:44.478205
+430	1	1	430	YRBAF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:47:57.622841
+431	1	1	431	YRCW                	YRC Worldwide Inc	3.58999999999999986	2.70999999999999996	-	-	-		2020-07-31 15:48:16.306733
+432	1	1	432	YRIV                	Yangtze River Port and Logistics Ltd	0.0700000000000000067	0	-	-	-		2020-07-31 15:48:34.733817
+433	1	1	433	YRKB                	York Traditions Bank	16.6000000000000014	0	-	-	-		2020-07-31 15:48:52.510928
+434	1	1	434	YRLLF               	Global UAV Technologies Ltd	0.0100000000000000002	0	-	-	-		2020-07-31 15:49:09.896012
+435	1	1	435	YSGG                	1399 Internet Technology Application Group Inc	2.12000000000000011	0	-	-	-		2020-07-31 15:49:25.917396
+436	1	1	436	YSHCF               	Yestar Healthcare Holdings Co Ltd	0	0	-	-	-	Fair value not available	2020-07-31 15:49:49.918809
+437	1	1	437	YSHLF               	Yangzijiang Shipbuilding (Holdings) Ltd	0.979999999999999982	0	-	-	-		2020-07-31 15:50:06.784922
+438	1	1	438	YSHOF               	Yoshitake Inc	9.78999999999999915	0	-	-	-		2020-07-31 15:50:24.929375
+439	1	1	439	YSSCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:50:39.640463
+440	1	1	440	YTEN                	Yield10 Bioscience Inc	10.1899999999999995	6.21999999999999975	-	-	-		2020-07-31 15:50:57.024123
+441	1	1	441	YTFD                	Yacht Finders Inc	0.160000000000000003	0	-	-	-		2020-07-31 15:51:14.848657
+442	1	1	442	YTHL                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:51:28.639613
+443	1	1	443	YTLCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:51:41.754641
+444	1	1	444	YTLPF               	YTL Power International Bhd	0	0	-	-	-	Fair value not available	2020-07-31 15:52:02.588404
+445	1	1	445	YTRA                	Yatra Online Inc	1.33000000000000007	0.750199999999999978	-	-	-		2020-07-31 15:52:19.385355
+446	1	1	446	YTRGF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:52:34.568266
+447	1	1	447	YUANF               	Fincera Inc	1.37000000000000011	0	-	-	-		2020-07-31 15:52:51.95106
+448	1	1	448	YUEIF               	Yue Yuen Industrial (Holdings) Ltd	2.43000000000000016	0	-	-	-		2020-07-31 15:53:10.496968
+449	1	1	449	YUEXF               	Yuexiu Property Co Ltd	0.270000000000000018	0	-	-	-		2020-07-31 15:53:27.046548
+450	1	1	450	YUGVF               	YouGov PLC	7.75	0	-	-	-		2020-07-31 15:53:44.329011
+451	1	1	451	YUHNF               	Yuhan Corp	0	0	-	-	-	Fair value not available	2020-07-31 15:54:51.646076
+452	1	1	452	YUII                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:55:04.272398
+453	1	1	453	YUM                 	Yum Brands Inc	102	91.7000000000000028	-	-	-		2020-07-31 15:55:25.114161
+454	1	1	454	YUMAQ               	Yuma Energy Inc	0.46000000000000002	0	-	-	-		2020-07-31 15:55:45.937707
+455	1	1	455	YUMC                	Yum China Holdings Inc	54	51.1000000000000014	-	-	-		2020-07-31 15:56:07.182012
+456	1	1	456	YUMM                	Yummies Inc	0.82999999999999996	0	-	-	-		2020-07-31 15:56:28.052244
+457	1	1	457	YUMSF               	Demae-Can Co Ltd	16.8599999999999994	0	-	-	-		2020-07-31 15:56:47.967072
+458	1	1	458	YUSG                	YUS International Group Ltd	0.810000000000000053	0	-	-	-		2020-07-31 15:57:10.181463
+459	1	1	459	YUZHF               	Yuzhou Group Holdings Co Ltd	0	0	-	-	-	Fair value not available	2020-07-31 15:57:34.563261
+460	1	1	460	YVR                 	Liquid Media Group Ltd	2.49000000000000021	2.04999999999999982	-	-	-		2020-07-31 15:57:51.982962
+461	1	1	461	YWGRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:58:05.338712
+462	1	1	462	YWRLF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 15:58:18.405737
+463	1	1	463	YXOXF               	YOOX Net-A-Porter Group SpA	45.2299999999999969	0	-	-	-		2020-07-31 15:58:36.23768
+464	1	1	464	YYYH                	China Yanyuan Yuhui Natl Ed Group Inc	0.0200000000000000004	0	-	-	-		2020-07-31 15:58:54.762145
+465	1	1	465	YZCFF               	Sinopec Oilfield Service Corp Class H	0.0599999999999999978	0	-	-	-		2020-07-31 15:59:15.518015
+466	1	1	466	YZCHF               	Yanzhou Coal Mining Co Ltd Class H	1.04000000000000004	0	-	-	-		2020-07-31 15:59:34.60405
+467	1	1	467	YZOFF               	Yangtze Optical Fibre and Cable Joint Stock Ltd Co	2.27000000000000002	0	-	-	-		2020-07-31 15:59:54.915026
+468	1	1	468	YZZKF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:00:09.141287
+469	1	1	469	Z                   	Zillow Group Inc C	57.6099999999999994	70.5	-	-	-		2020-07-31 16:00:27.146931
+470	1	1	470	ZAAG                	ZA Group Inc	0.0100000000000000002	0	-	-	-		2020-07-31 16:00:47.319995
+471	1	1	471	ZADDF               	Zadar Ventures Ltd	0.190000000000000002	0	-	-	-		2020-07-31 16:01:04.374652
+472	1	1	472	ZAGG                	Zagg Inc	5.24000000000000021	2.77000000000000002	-	-	-		2020-07-31 16:01:23.432916
+473	1	1	473	ZAHA                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:01:37.126395
+474	1	1	474	ZAPNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:01:51.799571
+475	1	1	475	ZARFF               	Zargon Oil &amp Gas Ltd	0.0599999999999999978	0	-	-	-		2020-07-31 16:02:09.478867
+476	1	1	476	ZAZA                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:02:22.578554
+477	1	1	477	ZBH                 	Zimmer Biomet Holdings Inc	164	137.699999999999989	-	-	-		2020-07-31 16:02:43.555056
+478	1	1	478	ZBISF               	Zenabis Global Inc	0.149999999999999994	0	-	-	-		2020-07-31 16:03:04.39076
+479	1	1	479	ZBRA                	Zebra Technologies Corp	255	274.060000000000002	-	-	-		2020-07-31 16:03:21.422799
+480	1	1	480	ZCBD                	Body Basics Inc	0.419999999999999984	0	-	-	-		2020-07-31 16:03:40.108618
+481	1	1	481	ZCMD                	ZHONGCHAO Inc Ordinary Shares - Class A	2.64999999999999991	2.31999999999999984	-	-	-		2020-07-31 16:04:00.81449
+482	1	1	482	ZCOM                	Impreso Inc	1.45999999999999996	0	-	-	-		2020-07-31 16:04:19.780614
+483	1	1	483	ZCPRF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:04:39.499011
+484	1	1	484	ZCRMF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:04:51.794051
+485	1	1	485	ZDAOF               	Zhidao International (Holdings) Ltd	0.280000000000000027	0	-	-	-		2020-07-31 16:05:10.619239
+486	1	1	486	ZDEC                	Zenovia Digital Exchange Corp	0.0100000000000000002	0	-	-	-		2020-07-31 16:05:29.034437
+487	1	1	487	ZDEXF               	Sintana Energy Inc	0.0800000000000000017	0	-	-	-		2020-07-31 16:05:45.316894
+488	1	1	488	ZDGE                	-	0	1.48999999999999999	-	-	-	No result in autocomplete search	2020-07-31 16:05:58.482982
+489	1	1	489	ZDGGF               	Zoo Digital Group PLC	0.869999999999999996	0	-	-	-		2020-07-31 16:06:14.51606
+490	1	1	490	ZDPY                	Zoned Properties Inc	0.23000000000000001	0	-	-	-		2020-07-31 16:06:31.080407
+491	1	1	491	ZEN                 	Zendesk Inc	95	99.9899999999999949	-	-	-		2020-07-31 16:06:47.038224
+492	1	1	492	ZENG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:06:59.282359
+493	1	1	493	ZENO                	Zenosense Inc	0.0200000000000000004	0	-	-	-		2020-07-31 16:07:20.963365
+494	1	1	494	ZENYF               	ZEN Graphene Solutions Ltd	0.520000000000000018	0	-	-	-		2020-07-31 16:07:44.778309
+495	1	1	495	ZEON                	Zeons Corp	2.95000000000000018	0	-	-	-		2020-07-31 16:08:26.173587
+496	1	1	496	ZEOOF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:08:40.897294
+497	1	1	497	ZEST                	Ecoark Holdings Inc	3.27000000000000002	0	-	-	-		2020-07-31 16:08:59.107232
+498	1	1	498	ZEUCF               	ZeU Crypto Networks Inc Ordinary Shares	0.140000000000000013	0	-	-	-		2020-07-31 16:09:17.44698
+499	1	1	499	ZEUS                	Olympic Steel Inc	14.3399999999999999	10.4199999999999999	-	-	-		2020-07-31 16:09:38.909647
+500	1	1	500	ZFPPF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 16:09:52.888079
+501	1	1	501	ZFSVF               	Zurich Insurance Group AG	403.529999999999973	0	-	-	-		2020-07-31 16:12:24.147797
+502	1	1	502	ZG                  	Zillow Group Inc A	35	70.2999999999999972	-	-	-		2020-07-31 16:12:46.085233
+503	1	1	503	ZGBEF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:21:25.545675
+504	1	1	504	ZGCO                	Ziegler Companies Inc	39.0300000000000011	0	-	-	-		2020-07-31 17:22:15.765951
+505	1	1	505	ZGNX                	Zogenix Inc	30.7600000000000016	24.3500000000000014	-	-	-		2020-07-31 17:22:34.543601
+506	1	1	506	ZGSI                	Zero Gravity Solutions Inc	0.680000000000000049	0	-	-	-		2020-07-31 17:22:54.585508
+507	1	1	507	ZGYH                	Yunhong International Ordinary Shares Class A	9.71000000000000085	9.86999999999999922	-	-	-		2020-07-31 17:23:11.143094
+508	1	1	508	ZHAOF               	Zhaojin Mining Industry Co Ltd Class H	1.12999999999999989	0	-	-	-		2020-07-31 17:23:27.579326
+509	1	1	509	ZHCLF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:23:40.66225
+510	1	1	510	ZHDM                	Zhong Hui Dao Ming Copper Holding Ltd	0	0	-	-	-		2020-07-31 17:23:57.797325
+511	1	1	511	ZHEIF               	Zhou Hei Ya International Holdings Co Ltd Registered Shs Unitary 144A/Reg S	0	0	-	-	-	Fair value not available	2020-07-31 17:24:18.389003
+512	1	1	512	ZHEXF               	Zhejiang Expressway Co Ltd Class H	0.819999999999999951	0	-	-	-		2020-07-31 17:24:35.313308
+513	1	1	513	ZHSHF               	Zhongsheng Group Holdings Ltd	5.83000000000000007	0	-	-	-		2020-07-31 17:24:51.906176
+514	1	1	514	ZHUD                	Zhuding International Ltd	0.0899999999999999967	0	-	-	-		2020-07-31 17:25:08.349479
+515	1	1	515	ZHUZF               	Zhuzhou CRRC Times Electric Co Ltd Class H	3.75999999999999979	0	-	-	-		2020-07-31 17:25:25.616014
+516	1	1	516	ZHYLF               	Zhaoheng Hydropower Ltd	0.0200000000000000004	0	-	-	-		2020-07-31 17:25:42.219296
+517	1	1	517	ZI                  	ZoomInfo Technologies Inc Ordinary Shares - Class A	25.4600000000000009	40.7000000000000028	-	-	-		2020-07-31 17:25:59.429949
+518	1	1	518	ZICX                	Zicix Corp	0.0100000000000000002	0	-	-	-		2020-07-31 17:26:16.026295
+519	1	1	519	ZIJMF               	Zijin Mining Group Co Ltd Class H	0.530000000000000027	0	-	-	-		2020-07-31 17:26:35.222442
+520	1	1	520	ZIMCF               	Zim Corp	0.0800000000000000017	0	-	-	-		2020-07-31 17:26:51.894331
+521	1	1	521	ZION                	Zions Bancorp NA	44	32.7800000000000011	-	-	-		2020-07-31 17:27:09.201001
+522	1	1	522	ZIOP                	ZIOPHARM Oncology Inc	3.89999999999999991	3.00999999999999979	-	-	-		2020-07-31 17:27:25.758453
+523	1	1	523	ZIPL                	Ziplink Inc	0.100000000000000006	0	-	-	-		2020-07-31 17:27:43.031807
+524	1	1	524	ZIVO                	Zivo Bioscience Inc	0.100000000000000006	0	-	-	-		2020-07-31 17:28:01.271841
+525	1	1	525	ZIXI                	Zix Corp	9.13000000000000078	6.90000000000000036	-	-	-		2020-07-31 17:28:18.244808
+526	1	1	526	ZIZTF               	Zip Co Ltd	5.71999999999999975	0	-	-	-		2020-07-31 17:28:34.708432
+527	1	1	527	ZKIN                	ZK International Group Co Ltd	1.95999999999999996	1.30000000000000004	-	-	-		2020-07-31 17:28:51.185775
+528	1	1	528	ZLDAF               	Zelira Therapeutics Ltd	0.0500000000000000028	0	-	-	-		2020-07-31 17:29:08.507133
+529	1	1	529	ZLDPF               	Zealand Pharma A/S	36.4799999999999969	0	-	-	-		2020-07-31 17:29:26.086225
+530	1	1	530	ZLDSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:29:39.021084
+531	1	1	531	ZLIOF               	Zoomlion Heavy Industry Science and Technology Co Ltd Class H	0.709999999999999964	0	-	-	-		2020-07-31 17:29:55.932828
+532	1	1	532	ZLNWF               	ZEAL Network SE	0	0	-	-	-	Fair value not available	2020-07-31 17:30:19.025919
+533	1	1	533	ZLPSF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:30:31.816805
+534	1	1	534	ZM                  	Zoom Video Communications Inc	116	253.680000000000007	-	-	-		2020-07-31 17:30:50.274108
+535	1	1	535	ZMDC                	USA Zhimingde International Group Corp	0.380000000000000004	0	-	-	-		2020-07-31 17:31:07.282662
+536	1	1	536	ZMDTF               	Zoomd Technologies Ltd	0.419999999999999984	0	-	-	-		2020-07-31 17:31:24.601479
+537	1	1	537	ZMGD                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:31:37.100907
+538	1	1	538	ZMPLF               	Zimplats Holdings Ltd	7.88999999999999968	0	-	-	-		2020-07-31 17:32:01.033072
+539	1	1	539	ZMRK                	Zalemark Holding Co Inc	0.0100000000000000002	0	-	-	-		2020-07-31 17:32:20.588675
+540	1	1	540	ZMSPF               	Zecotek Photonics Inc	0.0100000000000000002	0	-	-	-		2020-07-31 17:32:40.811346
+541	1	1	541	ZMTP                	Zoom Telephonics Inc	2.24000000000000021	0	-	-	-		2020-07-31 17:32:57.938422
+542	1	1	542	ZMWYF               	ZoomAway Travel Inc	0.0200000000000000004	0	-	-	-		2020-07-31 17:33:15.263288
+543	1	1	543	ZN                  	Zion Oil &amp Gas Inc	0.390000000000000013	0.767000000000000015	-	-	-		2020-07-31 17:33:32.081686
+544	1	1	544	ZNAE                	Zane Interactive Publishing Inc	0.0200000000000000004	0	-	-	-		2020-07-31 17:33:48.806796
+545	1	1	545	ZNCM                	Zunicom Inc	0.0500000000000000028	0	-	-	-		2020-07-31 17:34:05.67956
+546	1	1	546	ZNGA                	Zynga Inc Class A	0	9.75	-	-	-		2020-07-31 17:34:22.545865
+547	1	1	547	ZNGGF               	Zanaga Iron Ore Co Ltd	0.179999999999999993	0	-	-	-		2020-07-31 17:34:39.369415
+548	1	1	548	ZNGYQ               	Zenergy Brands Inc	0	0	-	-	-		2020-07-31 17:34:55.99569
+549	1	1	549	ZNNC                	Zann Corp	0	0	-	-	-		2020-07-31 17:35:13.619381
+550	1	1	550	ZNNMF               	EEStor Corp	0.0500000000000000028	0	-	-	-		2020-07-31 17:35:30.411412
+551	1	1	551	ZNOGF               	Zoono Group Ltd	1.3600000000000001	0	-	-	-		2020-07-31 17:35:47.052688
+552	1	1	552	ZNRG                	Znergy Inc	0.140000000000000013	0	-	-	-		2020-07-31 17:36:04.710839
+553	1	1	553	ZNRGF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:36:47.77171
+554	1	1	554	ZNTL                	Zentalis Pharmaceuticals Inc Ordinary Shares	29.8200000000000003	36	-	-	-		2020-07-31 17:49:12.172262
+555	1	1	555	ZNXT                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:49:24.592879
+556	1	1	556	ZNZBF               	Zanzibar Gold Inc Ordinary Shares	0.309999999999999998	0	-	-	-		2020-07-31 17:49:45.75369
+557	1	1	557	ZNZNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:49:59.175013
+558	1	1	558	ZOEIF               	Zoetic International PLC	0.170000000000000012	0	-	-	-		2020-07-31 17:50:19.204867
+559	1	1	559	ZOJIF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:50:32.459466
+560	1	1	560	ZOM                 	-	0	0.160200000000000009	-	-	-	No result in autocomplete search	2020-07-31 17:50:45.583327
+561	1	1	561	ZONNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:50:59.329269
+562	1	1	562	ZONX                	Zonzia Media Inc	0	0	-	-	-		2020-07-31 17:51:19.907999
+563	1	1	563	ZOXCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:51:32.638336
+564	1	1	564	ZPAS                	Zoompass Holdings Inc	0.280000000000000027	0	-	-	-		2020-07-31 17:51:53.493626
+565	1	1	565	ZPHYF               	Zephyr Minerals Ltd	0.46000000000000002	0	-	-	-		2020-07-31 17:52:14.616138
+566	1	1	566	ZPTAF               	Surge Energy Inc	0.440000000000000002	0	-	-	-		2020-07-31 17:52:35.404424
+567	1	1	567	ZRMG                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:52:48.112012
+568	1	1	568	ZRSCF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:53:00.874451
+569	1	1	569	ZRSEF               	Zur Rose Group AG	283.329999999999984	0	-	-	-		2020-07-31 17:53:19.735981
+570	1	1	570	ZRVT                	Zurvita Holdings Inc	0.170000000000000012	0	-	-	-		2020-07-31 17:53:37.762042
+571	1	1	571	ZS                  	Zscaler Inc	72	131.990000000000009	-	-	-		2020-07-31 17:54:07.300632
+572	1	1	572	ZSAN                	Zosano Pharma Corp	1.42999999999999994	0.997500000000000053	-	-	-		2020-07-31 17:54:28.0604
+573	1	1	573	ZSHOF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:54:41.864635
+574	1	1	574	ZSTN                	ZST Digital Networks Inc	0.0200000000000000004	0	-	-	-		2020-07-31 17:54:59.111116
+575	1	1	575	ZSYC                	Smart Closet Inc	1.94999999999999996	0	-	-	-		2020-07-31 17:55:17.897514
+576	1	1	576	ZTCOF               	ZTE Corp Class H	2.4700000000000002	0	-	-	-		2020-07-31 17:55:38.069481
+577	1	1	577	ZTLLF               	Zonetail Inc	0	0	-	-	-	Fair value not available	2020-07-31 17:55:59.632054
+578	1	1	578	ZTMUF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:56:18.082016
+579	1	1	579	ZTNO                	Zoom Technologies Inc	0.469999999999999973	0	-	-	-		2020-07-31 17:56:34.960872
+580	1	1	580	ZTS                 	Zoetis Inc Class A	100	149.990000000000009	-	-	-		2020-07-31 17:56:52.36559
+581	1	1	581	ZTSTF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:57:05.103812
+582	1	1	582	ZUKNF               	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 17:57:18.54145
+583	1	1	583	ZULU                	Zulu Tek Inc	0.0100000000000000002	0	-	-	-		2020-07-31 17:57:35.925539
+584	1	1	584	ZUMRF               	ZoomerMedia Ltd	0.0700000000000000067	0	-	-	-		2020-07-31 17:57:56.431165
+585	1	1	585	ZUMZ                	Zumiez Inc	30.370000000000001	23.8500000000000014	-	-	-		2020-07-31 17:58:17.424175
+586	1	1	586	ZUO                 	Zuora Inc Class A	12	11.5	-	-	-		2020-07-31 17:58:35.754928
+587	1	1	587	ZVLO                	Zvelo Inc	0.0500000000000000028	0	-	-	-		2020-07-31 17:58:53.733529
+588	1	1	588	ZVO                 	Zovio Inc	5.50999999999999979	3.82830000000000004	-	-	-		2020-07-31 17:59:13.533182
+589	1	1	589	ZVTK                	Zevotek Inc	0.0100000000000000002	0	-	-	-		2020-07-31 17:59:32.369452
+590	1	1	590	ZVZZT               	-	0	9.99000000000000021	-	-	-	No result in autocomplete search	2020-07-31 17:59:46.369702
+591	1	1	591	ZWBC                	Goldkey Corp	0.110000000000000001	0	-	-	-		2020-07-31 18:00:07.220361
+592	1	1	592	ZWPEF               	Zwipe AS Ordinary Shares	0	0	-	-	-	Fair value not available	2020-07-31 18:01:37.720627
+593	1	1	593	ZWRR                	-	0	0	-	-	-	No result in autocomplete search	2020-07-31 18:01:50.234579
+594	1	1	594	ZYJT                	Zhong Ya International Ltd	4.55999999999999961	0	-	-	-		2020-07-31 18:02:43.835895
+595	1	1	595	ZYME                	Zymeworks Inc Registered Shs When Issued	34.4500000000000028	30.2199999999999989	-	-	-		2020-07-31 18:03:07.946961
+596	1	1	596	ZYNE                	Zynerba Pharmaceuticals Inc	5.69000000000000039	3.68999999999999995	-	-	-		2020-07-31 18:03:32.112974
+597	1	1	597	ZYQG                	ZYQC Group Holding Ltd	4.98000000000000043	0	-	-	-		2020-07-31 18:04:09.574827
+598	1	1	598	ZYRX                	Zyrox Mining International Inc	0.100000000000000006	0	-	-	-		2020-07-31 18:04:46.173151
+599	1	1	599	ZYXI                	Zynex Inc	13.4800000000000004	19.3999999999999986	-	-	-		2020-07-31 18:05:05.575774
+600	1	1	600	ZZHGF               	ZhongAn Online P&ampC Insurance Co Ltd Ordinary Shares - Class H	2.9700000000000002	0	-	-	-		2020-07-31 18:05:34.36365
+601	1	1	601	ZZLL                	ZZLL Information Technology Inc	0.110000000000000001	0	-	-	-		2020-07-31 18:05:54.141605
+602	1	1	602	ZZZOF               	Zinc One Resources Inc	0.0200000000000000004	0	-	-	-		2020-07-31 18:08:13.482393
 \.
 
 
@@ -437,7 +851,7 @@ COPY public.records (id, user_id, batch_id, stock_id, stock_symbol, stock_name, 
 -- Name: records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.records_id_seq', 192, true);
+SELECT pg_catalog.setval('public.records_id_seq', 602, true);
 
 
 --
@@ -445,8 +859,7 @@ SELECT pg_catalog.setval('public.records_id_seq', 192, true);
 --
 
 COPY public.script_batch (id, status, message, completed_at, created_at) FROM stdin;
-1	completed		2020-07-30 17:08:47	2020-07-30 17:06:14.434022
-4	not_completed	\N	\N	2020-07-30 18:08:46.378104
+1	completed		2020-07-31 18:08:14	2020-07-31 13:23:13.219755
 \.
 
 
@@ -454,7 +867,7 @@ COPY public.script_batch (id, status, message, completed_at, created_at) FROM st
 -- Name: script_batch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.script_batch_id_seq', 4, true);
+SELECT pg_catalog.setval('public.script_batch_id_seq', 1, true);
 
 
 --

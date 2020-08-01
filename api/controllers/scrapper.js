@@ -253,8 +253,8 @@ const fetchStocks = async () => {
 	try {
 		const client = new Client();
 		await client.connect();
-		// const query = `SELECT * FROM stocks`;
-		const query = `SELECT * FROM stocks WHERE id > 553`;
+		const query = `SELECT * FROM stocks`;
+		// const query = `SELECT * FROM stocks WHERE id > 553`;
 		const result = await client.query(query);
 		await client.end();
 		// console.log("==> ", result.rows);
