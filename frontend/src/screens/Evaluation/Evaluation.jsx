@@ -63,14 +63,15 @@ const Evaluation = (props) => {
 		const fetchEvaluatedData = async () => {
 			setLoading(true);
 			try {
-				let postData = {
+				/* let postData = {
 					order,
 					orderBy,
 					// pageOffset: page * pageSize,
 					// pageSize,
 					// searchText: debouncedSearch,
-				};
-				const response = await API.post('evaluate', postData);
+				}; */
+				// const response = await API.post('evaluate', postData);
+				const response = await API.get('evaluate/' + order + '/' + orderBy);
 				if (response.data.success) {
 					// console.log("videos data ==> ",response.data.data);
 					setRecords(response.data.data.rows);
@@ -184,7 +185,7 @@ const Evaluation = (props) => {
 			<div className="container">
 				<div className="row mt-5 text-center">
 					<div className="col">
-						<h3>INVESTMENTS</h3>
+						<h3>Analyst Valuation</h3>
 					</div>
 				</div>
 			</div>
@@ -192,9 +193,9 @@ const Evaluation = (props) => {
 			
 			{/* DESKTOP VIEW */}
 			<div className="container d-none d-md-block">
-				<Typography color="textSecondary" variant="subtitle2">
+				{/* <Typography color="textSecondary" variant="subtitle2">
 					Last synced at: { latestBatch.completed_at ? formatDate(latestBatch.completed_at) : '....' }
-				</Typography>
+				</Typography> */}
 				<div className="row mt-5 mb-3 header-row mx-0 text-center">
 					<div className="col py-2">
 						<i className="fa fa-search"></i>

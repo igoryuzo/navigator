@@ -11,7 +11,7 @@ const fetchStocks = async (request, batchId) => {
 	try {
 		const client = new Client();
 		await client.connect();
-		let query = `SELECT records.*, (((fair_value - current_value) / ((fair_value + current_value) / 2) ) * 100) AS percentage, stocks.logo
+		let query = `SELECT records.*, (((fair_value - current_value) / fair_value ) * 100) AS percentage, stocks.logo
 						FROM records
 						INNER JOIN stocks ON stocks.id = records.stock_id
 						WHERE batch_id = '` + batchId + `'
@@ -62,12 +62,12 @@ const evaluate = async (req, res, next) => {
 	try {
 		const latest = await fetchLatestBatch();
 		if (!latest) { return res.json({ success: true, message: 'No records found!' }); }
-		// return res.json({ success: false, message: 'asdsad', latest });
+		// return res.json({ success: false, message: 'asdsad', params: req.params });
 		const latestBatchId = latest.id;
 
 		const request = {
-			orderBy	: (req.body.orderBy) ? req.body.orderBy : 'percentage',
-			order	: (req.body.order) ? req.body.order : 'DESC',
+			orderBy	: (req.body.orderBy) ? req.body.orderBy : (req.params.orderBy ? req.params.orderBy : 'percentage'),
+			order	: (req.body.order) ? req.body.order : (req.params.order ? req.params.order : 'DESC'),
 		};
 
 		const result = await fetchStocks(request, latestBatchId);

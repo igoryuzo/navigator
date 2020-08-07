@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 
-import BuildIcon from '@material-ui/icons/Build';
+// import BuildIcon from '@material-ui/icons/Build';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 import { Profile, SidebarNav } from './components';
@@ -43,11 +43,11 @@ const Sidebar = props => {
 			href: '/investments',
 			icon: <MonetizationOnIcon />
 		},
-		{
+		/* {
 			title: 'Scrapper',
 			href: '/scrapper',
 			icon: <BuildIcon />
-		},
+		}, */
 	];
 
   return (

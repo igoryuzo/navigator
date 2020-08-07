@@ -9,12 +9,12 @@ import LayoutRoute from './components/LayoutRoute';
 import {
 	// Login,
 	Evaluation,
-	Scrapper,
+	// Scrapper,
 	NotFound as NotFoundView
 } from './screens';
 
 const Routes = () => {
-	let path = '/investments';
+	let path = '/analyst-valuation';
 	return (
 		<Router history={history}>
 			<Switch>
@@ -22,8 +22,8 @@ const Routes = () => {
 				{/* <UnauthenticatedRoute exact path="/login" component={Login} />
 				<AuthenticatedRoute exact path="/investments" component={Evaluation} />
 				<AuthenticatedRoute exact path="/scrapper" component={Scrapper} /> */}
-				<LayoutRoute exact path="/investments" component={Evaluation} />
-				<LayoutRoute exact path="/scrapper" component={Scrapper} />
+				<LayoutRoute exact path="/analyst-valuation" component={Evaluation} />
+				{/* <LayoutRoute exact path="/scrapper" component={Scrapper} /> */}
 				<Route path="/not-found" component={NotFoundView} />
 				<Redirect to="/not-found" />
 			</Switch>

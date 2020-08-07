@@ -12,9 +12,13 @@ const loginCtrl = require("../controllers/login");
 router.post("/login", loginCtrl.login);
 router.post("/refresh_token", loginCtrl.refresh_token);
 
-router.get("/scrap", scrapCtrl.scrapItems);
+// STOCKS
 router.get("/stocks", stockCtrl.saveStocks);
-router.post("/evaluate", evalCtrl.evaluate);
+router.get("/stocks/subscribe", stockCtrl.subscribeStocks);
+
+router.get("/scrap", scrapCtrl.scrapItems);
+// router.post("/evaluate", evalCtrl.evaluate);
+router.get("/evaluate/:order/:orderBy", evalCtrl.evaluate);
 
 // SCRIPT BATCHES
 router.get("/batches", evalCtrl.get_script_batches);

@@ -1,9 +1,10 @@
 const { Client } = require('pg');
+const WebSocket = require('ws')
+const moment = require('moment')
 const { ErrorHandler } = require('../helpers/errorhandler');
 const config = require('../config');
 const API = require('../helpers/axiosApi');
 
-// axios.defaults.baseURL = 'https://api.polygon.io/';
 
 /**
  * Replace characters that cause wrong format in db insertion
@@ -29,7 +30,7 @@ const fetchTickerDetails = async(symbol, next) => {
 		return (result && result.data) ? result.data : false;
 	} catch (error) {
 		return false;
-		next(new ErrorHandler(200, config.common_err_msg, error));
+		// next(new ErrorHandler(200, config.common_err_msg, error));
 	}
 }
 
@@ -120,6 +121,91 @@ const saveStocks = async (req, res, next) => {
 	}
 };
 
+/**
+ * Fetch stocks from db
+ */
+const fetchStocks = async () => {
+	try {
+		const client = new Client();
+		await client.connect();
+		let query = `SELECT * FROM stocks`;
+		const result = await client.query(query);
+		await client.end();
+		// console.log("==> ", result.rows);
+		return result && result.rows ? result.rows : false;
+	} catch (error) {
+		console.log("ERROR in fetchStocks : ", error)	;
+		return 0;
+	}	
+};
+
+/**
+ * Subscribe stocks
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+const subscribeStocks = async (req, res, next) => {
+	try {
+		const APIKEY = process.env.KEY;
+		const stocks = await fetchStocks();
+		if (!stocks || !stocks.length) { return res.json({ success: false, message: 'No stocks found!' }); }
+		let actionParams = '', tickers = [], activeTickers = [];
+		stocks.forEach((stock, index) => {
+			if (index > 0) {
+				actionParams += ', ';
+			} else {
+				actionParams += 'Q.MSFT, ';
+			}
+			actionParams += 'Q.' + stock.ticker;
+			tickers = [...tickers, stock.ticker];
+		});
+		// return res.json({ success: false, message: 'test polygon stocks successfully!', tickers });
+		const ws = new WebSocket('wss://socket.polygon.io/stocks');
+		// Connection Opened:
+		ws.on('open', () => {
+			console.log('Connected!');
+			ws.send(`{"action":"auth", "params":"${APIKEY}"}`);
+			ws.send(`{"action":"subscribe", "params": "${actionParams}" }`);
+			res.json({ success: false, message: 'Subscribed polygon stocks successfully!' });
+			// ws.send(`{"action":"unsubscribe", "params":"T.MSFT,T.AAPL,T.AMD,T.NVDA" }`);
+			// ws.close();
+		});
+
+		// Per message packet:
+		ws.on('message', ( data ) => {
+			data = JSON.parse( data )
+			data.map(( msg ) => {
+				// console.log('msg:', msg)
+				if( msg.ev === 'status' ){
+					return console.log('Status Update:', msg.message)
+				}
+				console.log('Tick:', msg);
+				if (msg.t) {
+					console.log('Time:', moment(msg.t));
+					console.log("tickers.includes(msg.sym) : ", tickers.includes(msg.sym));
+					console.log("activeTickers.includes(msg.sym) : ", activeTickers.includes(msg.sym));
+					if (tickers.includes(msg.sym) && !activeTickers.includes(msg.sym)) {
+						activeTickers = [...activeTickers, msg.sym];
+					}
+				}
+				console.log('length:', activeTickers.length);
+				console.log('activeTickers:', activeTickers);
+			});
+		});
+
+		ws.on('error', console.log);
+
+		ws.onclose = () => {
+			console.log("closed");
+		};
+	} catch (error) {
+		next(new ErrorHandler(200, config.common_err_msg, error));
+	}
+};
+
 module.exports = {
-	saveStocks
+	saveStocks,
+	subscribeStocks
 };

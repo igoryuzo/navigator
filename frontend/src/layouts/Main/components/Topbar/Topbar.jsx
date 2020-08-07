@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar  from '@material-ui/core/AppBar';
 import Toolbar  from '@material-ui/core/Toolbar';
+import Typography  from '@material-ui/core/Typography';
 // import Badge  from '@material-ui/core/Badge';
-import Hidden  from '@material-ui/core/Hidden';
-import IconButton  from '@material-ui/core/IconButton';
+// import Hidden  from '@material-ui/core/Hidden';
+// import IconButton  from '@material-ui/core/IconButton';
 // import Tooltip from '@material-ui/core/Tooltip';
 
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 // import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 // import InputIcon from '@material-ui/icons/Input';
 
@@ -25,11 +26,15 @@ const useStyles = makeStyles(theme => ({
 	},
 	signOutButton: {
 		marginLeft: theme.spacing(1)
+	},
+	title: {
+		flexGrow: 1
 	}
 }));
 
 const Topbar = props => {
-	const { className, onSidebarOpen, ...rest } = props;
+	// const { className, onSidebarOpen, ...rest } = props;
+	const { className, ...rest } = props;
 
 	const classes = useStyles();
 
@@ -43,13 +48,16 @@ const Topbar = props => {
 			className={clsx(classes.root, className)}
 		>
 			<Toolbar>
-				<RouterLink to="/">
+				{/* <RouterLink to="/">
 					<img
 						alt="Logo"
 						src="/images/logos/titlebar-logo.png"
 						className={classes.logo}
 					/>
-				</RouterLink>
+				</RouterLink> */}
+				<Typography color="inherit" variant="h3" className={classes.title}>
+					ALPHATHIRTY
+				</Typography>
 				<div className={classes.flexGrow} />
 				{/* <Hidden mdDown> */}
 					{/* <Tooltip title="Logout">
@@ -62,14 +70,14 @@ const Topbar = props => {
 						</IconButton>
 					</Tooltip> */}
 				{/* </Hidden> */}
-				<Hidden lgUp>
+				{/* <Hidden lgUp>
 					<IconButton
 						color="inherit"
 						onClick={onSidebarOpen}
 					>
 						<MenuIcon />
 					</IconButton>
-				</Hidden>
+				</Hidden> */}
 			</Toolbar>
 		</AppBar>
 	);
@@ -77,7 +85,7 @@ const Topbar = props => {
 
 Topbar.propTypes = {
 	className: PropTypes.string,
-	onSidebarOpen: PropTypes.func
+	// onSidebarOpen: PropTypes.func
 };
 
 export default Topbar;

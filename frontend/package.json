@@ -1,9 +1,9 @@
 {
-  "name": "natti-admin-panel",
-  "author": "OurDesignz",
+  "name": "alpha_thirty",
+  "author": "alpha_thirty",
   "email": "contact@devias.io",
   "licence": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": false,
   "scripts": {
     "start": "react-scripts start",
