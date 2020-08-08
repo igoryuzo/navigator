@@ -11,13 +11,14 @@ const fetchStocks = async (request, batchId) => {
 	try {
 		const client = new Client();
 		await client.connect();
-		let query = `SELECT records.*, (((fair_value - current_value) / fair_value ) * 100) AS percentage, stocks.logo
-						FROM records
-						INNER JOIN stocks ON stocks.id = records.stock_id
-						WHERE batch_id = '` + batchId + `'
-						AND fair_value > 0
-						AND current_value > 0
-						AND fair_value > current_value`;
+		console.log(batchId)
+		let query = `SELECT records.*, (((fair_value - stocks.current_value) / fair_value ) * 100) AS percentage, stocks.logo
+		 				FROM records
+		 				INNER JOIN stocks ON stocks.id = records.stock_id
+		 				WHERE batch_id = '` + batchId + `'
+		 				AND fair_value > 0
+		 				AND stocks.current_value > 0
+		 				AND fair_value > stocks.current_value`;
 		if (request.orderBy && request.order) { 
 			query += ` ORDER BY ` + request.orderBy + ` ` + request.order;
 		}

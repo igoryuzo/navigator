@@ -34,6 +34,21 @@ const fetchTickerDetails = async(symbol, next) => {
 	}
 }
 
+
+const fetchTickerPrice = async(symbol, next) => {
+	try {
+		const stocksData = await API.get('v1/last/stocks/' + symbol + '?apiKey=' + process.env.KEY);
+		// console.log(stocksData.data);
+		const currentPrice = (stocksData.data && stocksData.data.last && stocksData.data.last.price) ? stocksData.data.last.price : 0;
+
+		return currentPrice;
+	} catch(err) {
+		console.log(err);
+		return 0;
+	}
+}
+
+
 /**
  * Fetch All stocks and insert into Db
  * 
@@ -47,17 +62,18 @@ const fetchPolygonStocks = async(page, next) => {
 		if(tickers.length > 0){
 			console.log(page);
 			// console.log(tickers);
-			let query = "INSERT INTO stocks (ticker, name, logo, market, locale, type, currency, active, primaryexchange, updated, codes, url) VALUES "
+			let query = "INSERT INTO stocks (ticker, name, logo, market, locale, type, currency, current_value, active, primaryexchange, updated, codes, url) VALUES "
 			for (const [i, value] of tickers.entries()) {
 				console.log(page + " - " + i);
 				replace_invalid_query_characters(value);
 				// console.log("value : ",value);
 				const tickerDetails = await fetchTickerDetails(value.ticker, next);
+				const tickerPrice = await fetchTickerPrice(value.ticker, next);
 				const logo = (tickerDetails && tickerDetails.logo) ? tickerDetails.logo : null;
-				// console.log("logo : ",logo);
-				// console.log("tickerDetails : ",tickerDetails);
+				console.log("logo : ",logo);
+				console.log("tickerDetails : ",tickerDetails);
 				// return false;
-				query += `( '` + value.ticker + `', '` + value.name + `', '` + logo + `', '` + value.market + `', '` + value.locale + `', '` + value.type + `', '` + value.currency + `', '` + value.active + `', '` + value.primaryExch + `', '` + value.updated + `', '` + JSON.stringify(value.codes) + `', '` + value.url + `' )`;
+				query += `( '` + value.ticker + `', '` + value.name + `', '` + logo + `', '` + value.market + `', '` + value.locale + `', '` + value.type + `', '` + value.currency + `', '` + tickerPrice + `', '` + value.active + `', '` + value.primaryExch + `', '` + value.updated + `', '` + JSON.stringify(value.codes) + `', '` + value.url + `' )`;
 				if (tickers.length -1 > i) {
 					query += `, `
 				}
@@ -67,7 +83,7 @@ const fetchPolygonStocks = async(page, next) => {
 			await client.connect();
 			const result = await client.query(query);
 			await client.end();
-			// console.log(result);
+			console.log(result);
 			fetchPolygonStocks(page+1);
 		} else {
 			console.log("DONE!!!")
@@ -94,6 +110,7 @@ const stockSchema = async () => {
 			locale VARCHAR,
 			type VARCHAR,
 			currency VARCHAR,
+			current_value float8,
 			active VARCHAR,
 			primaryexchange VARCHAR,
 			updated VARCHAR,
@@ -112,7 +129,7 @@ const stockSchema = async () => {
 
 const saveStocks = async (req, res, next) => {
 	try {
-		// return stockSchema();
+		//return stockSchema();
 		let stocksInserted = await fetchPolygonStocks(1, next);
 		return res.json({ success: true, message: 'Saved polygon stocks successfully!', stocksInserted });
 		
@@ -176,22 +193,25 @@ const subscribeStocks = async (req, res, next) => {
 		// Per message packet:
 		ws.on('message', ( data ) => {
 			data = JSON.parse( data )
-			data.map(( msg ) => {
-				// console.log('msg:', msg)
+			data.map(async ( msg ) => {
+				console.log('msg:', msg)
 				if( msg.ev === 'status' ){
 					return console.log('Status Update:', msg.message)
 				}
 				console.log('Tick:', msg);
-				if (msg.t) {
-					console.log('Time:', moment(msg.t));
-					console.log("tickers.includes(msg.sym) : ", tickers.includes(msg.sym));
-					console.log("activeTickers.includes(msg.sym) : ", activeTickers.includes(msg.sym));
-					if (tickers.includes(msg.sym) && !activeTickers.includes(msg.sym)) {
-						activeTickers = [...activeTickers, msg.sym];
-					}
+
+				if(msg.sym) {
+					try {
+						const query = `UPDATE stocks SET current_value = '` + msg.bp + `' WHERE ticker =`+ msg.sym;
+						console.log(query);
+						const client = new Client();
+						await client.connect();
+						const result = await client.query(query);
+						await client.end();
+					} catch(err) {
+						console.log(err)
+					} 
 				}
-				console.log('length:', activeTickers.length);
-				console.log('activeTickers:', activeTickers);
 			});
 		});
 
